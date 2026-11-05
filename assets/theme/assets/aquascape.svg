@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="720" viewBox="0 0 900 720">
+<defs>
+<linearGradient id="water" x2=".2" y2="1"><stop stop-color="#d3e4cc" stop-opacity=".6"/><stop offset="1" stop-color="#7a9c88" stop-opacity=".8"/></linearGradient>
+<linearGradient id="side" x2="1" y2="1"><stop stop-color="#cadccb" stop-opacity=".7"/><stop offset="1" stop-color="#496d5b" stop-opacity=".45"/></linearGradient>
+<linearGradient id="stone" x2="1" y2=".5"><stop stop-color="#607966"/><stop offset=".45" stop-color="#8c997b"/><stop offset="1" stop-color="#536653"/></linearGradient>
+<linearGradient id="leaf" x2="1" y2="1"><stop stop-color="#7c9c43"/><stop offset="1" stop-color="#315b3d"/></linearGradient>
+<linearGradient id="sand" x2="0" y2="1"><stop stop-color="#c7c6a3"/><stop offset="1" stop-color="#929a76"/></linearGradient>
+<radialGradient id="shine"><stop stop-color="#fffef1" stop-opacity=".6"/><stop offset="1" stop-color="#fffef1" stop-opacity="0"/></radialGradient>
+<filter id="shadow"><feGaussianBlur stdDeviation="16"/></filter>
+<path id="leafshape" d="M0 0C-27-27-22-53-5-77 17-49 26-22 0 0Z" fill="url(#leaf)"/>
+<g id="sprig" fill="none" stroke="#577449" stroke-width="3"><path d="M0 0C-3-66 18-134 7-192"/><use href="#leafshape" transform="translate(5 -43) rotate(-53) scale(.8)"/><use href="#leafshape" transform="translate(9 -69) rotate(50) scale(.75)"/><use href="#leafshape" transform="translate(10 -98) rotate(-41) scale(.66)"/><use href="#leafshape" transform="translate(12 -127) rotate(45) scale(.65)"/><use href="#leafshape" transform="translate(9 -153) scale(.6)"/></g>
+<g id="fish"><path d="M0 0C15-15 42-17 58-3L75-15 73 13 57 3C37 18 15 16 0 0Z" fill="#c4a36f"/><path d="M5-2C24-5 43-4 57-1" stroke="#f0d9a5" stroke-width="3"/><circle cx="12" cy="-2" r="2" fill="#314a40"/></g>
+</defs>
+<ellipse cx="457" cy="602" rx="298" ry="28" fill="#3d604a" opacity=".18" filter="url(#shadow)"/>
+<path d="M154 238 226 190 756 190 698 238Z" fill="#eff3df" fill-opacity=".55" stroke="#f9fff0" stroke-width="3"/>
+<path d="M698 238 756 190V521L698 577Z" fill="url(#side)" stroke="#c7d9c4" stroke-width="2"/>
+<path d="M154 238H698V577H154Z" fill="url(#water)"/>
+<path d="M154 266 226 218H756L698 266Z" fill="#eef1d9" fill-opacity=".4" stroke="#cbdcc3" stroke-width="1"/>
+<path d="M155 515C269 492 326 529 412 522S571 488 697 509V577H154Z" fill="url(#sand)"/>
+<path d="M698 510 756 462V521L698 577Z" fill="#8a9774"/>
+<g opacity=".85"><use href="#sprig" transform="translate(250 516) scale(.9)"/><use href="#sprig" transform="translate(277 520) rotate(12) scale(.8)"/><use href="#sprig" transform="translate(589 516) rotate(-16) scale(.94)"/><use href="#sprig" transform="translate(633 516) rotate(9) scale(.85)"/><use href="#sprig" transform="translate(672 520) rotate(13) scale(.64)"/></g>
+<path d="M312 522 335 434 370 394 386 319 411 287 439 318 457 410 488 450 505 524Z" fill="url(#stone)"/>
+<path d="M411 287 410 421 385 491 397 521 354 521 371 443 386 319Z" fill="#a2a58b" opacity=".52"/>
+<path d="M411 297 428 355 421 393 444 438 456 515 438 523 412 452 403 414Z" fill="#4a604c" opacity=".5"/>
+<path d="M475 520 486 460 516 421 534 412 551 448 574 469 590 521Z" fill="url(#stone)"/>
+<path d="m534 412-11 74 25 32-56 2 18-66Z" fill="#a6ad8c" opacity=".4"/>
+<path d="M221 527 241 486 273 472 293 502 302 528Z" fill="#829271"/>
+<path d="M386 526C419 506 451 502 477 516L508 542 542 568H322L357 545Z" fill="#d3cfb0"/>
+<g stroke="#76935a" stroke-width="3" fill="none"><path d="M182 532q-9-39-5-81m9 82q-2-49 12-77m-15 77q-19-28-30-50M604 535q-4-42 10-74m-4 74q-1-34 25-57m-28 56q-22-36-26-66"/></g>
+<g><use href="#leafshape" transform="translate(328 530) rotate(-29) scale(.48)"/><use href="#leafshape" transform="translate(331 530) rotate(26) scale(.58)"/><use href="#leafshape" transform="translate(548 534) rotate(-28) scale(.55)"/><use href="#leafshape" transform="translate(548 534) rotate(42) scale(.48)"/><use href="#leafshape" transform="translate(273 532) rotate(58) scale(.46)"/></g>
+<g opacity=".9"><use href="#fish" transform="translate(537 340) scale(.62)"/><use href="#fish" transform="translate(313 367) rotate(180) scale(.56)"/><use href="#fish" transform="translate(551 389) scale(.47)"/></g>
+<g fill="#eff6df" opacity=".5"><circle cx="206" cy="400" r="3"/><circle cx="201" cy="369" r="2"/><circle cx="208" cy="345" r="1.5"/><circle cx="651" cy="317" r="2"/></g>
+<ellipse cx="365" cy="271" rx="215" ry="115" fill="url(#shine)"/>
+<path d="M154 238H698V577H154Z" fill="none" stroke="#f5f9e8" stroke-width="3"/>
+<path d="M163 249V566M687 248V564" stroke="#f4f8e9" stroke-width="2" opacity=".5"/>
+<path d="M154 577H698L756 521" fill="none" stroke="#6d8b75" stroke-width="4" opacity=".55"/>
+<path d="M219 281 193 481M235 280 225 346" stroke="#fff" stroke-width="8" opacity=".1"/>
+</svg>
