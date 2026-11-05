@@ -1,6 +1,6 @@
 /* Shared motion for the home, collection and product pages. No content depends on it. */
 (() => {
-  const root = document.querySelector('.ah8-main, .catalog-v8, .product-v8');
+  const root = document.querySelector('.ah8-main, .catalog-v8, .product-v8, .hp-page');
   const button = document.querySelector('[data-scroll-motion-control]');
   if (!root || !button || !('IntersectionObserver' in window) || !Element.prototype.animate) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -15,7 +15,7 @@
     '.ah8-making-craft', '.ah8-making-water', '.ah8-studio-sheet', '.ah8-endnote',
     '.catalog-listing-heading', '.collection-card', '.collection-story-frame', '.collection-story-copy',
     '.product-image-stage', '.product-summary-copy', '.product-details-aside',
-    '.product-details-content > details', '.catalog-section-heading'
+    '.product-details-content > details', '.catalog-section-heading', '[data-reveal]'
   ].join(',');
   const hero = root.querySelector('.ah8-cover-scene, .exhibit-stage');
   const heroImage = hero?.querySelector(':scope > img');
@@ -104,6 +104,9 @@
     setDelays(grid);
     for (const element of grid.children) if (element.matches('.collection-card')) register(element);
   }).observe(grid, {childList: true});
+  document.addEventListener('haven:content-change', () => {
+    root.querySelectorAll(selector).forEach(register);
+  });
   button.addEventListener('click', () => {
     userPaused = !userPaused;
     try { localStorage.setItem(storageKey, String(userPaused)); } catch {}
