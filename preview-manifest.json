@@ -1,11 +1,8 @@
 {
-  "builtAt": "2026-11-05T00:21:20.551Z",
+  "designVersion": 2,
+  "builtAt": "2026-11-05T01:08:16.256Z",
   "products": 405,
   "categories": 21,
-  "pages": 408,
-  "files": 840,
-  "bytes": 26007050,
-  "scope": "Public static design prototype; no backend, purchases, accounts, contact submissions or personal records",
-  "entry": "index.html",
-  "sizeExcludesManifest": true
+  "pages": 413,
+  "scope": "Public design preview with local drafts and illustrative tank estimates; no transactions or accounts."
 }

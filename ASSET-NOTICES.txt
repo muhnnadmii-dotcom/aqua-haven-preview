@@ -5,3 +5,7 @@ Brand marks and product/editorial photographs originate from the store media sup
 Images were resized/re-encoded for this static preview without changing their subject or proportions. Videos were copied from the provided local theme. The photographic tank illustration is a design mockup, not a manufacturing plan.
 
 Catalog snapshot: 5 November 2026. No shopping, contact or payment service is provided here.
+
+Design revision 2: assets/editorial/hero-natural.webp is an AI-generated editorial concept made with the built-in image generation tool, not a photograph of an actual product or customer project. It is labeled as inspiration on the homepage. Product photographs were not replaced with generated images.
+
+IBM Plex Sans Arabic is provided locally from the official Google Fonts repository under the SIL Open Font License; see assets/fonts/OFL.txt. Source: https://github.com/google/fonts/tree/main/ofl/ibmplexsansarabic
