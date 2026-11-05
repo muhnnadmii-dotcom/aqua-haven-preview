@@ -1,0 +1,53 @@
+{
+  "generatedWith": "Built-in image_gen",
+  "encodingOnly": "WebP encoding and responsive downscaling; original generated PNGs preserved in work/realistic-scroll-v11/originals.",
+  "assets": [
+    {
+      "name": "room-desktop.webp",
+      "bytes": 113654,
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": false
+    },
+    {
+      "name": "underwater.webp",
+      "bytes": 427614,
+      "width": 1774,
+      "height": 887,
+      "hasAlpha": false
+    },
+    {
+      "name": "underwater-mobile.webp",
+      "bytes": 156762,
+      "format": "webp",
+      "width": 1100,
+      "height": 550,
+      "space": "srgb",
+      "channels": 3,
+      "depth": "uchar",
+      "isProgressive": false,
+      "isPalette": false,
+      "hasProfile": false,
+      "hasAlpha": false,
+      "autoOrient": {
+        "width": 1100,
+        "height": 550
+      }
+    },
+    {
+      "name": "fish.webp",
+      "bytes": 34704,
+      "width": 512,
+      "height": 256,
+      "hasAlpha": true
+    },
+    {
+      "name": "room-mobile.webp",
+      "bytes": 85456,
+      "width": 887,
+      "height": 1774,
+      "hasAlpha": false,
+      "revision": 2
+    }
+  ]
+}

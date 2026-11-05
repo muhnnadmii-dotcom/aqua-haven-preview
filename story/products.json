@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "products": [
+    {
+      "key": "sand",
+      "sourceProductId": "dbb15a6c-d519-461f-8b1a-57afc36fe844",
+      "name": "رمل أبيض طبيعي – 1 كجم",
+      "image": "assets/product-sand.webp",
+      "alt": "رمل أبيض طبيعي من مجموعة أكوا هافن، عبوة 1 كجم",
+      "category": "الأرضيات",
+      "categoryId": "1693409",
+      "categoryHref": "../shop/?category=1693409",
+      "productHref": "../products/dbb15a6c-d519-461f-8b1a-57afc36fe844/",
+      "href": "../products/dbb15a6c-d519-461f-8b1a-57afc36fe844/",
+      "ctaLabel": "استكشف الرمل",
+      "isExample": true,
+      "note": "مثال من مجموعة الأرضيات؛ كمية الرمل في المشهد توضيحية."
+    },
+    {
+      "key": "plant",
+      "sourceProductId": "d22205bc-5306-45ef-b08f-f067de5d2c6d",
+      "name": "سيسيفلورا | Limnophila sessiliflora",
+      "image": "assets/product-plant.webp",
+      "alt": "نبات سيسيفلورا المائي، مثال من نباتات أكوا هافن",
+      "category": "النباتات",
+      "categoryId": "1726165",
+      "categoryHref": "../shop/?category=1726165",
+      "productHref": "../products/d22205bc-5306-45ef-b08f-f067de5d2c6d/",
+      "href": "../shop/?category=1726165",
+      "ctaLabel": "استكشف النباتات",
+      "isExample": true,
+      "note": "النبات المصوّر مثال من المجموعة؛ المشهد يجمع أنواعًا متعددة."
+    },
+    {
+      "key": "filter",
+      "sourceProductId": "f088211a-ae05-498c-a6b7-49eaf04c820d",
+      "name": "فلتر كانستر خارجي دوفين – 410 لتر/ساعة",
+      "image": "assets/product-filter.webp",
+      "alt": "فلتر كانستر خارجي دوفين بمعدل تدفق 410 لتر في الساعة",
+      "category": "الفلاتر ووسائط الفلترة",
+      "categoryId": "1685089",
+      "categoryHref": "../shop/?category=1685089",
+      "productHref": "../products/f088211a-ae05-498c-a6b7-49eaf04c820d/",
+      "href": "../products/f088211a-ae05-498c-a6b7-49eaf04c820d/",
+      "ctaLabel": "استكشف الفلتر",
+      "isExample": true,
+      "note": "صورة المنتج الفعلية من المجموعة؛ الفلتر داخل المشهد توضيحي."
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs';
+
+// Native scrolling owns the journey. No wheel/touch interception, scroll locks,
+// third-party runtime, tracking, storage, backend calls, or generated shop links.
+const story=document.querySelector('#aquarium-story');
+if(story)initializeStory(story);
+
+function initializeStory(story) {
+  const stage=story.querySelector('.story-stage');
+  const camera=story.querySelector('.room-camera');
+  const photo=story.querySelector('.room-photo img');
+  const windowLayer=story.querySelector('.tank-window');
+  const underwater=story.querySelector('.underwater-backdrop');
+  const copies=[...story.querySelectorAll('.story-copy[data-chapter]')];
+  const navigation=story.querySelector('.story-chapters');
+  const buttons=[...story.querySelectorAll('[data-story-chapter]')];
+  const toggle=document.querySelector('#story-motion-toggle');
+  const progressLabel=story.querySelector('[data-story-progress]');
+  const fishes=[...story.querySelectorAll('.fish')];
+  const components=document.querySelector('#shop-components');
+  if(!stage||!camera||!photo||!windowLayer||!underwater||!components)return;
+
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  const mobile=matchMedia(story.dataset.mobileQuery||story.querySelector('.room-photo source[media]')?.getAttribute('media')||'(max-width: 700px)');
+  let initialized=false,manualPaused=false,compact=reduce.matches;
+  let measureNeeded=true,dirty=true,visible=true,raf=0,lastTime=0,fishTime=0;
+  let currentScroll=window.scrollY,geometry=null,underwaterAspect=1.5;
+  let metrics={top:0,travel:0},lastChapter=-1,staticChapter=1,lastProgress=0;
+  const reduced=()=>reduce.matches || manualPaused;
+  const frame=()=>{if(!raf&&!document.hidden)raf=requestAnimationFrame(render);};
+  if(progressLabel){progressLabel.setAttribute('aria-live','polite');progressLabel.setAttribute('aria-atomic','true');}
+
+  // Narration changes only at chapter boundaries, never on every animation frame.
+  function selectChapter(index) {
+    index=Math.max(0,Math.min(CHAPTERS.length-1,index));
+    if(index===lastChapter)return;
+    lastChapter=index;const selected=CHAPTERS[index];
+    story.dataset.currentChapter=selected.id;
+    for(const copy of copies){
+      const active=copy.dataset.chapter===selected.id;
+      copy.classList.toggle('is-current',active);
+      copy.setAttribute('aria-hidden',String(!active));
+      copy.inert=!active;
+      if(!copy.id)copy.id='story-copy-'+copy.dataset.chapter;
+    }
+    for(const button of buttons){
+      const active=button.dataset.storyChapter===selected.id;
+      if(active)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+      const copy=copies.find(item=>item.dataset.chapter===button.dataset.storyChapter);
+      if(copy)button.setAttribute('aria-controls',copy.id);
+    }
+    if(progressLabel)progressLabel.textContent=`${new Intl.NumberFormat('ar-SA').format(index+1)} / ٥ · ${selected.label}`;
+  }
+
+  function measure() {
+    const width=stage.clientWidth,height=stage.clientHeight;
+    if(!photo.naturalWidth||!photo.naturalHeight||!width||!height)return false;
+    const bounds=parseBounds(mobile.matches?story.dataset.tankMobile:story.dataset.tankDesktop);
+    const position=(mobile.matches?story.dataset.photoPositionMobile:story.dataset.photoPositionDesktop)||'.5,.5';
+    const [positionX=.5,positionY=.5]=position.split(/[\s,]+/).map(Number);
+    geometry=coverGeometry({width,height,imageWidth:photo.naturalWidth,imageHeight:photo.naturalHeight,bounds,positionX:Number.isFinite(positionX)?positionX:.5,positionY:Number.isFinite(positionY)?positionY:.5});
+    if(underwater.naturalWidth&&underwater.naturalHeight)underwaterAspect=underwater.naturalWidth/underwater.naturalHeight;
+    // All layout reads precede the geometry writes. Coordinates refer to the
+    // untransformed camera parent; transform-origin must stay at its center.
+    metrics.top=story.getBoundingClientRect().top+window.scrollY;
+    metrics.travel=Math.max(0,story.offsetHeight-height);
+    const {tank}=geometry;
+    windowLayer.style.left=tank.x+'px';windowLayer.style.top=tank.y+'px';
+    windowLayer.style.width=tank.width+'px';windowLayer.style.height=tank.height+'px';
+    measureNeeded=false;return true;
+  }
+
+  function setVariable(name,value){story.style.setProperty(name,String(value));}
+  function paint(state) {
+    setVariable('--story-progress',state.progress);
+    setVariable('--narration-opacity',state.narrationOpacity);
+    setVariable('--scene-shade-opacity',state.shadeOpacity);
+    const inkStart=[16,43,70],inkEnd=[247,248,239];
+    setVariable('--scene-ink',`rgb(${inkStart.map((v,i)=>Math.round(v+(inkEnd[i]-v)*state.inkBlend)).join(' ')})`);
+    setVariable('--camera-scale',state.scale);
+    setVariable('--camera-x',state.x+'px');setVariable('--camera-y',state.y+'px');
+    setVariable('--room-opacity',state.roomOpacity);setVariable('--window-opacity',state.windowOpacity);
+    setVariable('--underwater-opacity',state.underwaterOpacity);setVariable('--immersion-opacity',state.immersionOpacity);
+    setVariable('--underwater-scale',state.underwaterScale);
+    setVariable('--underwater-x',state.underwaterX+'px');setVariable('--underwater-y',state.underwaterY+'px');
+    setVariable('--sand-focus',state.sand);setVariable('--plants-focus',state.plants);setVariable('--filter-focus',state.filter);
+    selectChapter(state.chapter);
+    for(const copy of copies){
+      const available=copy.dataset.chapter===CHAPTERS[state.chapter].id&&state.narrationOpacity>.12;
+      const hidden=String(!available);
+      if(copy.getAttribute('aria-hidden')!==hidden)copy.setAttribute('aria-hidden',hidden);
+      if(copy.inert===available)copy.inert=!available;
+    }
+  }
+  function staticState() {
+    const target=CHAPTERS[staticChapter].target;
+    const state=cameraState(target,geometry,underwaterAspect);
+    return {...state,scale:1,x:0,y:0,roomOpacity:staticChapter===0?1:0,underwaterOpacity:staticChapter===0?0:1,windowOpacity:1,immersionOpacity:0,underwaterScale:1,underwaterX:0,underwaterY:0,chapter:staticChapter,narrationOpacity:1,shadeOpacity:staticChapter===0?0:1,inkBlend:staticChapter===0?0:1};
+  }
+  function resetFish(){for(const fish of fishes){fish.style.setProperty('--fish-x','0px');fish.style.setProperty('--fish-y','0px');fish.style.setProperty('--fish-roll','0deg');}}
+  function swim(time) {
+    fishes.forEach((fish,index)=>{
+      const phase=time*(.24+index*.035)+index*2.3;
+      fish.style.setProperty('--fish-x',(Math.sin(phase)*(14+index*4)).toFixed(2)+'px');
+      fish.style.setProperty('--fish-y',(Math.sin(phase*.76+index)*5).toFixed(2)+'px');
+      fish.style.setProperty('--fish-roll',(Math.cos(phase*.76)*1.2).toFixed(2)+'deg');
+    });
+  }
+  function render(time) {
+    raf=0;if(document.hidden||!initialized)return;
+    if(measureNeeded&&!measure())return;
+    let state;
+    if(reduced())state=staticState();
+    else{lastProgress=scrollProgress(currentScroll,metrics.top,metrics.travel);state=cameraState(lastProgress,geometry,underwaterAspect);}
+    if(dirty){paint(state);dirty=false;}
+    const swimActive=!reduced()&&visible&&fishes.length>0;
+    if(swimActive){if(lastTime)fishTime+=Math.min(48,time-lastTime)/1000;lastTime=time;swim(fishTime);frame();}
+    else lastTime=0;
+  }
+
+  function motionLabel() {
+    if(!toggle)return;
+    const paused=reduced();toggle.setAttribute('aria-pressed',String(paused));
+    toggle.disabled=reduce.matches;
+    const label=toggle.querySelector('[data-motion-label]');
+    const fullLabel=reduce.matches?'الحركة متوقفة حسب إعدادات الجهاز':manualPaused?'تشغيل الرحلة بالتمرير':'إيقاف الحركة وعرض المشهد';
+    const text=reduce.matches?'الحركة متوقفة':manualPaused?'تشغيل الحركة':'إيقاف الحركة';
+    toggle.setAttribute('aria-label',fullLabel);
+    if(label)label.textContent=text;else toggle.textContent=text;
+    const icon=toggle.querySelector('[data-motion-icon]');if(icon){icon.dataset.state=paused?'play':'pause';icon.innerHTML=paused?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 11 7-11 7Z"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>';}
+  }
+  function applyMode({preservePosition=false}={}) {
+    const before=story.getBoundingClientRect(),oldHeight=story.offsetHeight,oldScroll=window.scrollY;
+    const nextCompact=reduced(),changed=compact!==nextCompact;
+    compact=nextCompact;
+    story.classList.toggle('is-reduced-motion',reduce.matches);
+    story.classList.toggle('is-motion-paused',manualPaused);
+    if(changed && nextCompact)staticChapter=1;
+    motionLabel();resetFish();lastTime=0;measureNeeded=dirty=true;
+    if(preservePosition&&changed){
+      // Shortening a pinned section must not strand the reader far below it.
+      const top=before.top+oldScroll;
+      if(before.top<=stage.clientHeight&&before.bottom>0)window.scrollTo({top:Math.max(0,top),behavior:'instant'});
+      else if(before.bottom<=0)window.scrollTo({top:Math.max(0,oldScroll+story.offsetHeight-oldHeight),behavior:'instant'});
+    }
+    currentScroll=window.scrollY;frame();
+  }
+  function start() {
+    if(initialized||!photo.naturalWidth||!underwater.naturalWidth)return;
+    initialized=true;
+    // The non-enhanced HTML is one ordinary room scene followed by shopping.
+    // Only a working, decoded photographic sequence receives the tall journey.
+    story.classList.add('is-enhanced');
+    if(toggle)toggle.hidden=false;if(navigation)navigation.hidden=false;
+    applyMode();
+  }
+
+  window.addEventListener('scroll',()=>{currentScroll=window.scrollY;dirty=true;frame();},{passive:true});
+  const resized=()=>{measureNeeded=dirty=true;frame();};
+  window.addEventListener('resize',resized,{passive:true});
+  window.addEventListener('pageshow',()=>{currentScroll=window.scrollY;resized();});
+  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(resized);observer.observe(stage);observer.observe(story);}
+  if(typeof IntersectionObserver!=='undefined'){
+    const observer=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;lastTime=0;dirty=true;frame();},{threshold:0});observer.observe(stage);
+  }
+  document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;}else{currentScroll=window.scrollY;dirty=true;frame();}});
+  reduce.addEventListener('change',()=>applyMode({preservePosition:initialized}));
+  mobile.addEventListener('change',resized);
+  photo.addEventListener('load',()=>{resized();start();});underwater.addEventListener('load',()=>{resized();start();});
+  for(const button of buttons)button.addEventListener('click',()=>{
+    const index=CHAPTERS.findIndex(chapter=>chapter.id===button.dataset.storyChapter);if(index<0||!initialized)return;
+    if(reduced()){staticChapter=index;dirty=true;frame();window.scrollTo({top:metrics.top,behavior:'instant'});}
+    else{if(measureNeeded)measure();window.scrollTo({top:metrics.top+CHAPTERS[index].target*metrics.travel,behavior:'smooth'});}
+  });
+  if(toggle)toggle.addEventListener('click',()=>{if(reduce.matches)return;manualPaused=!manualPaused;applyMode({preservePosition:true});});
+  start();
+}
