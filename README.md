@@ -1,6 +1,6 @@
 # Aqua Haven — public design preview
 
-Design revision 4: the owner's selected dark, immersive direction now continues through the homepage, collection, products, designer, drafts and editorial pages. Natural aquascape imagery and quiet optional motion remain. Original product images and the glass stage retain illuminated neutral surfaces; forms, active states and keyboard-focus indicators have dedicated dark-theme contrast. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
+Design revision 5: the light palette is restored at the owner's request. The editorial layout, aquarium imagery, optional motion, catalog and designer behavior are preserved; the three revision-4 dark overrides are no longer loaded. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 
