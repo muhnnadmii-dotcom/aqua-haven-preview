@@ -1,0 +1,43 @@
+{
+  "id": "sand",
+  "file": "sand.webp",
+  "width": 1254,
+  "height": 1254,
+  "bytes": 541766,
+  "hasAlpha": false,
+  "alpha": {
+    "min": 255,
+    "max": 255,
+    "transparentPixels": 0,
+    "partialPixels": 0,
+    "opaquePixels": 1572516,
+    "nearOpaquePixels": 1572516,
+    "lowAlphaPixels": 0,
+    "transparentFraction": 0,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 0,
+      "y": 0,
+      "width": 1254,
+      "height": 1254
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=false",
+  "referenceSources": [],
+  "prompt": "Use case: photorealistic-natural. A SEAMLESS TILEABLE square 1024x1024 photographic texture, viewed STRAIGHT DOWN, of fine natural warm ivory freshwater aquarium sand, with subtle irregular pale beige grains and sparse tiny earthy grey-brown micro-pebbles. Uniform diffuse neutral daylight, low contrast, no directional cast shadows, no vignetting, no light hotspot, no perspective, no horizon, no glass, no plants, no shells, no rocks, no animals, no footprints, no ripples, no text or borders. Every part is sand texture all the way to every edge, designed to repeat across a horizontal aquarium floor without visible seams. Fine organic detail at a consistent scale, not a regular pattern or synthetic noise. Opaque fullframe bitmap. Natural quiet cream sand matching a bright planted freshwater tank, avoid saturated orange/yellow and white studio paper.",
+  "promptSha256": "ec464a4ccfe1ef7162cf9fb982de54eed942de04d4b57ca627d7151ad5239d36",
+  "sha256": "e32e32cae53693bbec2b4c00f21b87aedd577ae12773a9495bb527ccc3e4f3ee",
+  "originalSha256": "65a5c67a3892d576d6582de25b1734ebbee45e788b555460d5023f5b88de85cd",
+  "createdAt": "2026-11-05T22:36:38.222Z",
+  "anchorsTopDownImageCoordinates": {},
+  "attachment": "Opaque top-down continuous sand material for horizontal floor; no separately floating subject.",
+  "note": "Illustrative photographic asset; not a product SKU. Physical floor/wall attachment must be maintained in scene geometry.",
+  "originalWorkspacePath": "work/realistic-scroll-v14/originals/sand.png"
+}

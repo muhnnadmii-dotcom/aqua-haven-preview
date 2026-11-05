@@ -1,0 +1,74 @@
+{
+  "id": "shrimp-plant",
+  "file": "shrimp-plant.webp",
+  "width": 1024,
+  "height": 1536,
+  "bytes": 235854,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "transparentPixels": 1060214,
+    "partialPixels": 512650,
+    "opaquePixels": 0,
+    "nearOpaquePixels": 442830,
+    "lowAlphaPixels": 43481,
+    "transparentFraction": 0.674065907796224,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 18,
+      "y": 245,
+      "width": 987,
+      "height": 1260
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=true",
+  "referenceSources": [],
+  "prompt": "Use case: photorealistic-natural. Create ONE complete photographic rooted Anubias plant asset on a GENUINELY TRANSPARENT background, PORTRAIT 1024x1536. It will be placed on an aquarium floor in a perspective scene. A single small red cherry shrimp rests with legs touching a natural green Anubias leaf in the upper-right part of this plant, shrimp BODY centered around image x60%, y28% (top-down image coordinates), pointing right. Shrimp small and biologically believable, delicate transparent antennae. Crucial: the featured leaf is NOT detached. Its full curved petiole is visibly connected downward into a compact Anubias rhizome attached onto a low mossy driftwood and grey-brown stone contact base centered around x50%, y96%. Show that continuous leaf-to-petiole-to-rhizome-to-rooted-wood connection clearly. Two or three secondary leaves can grow from same rhizome, asymmetrical and sparse enough that connection remains legible. Natural underwater macro photography, not illustration or synthetic3D, scale and natural material matching a freshwater planted aquarium. Fine real veins, subdued natural green, semi-translucent shrimp legs and antennae. Diffuse daylight from upper-left, cyan-green underwater ambient rather than bright white product-studio lighting. Entire plant and base stay inside image with small margins, root base must not be cropped. Actual alpha transparency all around and through foliage gaps; no water backdrop, no glow, no checkerboard, no white sticker outline, no floor, no aquarium, no glass wall. No extra shrimp/fish/text/logos. This is one physically connected little planted hardscape unit with a shrimp resting on its upper leaf.",
+  "promptSha256": "fcd75eaf9cc5758e5b93fdd4db55e380ffafe85dd2858c3512968132cc5e1d1d",
+  "sha256": "0c5b4d8543f53cb425eca23631a956cb67f7179fdef6fd82de8b65ad11ad80fa",
+  "originalSha256": "9130f15bcee0eaf010d5bbb1b8829018bb22509fca000472f776a623e31a54ff",
+  "createdAt": "2026-11-05T22:36:37.256Z",
+  "anchorsTopDownImageCoordinates": {
+    "floorContact": {
+      "u": 0.5888671875,
+      "v": 0.9778645833333334
+    },
+    "shrimpBody": {
+      "u": 0.667,
+      "v": 0.3
+    },
+    "shrimpBodyROI": {
+      "u0": 0.564,
+      "v0": 0.276,
+      "u1": 0.777,
+      "v1": 0.323
+    },
+    "shrimpWithAntennaeROI": {
+      "u0": 0.56,
+      "v0": 0.261,
+      "u1": 0.88,
+      "v1": 0.338
+    },
+    "petioleJunction": {
+      "u": 0.49,
+      "v": 0.71
+    },
+    "baseRegion": {
+      "u0": 0.14,
+      "v0": 0.752,
+      "u1": 0.87,
+      "v1": 0.979
+    }
+  },
+  "attachment": "Featured shrimp leaf has an intact petiole leading to the visible Anubias rhizome/roots attached to mossy driftwood and stone.",
+  "note": "Illustrative photographic asset; not a product SKU. Physical floor/wall attachment must be maintained in scene geometry.",
+  "originalWorkspacePath": "work/realistic-scroll-v14/originals/rooted-shrimp-plant.png"
+}

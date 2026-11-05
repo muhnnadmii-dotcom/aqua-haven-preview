@@ -1,6 +1,6 @@
-import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=13';
-import {createFrameSequence} from './frame-sequence.mjs?v=13';
-import {createContinuousScene} from './continuous-scene.mjs?v=13';
+import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=14';
+import {createFrameSequence} from './frame-sequence.mjs?v=14';
+import {createContinuousScene} from './continuous-scene.mjs?v=14';
 
 // Native scrolling owns the journey. No wheel/touch interception, scroll locks,
 // third-party runtime, tracking, storage, backend calls, or generated shop links.
@@ -43,9 +43,9 @@ function initializeStory(story) {
   // one persistent world: moving the camera changes depth and occlusion.
   const worldCanvas=story.querySelector('.continuous-scene');
   const world=createContinuousScene(worldCanvas,{
-    urls:{background:'assets/underwater.webp',foliage:'assets/continuous/foliage.webp',
-      filter:'assets/continuous/filter.webp',fish:'assets/fish.webp',
-      shrimp:'assets/continuous/shrimp-leaf.webp',surface:'assets/discovery/10-surface-only.webp'},
+    urls:{background:'assets/underwater.webp',foliage:'assets/grounded-v14/foliage.webp',
+      filter:'assets/grounded-v14/filter.webp',fish:'assets/fish.webp',
+      shrimp:'assets/grounded-v14/shrimp-plant.webp',surface:'assets/discovery/10-surface-only.webp',sand:'assets/grounded-v14/sand.webp'},
     onReady:({status,error})=>{
       worldCanvas.dataset.sceneStatus=status;
       if(error)worldCanvas.dataset.sceneError=error;else delete worldCanvas.dataset.sceneError;

@@ -159,11 +159,12 @@
       "provenance": "assets/discovery/10-surface-only.webp.json"
     }
   ],
-  "currentRenderer": "V13: one fixed photographic multiplane world with a continuous perspective camera",
+  "currentRenderer": "V14: fixed photographic world with grounded root/rock assemblies, sand bed and connected glass intake; approved V13 camera retained",
   "continuousScene": {
     "camera": "camera-math-v13.mjs",
     "renderer": "continuous-scene.mjs",
     "perChapterTextureChanges": false,
+    "groundY": -2.8,
     "textures": [
       {
         "role": "background",
@@ -174,23 +175,23 @@
       },
       {
         "role": "foliage",
-        "url": "assets/continuous/foliage.webp",
-        "bytes": 477748,
-        "sha256": "cf9cf0293cce5d7ba0fc93f49343e181e68fec6094a05bfa85448ee7393ec8ce",
-        "width": 1536,
-        "height": 1024,
-        "hasAlpha": true,
-        "provenance": "assets/continuous/foliage.json"
+        "url": "assets/grounded-v14/foliage.webp",
+        "bytes": 390590,
+        "sha256": "e6dfe301b0d98a0c1e7334dfb85545854a62ad67fe4d6ea6515ac35895a172c4",
+        "provenance": "assets/grounded-v14/foliage.json",
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true
       },
       {
         "role": "filter",
-        "url": "assets/continuous/filter.webp",
-        "bytes": 105222,
-        "sha256": "dec945f8bfafb8ee2641dd35b5c18952abf92485667a3bca3985ba7673bdab98",
+        "url": "assets/grounded-v14/filter.webp",
+        "bytes": 145668,
+        "sha256": "91c6ca9d0b2345ceedced8406aad2d7b74a090e0accdda60a4c253f5f50ac072",
+        "provenance": "assets/grounded-v14/filter.json",
         "width": 1024,
         "height": 1536,
-        "hasAlpha": true,
-        "provenance": "assets/continuous/filter.json"
+        "hasAlpha": true
       },
       {
         "role": "fish",
@@ -201,13 +202,13 @@
       },
       {
         "role": "shrimp",
-        "url": "assets/continuous/shrimp-leaf.webp",
-        "bytes": 183160,
-        "sha256": "56f98aed0c61e331d258832671b7a8272c94d5b2f5e257790fa59d30bcd42b90",
-        "width": 1536,
-        "height": 1024,
-        "hasAlpha": true,
-        "provenance": "assets/continuous/shrimp-leaf.json"
+        "url": "assets/grounded-v14/shrimp-plant.webp",
+        "bytes": 235854,
+        "sha256": "0c5b4d8543f53cb425eca23631a956cb67f7179fdef6fd82de8b65ad11ad80fa",
+        "provenance": "assets/grounded-v14/shrimp-plant.json",
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true
       },
       {
         "role": "surface",
@@ -215,6 +216,16 @@
         "bytes": 287498,
         "sha256": "07bf6f39aaa53a145ab2df33f22bb2c358662c695bd143bd5e65b5b59900f4b0",
         "provenance": "assets/discovery/10-surface-only.webp.json"
+      },
+      {
+        "role": "sand",
+        "url": "assets/grounded-v14/sand.webp",
+        "bytes": 541766,
+        "sha256": "e32e32cae53693bbec2b4c00f21b87aedd577ae12773a9495bb527ccc3e4f3ee",
+        "provenance": "assets/grounded-v14/sand.json",
+        "width": 1254,
+        "height": 1254,
+        "hasAlpha": false
       }
     ]
   }

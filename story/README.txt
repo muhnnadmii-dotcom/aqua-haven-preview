@@ -1,38 +1,15 @@
-AQUA HAVEN — ONE AQUARIUM, ONE CAMERA
+AQUA HAVEN — GROUNDED AQUARIUM STORY
 
-Separate homepage prototype V13, 2026-11-06.
+Separate homepage prototype V14, 2026-11-06.
 
-The bright daylight room is preserved. After the glass, one perspective
-camera moves through a photographic multiplane aquarium. Background,
-filter, tetra, shrimp-on-leaf and plant curtains stay in fixed world positions.
-Moving beside nearer real-alpha leaves reveals the farther subjects through
-geometric perspective and depth. No full-frame interior dissolves are used.
+The approved V13 camera path is retained. Photographed plants now include complete stems, rhizomes and wood/rock supports. Their measured foot points meet one fixed photographic sand bed. The shrimp, leaf, petiole and rooted hardscape are one assembly. A complete glass U-intake, strainer and suction mounts continue to a rim at the waterline. The lower plant bases stay rigid while upper leaves sway.
 
-The camera ends looking up at a fixed overhead water surface and a long
-sunlike reflection. Backward scrolling retraces the same spatial path.
-This is a photographic depth scene, not a fully modeled 3D aquarium or video.
-Original images, V12 ZIP and the earlier exploded-view concept are preserved.
+This is a photographic multiplane scene with a perspective camera, not full volumetric 3D. Seven textures load once; scene objects remain fixed through forward/reverse travel. Unsupported WebGL/image failures retain static photographic chapter fallbacks. Pause/reduced motion and skip access remain.
 
-Source: story.js controls native scroll and lifecycle; scene-math.mjs keeps
-the measured room entry; camera-math-v13.mjs defines the spatial path;
-continuous-scene.mjs renders photographic planes and alpha depth tests.
-frame-sequence.mjs provides discrete still fallbacks only.
+Serve this folder through a local static HTTP server. Open index.html via that server; module imports do not run reliably from file://. The page is also suitable for the existing GitHub Pages /story/ route.
 
-Serve this folder as /story/ under the existing static preview. Parent shop,
-product and designer routes are required for ../ links. Use HTTP, not file://.
-Public route: https://muhnnadmii-dotcom.github.io/aqua-haven-preview/story/?v=13
+Public route after publication: https://muhnnadmii-dotcom.github.io/aqua-haven-preview/story/?v=14
 
-Scroll normally, use six chapter buttons, or skip to the catalog. Pause and
-system reduced motion compact the scene with static chapter selection.
-Hidden documents/offscreen stages stop sustained animation. Missing WebGL
-keeps photographic detail fallbacks. No JavaScript keeps room/product links.
+Artwork is inspirational, not an exact product bundle. Product rows and links use the existing catalog. No checkout/payment or WordPress backend is connected to this static preview. No change to aqh.sa, live store, domain or customer data. No purchases or paid APIs. Original V13 source commit and ZIP remain preserved.
 
-Built-in image generation supplied the scenery and real-alpha cutouts.
-No paid API was used. Original PNGs/prompts remain local; shipped sidecars
-record provenance. WebP conversion preserves composition and alpha.
-Scene artwork is inspiration; actual product photos/links are separate.
-Fish/shrimp scenes link to actual food items, not invented live-animal stock.
-
-This static preview takes no payment, activates no WordPress theme and
-does not change aqh.sa, its domain or customers. The separate local
-WordPress/WooCommerce trial remains preserved.
+Generated asset prompts and provenance: assets/grounded-v14/*.json. Built-in image generation was used; WebP conversion changed encoding only and retained alpha.

@@ -1,0 +1,58 @@
+{
+  "id": "foliage",
+  "file": "foliage.webp",
+  "width": 1024,
+  "height": 1536,
+  "bytes": 390590,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "transparentPixels": 814840,
+    "partialPixels": 758024,
+    "opaquePixels": 0,
+    "nearOpaquePixels": 604871,
+    "lowAlphaPixels": 104243,
+    "transparentFraction": 0.5180613199869791,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 11,
+      "y": 41,
+      "width": 945,
+      "height": 1463
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=true",
+  "referenceSources": [],
+  "prompt": "Use case: photorealistic-natural. Create ONE photographic foreground asset for a realistic freshwater aquarium website, PORTRAIT 1024x1536 composition, genuine transparent RGBA background. This must be one COMPLETE physically connected planted hardscape unit, not loose leaves or a floating bouquet. Tall asymmetrical Java fern and a few Anubias leaves grow from visible connected slim petioles and a natural rhizome tightly attached onto a low irregular dark driftwood root and grey-brown stone at the bottom. Entire wood/stone contact base is visible inside the image. Main root/contact point around x50%, y95%; plant canopy fills y5%-80%; low wood/stone base occupies bottom15%-20%. Base bottom can be flat-ish naturally resting on sand, NOT a pedestal or pot. Preserve leaf tips inside small margins. Broad elongated fern leaves mixed with delicate fine fronds, natural overlapping leaf gaps, no detached leaves or cut dangling roots in midair. Viewpoint is a near-frontal three-quarter underwater view, believable botanical scale. Real photographic texture, translucent natural fern green, soft diffused daylight from upper-left filtered through water, mildly cool cyan-green ambient light, soft attached shadows at leaf/stem/wood junctions. No studio white lighting, no hyper-polished plastic. All space around unit AND between leaves must be ACTUAL alpha transparency, no rectangular water, no fog halo, no checkerboard, no added background. No sand carpet or floor in this asset, no fish, shrimp, equipment, text, watermark or border. The subject must read as plants rooted onto wood/stone resting on an aquarium floor; every stem visibly traces into a coherent attached base. Do not crop off the base.",
+  "promptSha256": "4c9e335ae95d18be5bc86ffddd86733557f407a5261277c1922658bd1f603813",
+  "sha256": "e6dfe301b0d98a0c1e7334dfb85545854a62ad67fe4d6ea6515ac35895a172c4",
+  "originalSha256": "e790ead7e880b855cf71290c5d964e69df203b8cfd5710c7c61c73a353f5ac7f",
+  "createdAt": "2026-11-05T22:36:36.702Z",
+  "anchorsTopDownImageCoordinates": {
+    "floorContact": {
+      "u": 0.4287109375,
+      "v": 0.9778645833333334
+    },
+    "canopy": {
+      "u": 0.48,
+      "v": 0.4
+    },
+    "baseRegion": {
+      "u0": 0.05,
+      "v0": 0.79,
+      "u1": 0.86,
+      "v1": 0.979
+    }
+  },
+  "attachment": "Every fern/Anubias stem continues into a rooted rhizome mounted on whole driftwood and stone. Base must physically meet scene floor.",
+  "note": "Illustrative photographic asset; not a product SKU. Physical floor/wall attachment must be maintained in scene geometry.",
+  "originalWorkspacePath": "work/realistic-scroll-v14/originals/rooted-fern.png"
+}

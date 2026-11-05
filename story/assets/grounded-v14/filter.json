@@ -1,0 +1,103 @@
+{
+  "id": "filter",
+  "file": "filter.webp",
+  "width": 1024,
+  "height": 1536,
+  "bytes": 145668,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 253,
+    "transparentPixels": 1326277,
+    "partialPixels": 246587,
+    "opaquePixels": 0,
+    "nearOpaquePixels": 19525,
+    "lowAlphaPixels": 61253,
+    "transparentFraction": 0.8432242075602213,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 323,
+      "y": 23,
+      "width": 377,
+      "height": 1497
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen targeted edit; transparent_background=true",
+  "referenceSources": [
+    "work/realistic-scroll-v14/originals/connected-intake.png"
+  ],
+  "prompt": "Use case: precise-object-edit / background-extraction. EDIT TARGET is the attached complete U-shaped glass aquarium intake cutout. Keep its exact same silhouette, proportions, perspective and placement: tall main shaft, upper inverted U bend, shorter outer hose leg, two suction cups/clamps, bottom strainer. Keep the full connected assembly and 1024x1536 portrait canvas. Change ONLY its glass transparency material. The shaft interior is currently almost opaque white/silver; make it truly see-through clear glass in RGBA alpha, so the INNER CENTER of the long main shaft has alpha about0.05 to0.18, not alpha1.0. The center must show whatever website background is behind this cutout. Preserve thin stronger edge highlights and specular rims, slotted strainer/cup details, partial alpha refraction at edges. Clear glass should look almost invisible through its middle, not like an opaque pale cylinder. No baked green/grey background in or around the glass. All background, space inside U bend and between components must remain genuinely transparent alpha. Keep U bend/cups/strainer physically connected. No extra elements, no image background, no text, no added halo. Do not replace the picture or restyle it; targeted alpha/transmission correction only. Actual transparent PNG/RGBA required.",
+  "promptSha256": "00ca119d1d5c904447fa876ac8dd453fe6526fd42216cb2e2125634b11526110",
+  "sha256": "91c6ca9d0b2345ceedced8406aad2d7b74a090e0accdda60a4c253f5f50ac072",
+  "originalSha256": "9d7ec166fd93e8ecf2a889f1ac6202726305712ed177c095e978d8e5bb7d1843",
+  "createdAt": "2026-11-05T22:42:08.451Z",
+  "anchorsTopDownImageCoordinates": {
+    "mainShaft": {
+      "u": 0.443,
+      "v": 0.5
+    },
+    "strainerBottom": {
+      "u": 0.443359375,
+      "v": 0.9869791666666666
+    },
+    "bendTop": {
+      "u": 0.56,
+      "v": 0.016276041666666668
+    },
+    "upperCup": {
+      "u": 0.36,
+      "v": 0.246
+    },
+    "lowerCup": {
+      "u": 0.365,
+      "v": 0.482
+    },
+    "shortLegEnd": {
+      "u": 0.632,
+      "v": 0.427
+    }
+  },
+  "attachment": "Unbroken main shaft, upper inverted U bend, shorter outer hose leg, two clamp/suction cups and bottom strainer form one connected assembly. Scene must provide matching rim/wall.",
+  "note": "Illustrative photographic asset; not a product SKU. Physical floor/wall attachment must be maintained in scene geometry.",
+  "originalWorkspacePath": "work/realistic-scroll-v14/originals/connected-intake-v2.png",
+  "generationHistory": [
+    {
+      "method": "Built-in image_gen; transparent_background=true",
+      "prompt": "Use case: product-mockup / photorealistic-natural. ONE complete connected clear borosilicate GLASS AQUARIUM INTAKE ASSEMBLY photographed in tall PORTRAIT 1024x1536, on genuine transparent RGBA background. Full complete assembly visible within margins: long vertical suction shaft occupying most of the image height, with slotted cylindrical strainer at BOTTOM; shaft continues unbroken into an inverted U-bend at TOP that goes over an aquarium rim; a shorter downward leg on the far side of the U joins a short clear hose. Two translucent suction cups with small clamp rings attach onto the shaft, cups oriented behind it toward an invisible glass panel. This is a physically connected installed-style assembly, not an open straight tube or detached loose objects. Long main shaft center around x48%, strainer around y89%, full U bend around y8%, short outer leg at x66% ending around y34%. Preserve recognizable curved clear glass edges and realistic refraction, but glass interior should remain genuinely see-through with partial alpha so existing aquarium background will show. Soft underwater-style green/cyan ambient highlights, upper-left daylight, no white studio backdrop or strong opaque silver cylinder, no blue cartoon glass. Keep every part connected and all parts inside canvas. No aquarium wall, no water, no room, no equipment package, no floor, no detached accessories, text, logo, arrow, border or shadow rectangle. Exact photographic rendering, natural clear glass transparent edges, all surrounding background true alpha transparent.",
+      "promptSha256": "28b31cbf4d84467b4562d9c07ba9fa1f58b543d8424e9221f6d40a19b2d95765",
+      "sha256": "817c80a685d608455fe5aa134dcf4f1ba33f8c64db48e4340b265adc55cbc4c9",
+      "originalSha256": "330b460d825709635aea3f371d0a1e5c1cd705f7a45fbee5a078e76bb579cf06",
+      "originalWorkspacePath": "work/realistic-scroll-v14/originals/connected-intake.png"
+    }
+  ],
+  "transmissionSamples": [
+    {
+      "pixel": [
+        455,
+        500
+      ],
+      "alpha": 73
+    },
+    {
+      "pixel": [
+        455,
+        800
+      ],
+      "alpha": 78
+    },
+    {
+      "pixel": [
+        455,
+        1000
+      ],
+      "alpha": 75
+    }
+  ]
+}
