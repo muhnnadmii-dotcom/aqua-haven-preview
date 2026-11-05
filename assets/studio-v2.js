@@ -35,6 +35,43 @@ if (typeof document !== 'undefined') {
 function initializeDesigner() {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const form=$('#tank-form'), name=$('#tank-name');
+  const panels=$$('[data-studio-panel]'), stepLinks=$$('[data-studio-step]');
+  const stepBack=$('#studio-step-back'), stepNext=$('#studio-step-next');
+  let currentStep=0;
+  const hasSteps=panels.length===3 && stepLinks.length===3 && stepBack && stepNext;
+  function showStep(index,{focus=false,scroll=false}={}) {
+    if(!hasSteps)return;
+    currentStep=Math.max(0,Math.min(panels.length-1,index));
+    panels.forEach((panel,i)=>panel.hidden=i!==currentStep);
+    stepLinks.forEach((link,i)=>{if(i===currentStep)link.setAttribute('aria-current','step');else link.removeAttribute('aria-current');});
+    const position=$('[data-step-position]');if(position)position.textContent=`${decimal(currentStep+1)} / ٣`;
+    stepBack.disabled=currentStep===0;
+    stepNext.querySelector('span').textContent=currentStep===panels.length-1?'راجع ملخصك':'الخطوة التالية';
+    if(focus)panels[currentStep].querySelector('legend')?.focus({preventScroll:true});
+    if(scroll)$('#studio-dimensions')?.closest('.studio-controls')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
+  }
+  function validateForm() {
+    const invalid=form.querySelector('input:invalid');
+    if(invalid && hasSteps){const index=panels.indexOf(invalid.closest('[data-studio-panel]'));if(index>=0)showStep(index);}
+    return form.reportValidity();
+  }
+  if(hasSteps){
+    $('.studio-v8')?.classList.add('is-step-enhanced');
+    $('.studio-step-footer').hidden=false;
+    for(const [index,panel]of panels.entries()){
+      $$(`a[href="#${panel.id}"]`).forEach(link=>link.addEventListener('click',event=>{event.preventDefault();showStep(index,{focus:true,scroll:true});}));
+    }
+    stepBack.addEventListener('click',()=>showStep(currentStep-1,{focus:true,scroll:true}));
+    stepNext.addEventListener('click',()=>{
+      const invalid=panels[currentStep].querySelector('input:invalid');
+      if(invalid){invalid.reportValidity();return;}
+      if(currentStep<panels.length-1)showStep(currentStep+1,{focus:true,scroll:true});
+      else {$('#studio-estimate').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});$('#studio-summary-title')?.focus({preventScroll:true});}
+    });
+    const requested=panels.findIndex(panel=>'#'+panel.id===location.hash);
+    showStep(requested>=0?requested:0);
+    window.addEventListener('hashchange',()=>{const index=panels.findIndex(panel=>'#'+panel.id===location.hash);if(index>=0)showStep(index);});
+  }
   let config={length:90,width:45,height:45,glass:'standard',addons:{filter:true,light:true,plants:true}};
   let paused=matchMedia('(prefers-reduced-motion: reduce)').matches, builder;
   const draft=read(DRAFT_KEY);
@@ -72,7 +109,7 @@ function initializeDesigner() {
   name.addEventListener('input',refresh);
   form.addEventListener('submit',event => event.preventDefault());
   $('#save-tank').addEventListener('click',() => {
-    if(!form.reportValidity()) return;
+    if(!validateForm()) return;
     const value=read(SAVED_KEY), records=Array.isArray(value)?value:[];
     if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ مسودة. احذف فكرة من صفحة مسوداتي لإضافة أخرى.');return;}
     const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim().slice(0,80)||'فكرة حوض',config:structuredClone(config)};
@@ -81,7 +118,7 @@ function initializeDesigner() {
     announce(saved?'حُفظت الفكرة. ستجدها في صفحة «مسوداتي» على هذا المتصفح.':'التخزين المحلي غير متاح. يمكنك نسخ الملخص بدلًا من الحفظ.');
   });
   $('#copy-design').addEventListener('click',async() => {
-    if(!form.reportValidity()) return;
+    if(!validateForm()) return;
     const quote=estimateDesign(config), extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key]) => config.addons[key]).map(([,label]) => label).join('، ')||'بدون إضافات';
     const summary=`${name.value.trim()||'فكرة حوض'} — أكوا هافن\n${config.length} × ${config.width} × ${config.height} سم\n${config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'} · ${extras}\nتقدير توضيحي: ${money(quote.price)} · ${decimal(quote.litres)} لتر\nتجربة تصميم فقط؛ ليست عرض بيع أو مخطط تصنيع.`;
     try {await navigator.clipboard.writeText(summary);announce('نُسخ ملخص التصميم.');} catch {announce('النسخ التلقائي غير متاح. يمكنك تحديد المقاسات والتقدير ونسخهما.');}

@@ -1,0 +1,39 @@
+/* Aqua Haven / gallery edition. Shared framing, navigation and closing signature. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation-duration:.18s}
+::view-transition-new(root){animation-duration:.24s}
+body.v2{--haven-navy:#102b46;--haven-paper:#f7f8f8}
+body.v2 .site-header{box-shadow:none;border-color:#ccd8e0}
+body.v2 .site-brand{transition:opacity .25s}
+body.v2 .site-brand:hover{opacity:.72}
+body.v2 .main-nav a{position:relative}
+body.v2 .main-nav a:after{background:#102b46;transform-origin:right;transition:transform .3s ease,width .3s ease}
+body.v2 .header-tools :is(.icon-link,.menu-button){border-radius:50%;transition:background .2s,border-color .2s}
+body.v2 .site-footer.footer-v8{position:relative;overflow:hidden;background:#102b46;padding-top:64px}
+body.v2 .footer-v8 .footer-grid{position:relative;grid-template-columns:1.5fr .8fr .8fr 1.15fr;gap:4%;padding-bottom:38px}
+body.v2 .footer-v8 .footer-brand p{font-size:clamp(28px,3vw,42px);line-height:1.45;letter-spacing:-.7px;margin-top:27px;color:#f2f5f7}
+body.v2 .footer-v8 .footer-grid h2{font-size:14px;letter-spacing:.3px;color:#a9c1d3;margin-top:5px;margin-bottom:22px}
+body.v2 .footer-v8 .footer-grid>div:not(.footer-brand)>a{width:fit-content;min-height:36px;font-size:15px;transition:color .2s,transform .2s}
+body.v2 .footer-v8 .footer-grid>div:not(.footer-brand)>a:hover{color:#fff;transform:translateX(-4px)}
+body.v2 .footer-v8 .footer-note{font-size:13px;line-height:1.9}
+body.v2 .footer-v8-signature{direction:ltr;display:flex;align-items:center;justify-content:space-between;gap:3%;border-block:1px solid #f2f7fa24;padding-block:16px 10px;user-select:none;color:#eaf2f7}
+.footer-v8-signature>span:not(.footer-v8-orbit){font-family:Arial,sans-serif;font-weight:400;font-size:clamp(52px,10.1vw,155px);letter-spacing:-.065em;line-height:1.2;white-space:nowrap}
+.footer-v8-orbit{position:relative;width:6.2%;aspect-ratio:1;border:1px solid #a7c1d4;border-radius:50%;flex-shrink:0}
+.footer-v8-orbit:before,.footer-v8-orbit:after{content:'';position:absolute;border:1px solid #a7c1d4;border-radius:50%;inset:18%}
+.footer-v8-orbit:after{inset:36%;background:#a7c1d4}
+body.v2 .footer-v8 .footer-bottom{border-top:0;font-size:12px;padding-block:21px}
+@media(max-width:760px){
+ body.v2 .site-footer.footer-v8{padding-top:38px}
+ body.v2 .footer-v8 .footer-grid{grid-template-columns:1fr 1fr;gap:27px 22px;padding-bottom:30px}
+ body.v2 .footer-v8 .footer-brand{padding-bottom:27px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:18px}
+ body.v2 .footer-v8 .footer-brand p{font-size:25px;line-height:1.5;margin:0;letter-spacing:-.4px}
+ body.v2 .footer-v8 .footer-brand img{width:145px;max-width:100%}
+ body.v2 .footer-v8 .footer-grid h2{margin-bottom:12px;font-size:14px}
+ body.v2 .footer-v8 .footer-grid>div:not(.footer-brand)>a{min-height:44px;font-size:14px}
+ body.v2 .footer-v8-signature{gap:5%;padding-block:18px 14px}
+ .footer-v8-signature>span:not(.footer-v8-orbit){font-size:10vw;letter-spacing:-.06em}
+ .footer-v8-orbit{width:6%}
+ body.v2 .footer-v8 .footer-bottom{font-size:12px;gap:12px;align-items:start}
+}
+@media(max-width:360px){body.v2 .footer-v8 .footer-brand p{font-size:21px}body.v2 .footer-v8 .footer-brand{gap:13px}}
+@media(prefers-reduced-motion:reduce){@view-transition{navigation:none}body.v2 .site-brand,body.v2 .main-nav a:after,body.v2 .header-tools :is(.icon-link,.menu-button),body.v2 .footer-v8 a{transition:none!important}::view-transition-old(root),::view-transition-new(root){animation:none!important}}

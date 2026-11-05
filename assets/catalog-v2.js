@@ -13,7 +13,7 @@
       const variant=select.value===''?null:data.variants[Number(select.value)];
       $('aq-reference-price').textContent=variant?money(variant.effectivePrice??variant.price):data.initialPrice;
       $('aq-variant-details').textContent=variant?(variant.attributes.map(a=>`${a.name}: ${a.value}`).join(' · ')||variant.name)+' · سعر مرجعي للمعاينة.':'اختر خيارًا لعرض سعره المرجعي.';
-    });document.querySelectorAll('.product-details-aside a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{const panel=document.getElementById(a.getAttribute('href').slice(1));if(panel&&panel.tagName==='DETAILS')panel.open=true;}));return;
+    });document.querySelectorAll('.product-details-aside a[href^="#"], [data-product-panel]').forEach(a=>a.addEventListener('click',()=>{const panel=document.getElementById(a.getAttribute('href').slice(1));if(panel&&panel.tagName==='DETAILS')panel.open=true;}));return;
   }
   if(data.mode!=='shop')return;
   const products=Array.isArray(data.products)?data.products:[],categories=Array.isArray(data.categories)?data.categories:[],base=data.base||'../',pageSize=16;
@@ -55,6 +55,6 @@
   let searchTimer;const changed=()=>{page=1;render();};search.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(changed,180);});category.addEventListener('change',changed);sort.addEventListener('change',changed);
   $('aq-catalog-form').addEventListener('submit',event=>{event.preventDefault();clearTimeout(searchTimer);changed();});
   clear.addEventListener('click',()=>{search.value='';category.value='';sort.value='default';changed();search.focus();});
-  document.querySelectorAll('[data-category]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();category.value=a.dataset.category;changed();}));
+  document.querySelectorAll('[data-category]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();category.value=a.dataset.category;changed();const listing=$('catalog-products');if(listing)listing.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
   render();
 })();
