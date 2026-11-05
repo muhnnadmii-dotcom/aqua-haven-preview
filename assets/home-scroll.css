@@ -1,0 +1,11 @@
+/* Motion never controls content visibility or layout. Entrance transforms use WAAPI. */
+body.home-v8 .home-motion-toggle{position:absolute;top:18px;left:18px;z-index:2;display:flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;border:1px solid #d7e2e9;background:#f7f8f8f2;color:#102b46;font:inherit;font-size:14px;line-height:1.5;cursor:pointer}
+body.home-v8 .home-motion-toggle[hidden]{display:none!important}
+body.home-v8 .home-motion-toggle:hover{background:#fff}
+body.home-v8 .home-motion-toggle:focus-visible{outline:3px solid #39759c;outline-offset:4px}
+body.home-v8 .home-motion-toggle:disabled{cursor:default;color:#536e81}
+body.home-v8 [data-home-motion-icon]{display:grid;place-items:center;width:17px;font:17px/1 Arial,sans-serif}
+body.home-v8 .ah8-cover-scene.home-parallax-active>img{transform:translate3d(0,var(--home-photo-offset,0px),0) scale(1.065);will-change:transform}
+html:has(body.home-v8 .ah8-main[data-scroll-motion="off"]){scroll-behavior:auto}
+@media(max-width:760px){body.home-v8 .home-motion-toggle{top:12px;left:12px;padding-inline:12px}body.home-v8 .ah8-cover-scene.home-parallax-active>img{transform:none;will-change:auto}}
+@media(prefers-reduced-motion:reduce){body.home-v8 .ah8-cover-scene.home-parallax-active>img{transform:none!important;will-change:auto}html:has(body.home-v8){scroll-behavior:auto}}

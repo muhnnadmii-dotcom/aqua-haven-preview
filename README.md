@@ -4,6 +4,8 @@ Design revision 8: a light and deep-navy aquatic gallery with an editorial homep
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 
+Homepage motion: one-time section and product entrances, a desktop cover-photo scroll effect, and a local pause preference. Reduced-motion settings disable the effects. Content remains visible without JavaScript; other pages do not load this motion script.
+
 Open `index.html` through any static HTTP server. All links are relative and work beneath a repository subpath. Deploy only the contents of this directory. No WordPress runtime, database, credentials, nonces, customer records or local preview tokens are included.
 
 The source-code license does not automatically cover the Aqua Haven brand or photographs. See `ASSET-NOTICES.txt`. This prototype requests search engines not to index it; that is not access control.
