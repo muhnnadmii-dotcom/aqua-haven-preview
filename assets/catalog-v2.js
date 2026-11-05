@@ -28,7 +28,7 @@
     if(typeof p.image==='string'&&/^assets\/[a-z0-9_./-]+$/i.test(p.image)&&!p.image.includes('..')){const img=node('img');img.src=base+p.image;img.alt=p.name;img.loading='lazy';img.decoding='async';img.width=800;img.height=800;photo.append(img);}else{const empty=node('div','collection-placeholder');empty.append(node('span','','AQUA HAVEN'),node('p','','صورة المنتج غير متاحة'));photo.append(empty);}
     if(!p.inStock)photo.append(node('span','collection-stock','غير متوفر في اللقطة'));
     const body=node('div','collection-card-copy'),title=node('h2'),link=node('a','',p.name);link.href=href(p);title.append(link);
-    const bottom=node('div','collection-card-bottom'),details=node('a','collection-card-link','التفاصيل ');details.href=href(p);const arrow=node('span','','←');arrow.setAttribute('aria-hidden','true');details.append(arrow);bottom.append(node('span','collection-price',priceLabel(p)),details);
+    const bottom=node('div','collection-card-bottom'),details=node('a','collection-card-link','عرض المنتج ');details.href=href(p);const arrow=node('span','','↗');arrow.setAttribute('aria-hidden','true');details.append(arrow);bottom.append(node('span','collection-price',priceLabel(p)),details);
     body.append(node('p','collection-card-category',p.categories?.[0]?.name||'أكوا هافن'),title,bottom);article.append(photo,body);return article;
   }
   function selectedCategories(id){

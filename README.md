@@ -1,6 +1,6 @@
 # Aqua Haven — public design preview
 
-Design revision 2: a new shared Arabic design system, a focused homepage, collection and product pages, a separate tank designer and local drafts page, plus About, Inspiration, FAQ and 404 pages. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
+Design revision 3: immersive aquascape imagery, an editorial Arabic homepage, asymmetric collections, an interactive detail gallery and revised collection/product/About/Inspiration pages. The separate tank designer, local drafts, FAQ and 404 pages remain available. Motion is optional and honors reduced-motion preferences. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 
