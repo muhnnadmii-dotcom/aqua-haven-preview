@@ -1,0 +1,104 @@
+/* Dark studio and local drafts. Load last, after designer-v2.css and designer-v3.css.
+   No layout, renderer dimensions, storage or interaction changes. */
+.v2 .studio-page,.v2 .drafts-page{--ink:#ebeede;--muted:#afbdae;--paper:#081c18;--green:#c8d68f;--accent:#c8d68f;--line:#ffffff26;color:#ebeede;background:transparent;color-scheme:dark}
+.v2 .studio-page-heading{border-color:#ffffff26}
+.v2 .studio-stage button:focus-visible{outline:3px solid #234e35;outline-offset:4px}
+.v2 .studio-page-heading .eyebrow{color:#c8d68f}
+.v2 .studio-page-heading h1{color:#ebeede}
+.v2 .studio-page-heading p:not(.eyebrow){color:#afbdae}
+.v2 .studio-page-heading>.btn-secondary{color:#ebeede;background:transparent;border-color:#6d806d}
+.v2 .studio-page-heading>.btn-secondary:hover{background:#183b30;border-color:#b0c38c}
+.v2 .studio-page-heading>.btn-primary{color:#10251c;background:#c8d68f;border-color:#c8d68f}
+.v2 .studio-page-heading>.btn-primary:hover{background:#dce6b6;border-color:#dce6b6}
+.v2 .studio-controls{color:#ebeede}
+.v2 .studio-step{border-bottom-color:#ffffff26}
+.v2 .studio-step legend{color:#ebeede}
+.v2 .studio-step legend>span{color:#b9cd91;border-inline-end-color:#ffffff38}
+.v2 .studio-presets{background:#102b23;border-color:#6d806d}
+.v2 .studio-presets button{background:#102b23;color:#ebeede;border-inline-start-color:#ffffff26}
+.v2 .studio-presets button span{color:#afbdae}
+.v2 .studio-presets button:hover:not(.is-active){background:#1c3b2d;color:#f2f4e7}
+.v2 .studio-presets button.is-active{background:#c8d68f;border-color:#c8d68f;color:#10251c;box-shadow:none}
+.v2 .studio-presets button.is-active span{color:#38523a}
+.v2 .studio-dimension-label{color:#ebeede}
+.v2 .studio-dimension-label>span,.v2 .studio-range-labels{color:#afbdae}
+.v2 .studio-dimension input[type=number]{color:#ebeede;background:#102b23;border-color:#6d806d;color-scheme:dark}
+.v2 .studio-dimension input[type=range]{accent-color:#c8d68f}
+.v2 .studio-dimension input[type=number]:hover{border-color:#a8bd84}
+.v2 .studio-glass{border-color:#6d806d}
+.v2 .studio-glass label{background:#102b23;border-inline-start-color:#ffffff26;color:#ebeede}
+.v2 .studio-glass label:has(:checked){background:#263e28;box-shadow:inset 0 -2px #c8d68f}
+.v2 .studio-glass label:hover{background:#1c3b2d}
+.v2 .studio-glass strong{color:#ebeede}
+.v2 .studio-glass small{color:#b3c2aa}
+.v2 .studio-glass input,.v2 .studio-addons input{accent-color:#c8d68f;color-scheme:dark}
+.v2 .studio-addons{background:transparent;border-top-color:#ffffff26}
+.v2 .studio-addons label{border-bottom-color:#ffffff26;color:#ebeede}
+.v2 .studio-addons label:hover{background:#102b23}
+.v2 .studio-addons label:has(:checked)>span{color:#edf1dd}
+.v2 .studio-addons small{color:#b6c99b}
+.v2 .studio-summary{background:#102b23;border-color:#ffffff32;box-shadow:none;color:#ebeede}
+.v2 .studio-quote span{color:#afbdae}
+.v2 .studio-quote #quote-price{color:#d6e4a4}
+.v2 .studio-volume{border-color:#ffffff26}
+.v2 .studio-volume strong,.v2 .studio-volume #quote-volume{color:#ebeede}
+.v2 .studio-summary #quote-breakdown{color:#b4c4aa;border-color:#ffffff26}
+.v2 .studio-name{color:#ebeede}
+.v2 .studio-name>span{color:#afbdae}
+.v2 .studio-name input{color:#ebeede;background:#091f19;border-color:#6d806d;color-scheme:dark}
+.v2 .studio-name input::placeholder{color:#9aac9b;opacity:1}
+.v2 .studio-name input:hover{border-color:#a8bd84}
+.v2 .studio-actions .btn-primary{color:#10251c;background:#c8d68f;border-color:#c8d68f}
+.v2 .studio-actions .btn-primary:hover{background:#dce6b6;border-color:#dce6b6;color:#10251c}
+.v2 .studio-actions .btn-secondary{color:#ebeede;background:transparent;border-color:#6d806d}
+.v2 .studio-actions .btn-secondary:hover{background:#1c3b2d;border-color:#b0c38c;color:#f2f4e7}
+.v2 .studio-local-note{color:#afbdae}
+.v2 .studio-status{color:#d5e6ae;border-inline-start-color:#c8d68f}
+.v2 .studio-text-button{color:#c8d68f}
+.v2 .studio-text-button:hover{color:#e7efc8}
+.v2 .studio-preview-note{color:#afbdae;border-color:#ffffff26}
+.v2 .studio-fallback,.v2 .studio-noscript{color:#ebeede;background:#102b23;border-color:#6d806d}
+.v2 .studio-page button:focus-visible,.v2 .studio-page input:focus-visible,.v2 .drafts-page button:focus-visible,.v2 .drafts-page a:focus-visible{outline-color:#d8e79b;outline-offset:3px}
+.v2 .studio-page input:invalid:not(:focus){border-color:#b87e69}
+/* The neutral drawing surface remains illuminated; its controls use dark ink. */
+.v2 .studio-stage{--ink:#183b2c;--muted:#50664a;--green:#234e35;--line:#a8b69a;color:#183b2c;color-scheme:light;border-color:#80936d;background-color:#e7ebdc;background-image:linear-gradient(#71866318 1px,transparent 1px),linear-gradient(90deg,#71866318 1px,transparent 1px);box-shadow:0 0 50px #9cb46b08}
+.v2 .studio-stage:before{border-color:#9bad883d}
+.v2 .studio-stage-heading,.v2 .studio-live{color:#2c4b32}
+.v2 .studio-live i{background:#6c8553}
+.v2 .studio-stage .studio-text-button{color:#2d5033}
+.v2 .studio-stage .studio-text-button:hover{color:#0c2d1d}
+.v2 .studio-stage-bottom{border-top-color:#a4b694}
+.v2 .studio-stage-bottom span{color:#526a47}
+.v2 .studio-stage-bottom strong{color:#183b2c}
+.v2 .studio-view-actions button{color:#23482f;background:#f0f2e6d9;border-color:#9eaf8b}
+.v2 .studio-view-actions button:hover{background:#d4dfc3;border-color:#52713d}
+.v2 .studio-stage .aq-size-depth{color:#244a32;background:#eff2e4e6;border-color:#98ad7e6b}
+.v2 .studio-stage .aq-size-x,.v2 .studio-stage .aq-size-y{color:#526a47;border-color:#9cae89}
+.v2 .studio-stage .aq-size-x:before,.v2 .studio-stage .aq-size-x:after{background:#8ca473}
+.v2 .studio-stage .studio-fallback{color:#183b2c;background:#f0f2e6;border-color:#9eaf8b}
+/* Saved ideas stay dark, including empty and selected states. */
+.v2 .drafts-toolbar{border-color:#ffffff26}
+.v2 .drafts-toolbar h2{color:#ebeede}
+.v2 .drafts-toolbar h2 span{color:#c8d68f;background:#102b23;border-color:#6d806d}
+.v2 .drafts-toolbar p,.v2 .drafts-helper{color:#afbdae}
+.v2 .drafts-grid{border-top-color:#ffffff26}
+.v2 .drafts-card{background:transparent;border-bottom-color:#ffffff26;color:#ebeede}
+.v2 .drafts-card-visual{border-color:#ffffff26;background-color:#142f25;background-image:linear-gradient(#b1c7930d 1px,transparent 1px),linear-gradient(90deg,#b1c7930d 1px,transparent 1px)}
+.v2 .drafts-mini-tank{border-color:#95b59b;background:linear-gradient(120deg,#70967638,#afc89f20);box-shadow:6px 5px 0 -1px #7e9e7155,0 10px 14px -12px #0009}
+.v2 .drafts-mini-tank:after{background:#aaa280}
+.v2 .drafts-mini-light{background:#bed39d;box-shadow:0 6px 13px #c9d49433}
+.v2 .drafts-card-body h2,.v2 .drafts-card-dimensions{color:#ebeede}
+.v2 .drafts-card-specs,.v2 .drafts-card-price span{color:#afbdae}
+.v2 .drafts-card-price{border-top-color:#ffffff26}
+.v2 .drafts-card-price strong{color:#d2e29d}
+.v2 .drafts-card-actions .btn-primary{color:#10251c;background:#c8d68f;border-color:#c8d68f}
+.v2 .drafts-card-actions .btn-primary:hover{background:#dce6b6;border-color:#dce6b6;color:#10251c}
+.v2 .drafts-delete{color:#d1a593}
+.v2 .drafts-delete:hover{color:#f0c4b0}
+.v2 .drafts-empty{background:#102b23;border-bottom-color:#ffffff26;color:#ebeede}
+.v2 .drafts-empty-symbol{border-color:#89a66e;background:linear-gradient(0deg,#84a36b66 0 8px,transparent 8px)}
+.v2 .drafts-empty-symbol:after{background:#93b375}
+.v2 .drafts-empty h2{color:#ebeede}
+.v2 .drafts-empty p{color:#afbdae}
+.v2 .drafts-empty .btn-primary{color:#10251c;background:#c8d68f;border-color:#c8d68f}
+.v2 .drafts-empty .btn-primary:hover{color:#10251c;background:#dce6b6;border-color:#dce6b6}

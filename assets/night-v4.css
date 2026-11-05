@@ -1,0 +1,55 @@
+/* The user's chosen direction: dark, immersive, natural and quiet. */
+:root{color-scheme:dark;--ink:#ebeede;--muted:#afbdae;--paper:#081c18;--line:#ffffff26;--green:#c8d68f;--accent:#c8d68f}
+body.v2{--ink:#ebeede;--muted:#afbdae;--paper:#081c18;--line:#ffffff26;--green:#c8d68f;--accent:#c8d68f;color:var(--ink);background:var(--paper)}
+body.v2 .site-header{background:rgba(8,28,24,.96);color:#ebeede;border-bottom-color:#ffffff26}
+body.v2 .site-brand img{filter:brightness(0) invert(1);opacity:.96}
+body.v2 .icon-link:hover,body.v2 .menu-button:hover{background:#ffffff0d}
+body.v2 .main-nav a:after{background:#c8d68f}
+body.v2 .btn-primary{background:#c8d68f;color:#102b23;border-color:#c8d68f}
+body.v2 .btn-primary:hover{background:#e0e9b8;border-color:#e0e9b8}
+body.v2 .btn-secondary{border-color:#6d806d;color:#ebeede;background:transparent}
+body.v2 .btn-secondary:hover{background:#183b30;border-color:#bdcda4}
+body.v2 .text-link{color:#d5e0b2;border-bottom-color:#718469}
+body.v2 .text-link:hover{color:#f1f4dc}
+body.v2 .eyebrow{color:#c8d68f}
+body.v2 .skip-link{background:#c8d68f;color:#102b23}
+body.v2 a:focus-visible,body.v2 button:focus-visible,body.v2 input:focus-visible,body.v2 select:focus-visible,body.v2 summary:focus-visible{outline-color:#d2e1a5}
+body.v2 ::selection{background:#d2e1a5;color:#102b23}
+body.v2 .site-footer{background:#051712;color:#ebeede;border-top:1px solid #ffffff20}
+body.v2 .footer-grid h2{color:#d4dfad}
+body.v2 .footer-grid>div:not(.footer-brand)>a{color:#bdccbb}
+body.v2 .footer-note,body.v2 .footer-bottom{color:#aebfaa}
+body.v2 .empty-page .empty-number{color:#c8d68f}
+body.atelier-home .site-header{background:transparent;color:#f4f4e8}
+.atlas-collections{background:#081c18}
+.atlas-chapter{color:#b9c9b3;border-bottom-color:#ffffff26}
+.atlas-editorial-heading h2 span,.atlas-selection-heading h2 em,.atlas-detail-copy h2 span{color:#bacb97}
+.atlas-editorial-heading p,.atlas-selection-heading p,.atlas-detail-copy p{color:#afbdae}
+.atlas-world-arrow{color:#123329;background:#dce4be}
+.atlas-world-caption>div>span{color:#afbdae}
+.atlas-world-caption>[lang=en]{color:#bfccb5}
+.atlas-category-index a{border-bottom-color:#ffffff26}
+.atlas-category-index a>span{color:#b7c5a5}
+.atlas-category-index a:hover strong{color:#d2e1a5}
+.atlas-selection{background:#0d261f;border-top-color:#ffffff26}
+.atlas-products .home-product-picture{background:#eff0e7;color:#173b2d;color-scheme:light}
+.atlas-product-index{color:#52624b}
+.atlas-product-open{color:#173b2d;background:#eff0e7e6;border-color:#9bad8e}
+.atlas-products .home-product-category{color:#afbdae}
+.atlas-products .home-product-price{border-top-color:#ffffff26;color:#e7edcf}
+.atlas-products .home-product-price>span{color:#c5d4af}
+.atlas-studio{background:#102b23;color:#ebeede}
+.atlas-studio .atlas-chapter{border-bottom-color:#ffffff26}
+.atlas-blueprint{color:#183e32;color-scheme:light;background:#e7ebdc}
+.atlas-studio-copy p,.atlas-studio-saved{color:#bdccb3}
+.atlas-details{background:#081c18}
+.atlas-scene-tabs button{color:#afbdae;border-color:#ffffff26}
+.atlas-scene-tabs button:last-child{border-bottom-color:#ffffff26}
+.atlas-scene-tabs button[aria-pressed=true]{color:#d7e6ae}
+.atlas-scene-tabs button:hover{color:#e1edbd}
+.atlas-detail-frame{background:#102b23}
+.atlas-detail-figure figcaption{color:#b2c2ab}
+.atlas-closing{background:radial-gradient(ellipse at 85% 10%,#2e4e34 0%,#173a2a 45%,#102b23 100%);color:#e8efd6;border-top:1px solid #ffffff26}
+.atlas-closing>.container>a>span{border-color:#9fb88a;color:#d9e7b6}
+.atlas-closing>.container>div>a{border-bottom-color:#9fb88a}
+@media(max-width:760px){body.v2 .main-nav,body.atelier-home .main-nav{background:#0a2821;color:#edf0df;border-bottom-color:#ffffff26;box-shadow:0 20px 30px #0004}body.v2 .main-nav a{border-bottom-color:#ffffff20}}
