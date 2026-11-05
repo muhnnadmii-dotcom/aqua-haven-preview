@@ -1,1 +1,23 @@
-(()=>{const toggle=document.querySelector('.menu-button'),nav=document.querySelector('#main-nav');function close(){if(!toggle||!nav)return;toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','فتح القائمة');nav.classList.remove('is-open');}toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'إغلاق القائمة':'فتح القائمة');nav.classList.toggle('is-open',open);});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});nav?.addEventListener('click',e=>{if(e.target.closest('a'))close();});if(document.body.classList.contains('home-page')){if(location.hash==='#studio'&&!document.querySelector('#studio'))location.replace('designer/');if(location.hash==='#my-tanks')location.replace('my-tanks/');}})();
+(()=>{
+  const toggle=document.querySelector('.menu-button'),nav=document.querySelector('#main-nav');
+  function close(returnFocus=false){
+    if(!toggle||!nav)return;
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','فتح القائمة');
+    nav.classList.remove('is-open');
+    if(returnFocus)toggle.focus();
+  }
+  toggle?.addEventListener('click',()=>{
+    const open=toggle.getAttribute('aria-expanded')!=='true';
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'إغلاق القائمة':'فتح القائمة');
+    nav?.classList.toggle('is-open',open);
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true')close(true);});
+  document.addEventListener('click',e=>{if(toggle?.getAttribute('aria-expanded')==='true'&&!e.target.closest('.site-header'))close();});
+  nav?.addEventListener('click',e=>{if(e.target.closest('a'))close();});
+  if(document.body.classList.contains('home-page')){
+    if(location.hash==='#studio'&&!document.querySelector('#studio'))location.replace('designer/');
+    if(location.hash==='#my-tanks')location.replace('my-tanks/');
+  }
+})();

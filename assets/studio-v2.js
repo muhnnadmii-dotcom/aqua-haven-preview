@@ -46,7 +46,12 @@ function initializeDesigner() {
     $('#scene-dimensions').textContent=`${config.length} × ${config.width} × ${config.height} cm`;
     $('#quote-price').textContent=money(quote.price);
     $('#quote-volume').textContent=decimal(quote.litres);
-    $('#quote-breakdown').textContent=`الحوض ${money(quote.tank)} + الإضافات ${money(quote.price-quote.tank)}.`;
+    const tankCost=$('#quote-tank-cost'), addonCost=$('#quote-addon-cost');
+    if(tankCost && addonCost) {tankCost.textContent=money(quote.tank);addonCost.textContent=money(quote.price-quote.tank);}
+    else $('#quote-breakdown').textContent=`الحوض ${money(quote.tank)} + الإضافات ${money(quote.price-quote.tank)}.`;
+    $$('[data-preview-volume]').forEach(el=>el.textContent=decimal(quote.litres)+' لتر');
+    $$('[data-preview-glass]').forEach(el=>el.textContent=config.glass==='ultra'?'فائق الصفاء':'صافي');
+    $$('[data-preview-price]').forEach(el=>el.textContent=money(quote.price));
     write(DRAFT_KEY,{name:name.value.slice(0,80),config});
     $$('[data-preset]').forEach(button => {const active=button.dataset.preset===`${config.length},${config.width},${config.height}`;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active));});
   }
@@ -71,7 +76,9 @@ function initializeDesigner() {
     const value=read(SAVED_KEY), records=Array.isArray(value)?value:[];
     if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ مسودة. احذف فكرة من صفحة مسوداتي لإضافة أخرى.');return;}
     const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim().slice(0,80)||'فكرة حوض',config:structuredClone(config)};
-    announce(write(SAVED_KEY,[record,...records])?'حُفظت المسودة. ستجدها في صفحة «مسوداتي» على هذا المتصفح.':'التخزين المحلي غير متاح. يمكنك نسخ الملخص بدلًا من الحفظ.');
+    const saved=write(SAVED_KEY,[record,...records]);
+    if(saved && $('#studio-saved-link')) $('#studio-saved-link').hidden=false;
+    announce(saved?'حُفظت الفكرة. ستجدها في صفحة «مسوداتي» على هذا المتصفح.':'التخزين المحلي غير متاح. يمكنك نسخ الملخص بدلًا من الحفظ.');
   });
   $('#copy-design').addEventListener('click',async() => {
     if(!form.reportValidity()) return;
@@ -90,7 +97,7 @@ function initializeDesigner() {
 function initializeDrafts() {
   const page=document.querySelector('[data-drafts-page]'), host=document.querySelector('#tank-list');
   const make=(tag,className,text) => {const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;};
-  function render() {
+  function render(focusPosition) {
     host.replaceChildren();
     const entries=savedEntries(read(SAVED_KEY));
     document.querySelector('#drafts-count').textContent=decimal(entries.length);
@@ -98,24 +105,29 @@ function initializeDrafts() {
       const empty=make('div','drafts-empty'), icon=make('div','drafts-empty-symbol');icon.setAttribute('aria-hidden','true');
       const title=make('h2','','أول فكرة تبدأ من هنا.'), text=make('p','','جرّب المقاسات والتفاصيل في المصمم، ثم احفظ الفكرة لتجدها هنا.');
       const link=make('a','btn btn-primary','صمّم أول حوض');link.href=page.dataset.designerUrl;
-      empty.append(icon,title,text,link);host.append(empty);return;
+      empty.append(icon,title,text,link);host.append(empty);if(Number.isInteger(focusPosition))link.focus();return;
     }
-    for(const {item,index} of entries) {
+    for(const [position,{item,index}] of entries.entries()) {
       const quote=estimateDesign(item.config), card=make('article','drafts-card'), visual=make('div','drafts-card-visual'), tank=make('div','drafts-mini-tank');
       visual.setAttribute('aria-hidden','true');tank.style.setProperty('--draft-ratio',String(item.config.length/item.config.height));
       if(item.config.addons.plants){const img=make('img');img.src=page.dataset.plantImage;img.alt='';img.loading='lazy';tank.append(img);}
       if(item.config.addons.light)tank.append(make('span','drafts-mini-light'));
-      visual.append(tank);
+      if(item.config.addons.filter && page.dataset.filterImage){const filter=make('img','drafts-mini-filter');filter.src=page.dataset.filterImage;filter.alt='';filter.loading='lazy';tank.append(filter);}
+      const number=make('span','drafts-card-number',`فكرة ${decimal(position+1).padStart(2,'٠')}`);
+      visual.append(number,tank);
       const body=make('div','drafts-card-body'), title=make('h2','',item.name||'فكرة حوض');
       const dimensions=make('p','drafts-card-dimensions',`${item.config.length} × ${item.config.width} × ${item.config.height} سم`);dimensions.dir='ltr';
       const specs=make('p','drafts-card-specs',`${decimal(quote.litres)} لتر · ${item.config.glass==='ultra'?'فائق الصفاء':'زجاج صافي'}`);
+      const extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key])=>item.config.addons[key]).map(([,label])=>label).join(' · ')||'بدون إضافات';
+      const selected=make('p','drafts-card-extras',extras);
       const price=make('p','drafts-card-price');price.append(make('span','','تقدير توضيحي'),make('strong','',money(quote.price)));
-      const actions=make('div','drafts-card-actions'), open=make('button','btn btn-primary','أكمل التصميم'), remove=make('button','studio-text-button drafts-delete','حذف');
-      open.type=remove.type='button';remove.setAttribute('aria-label',`حذف المسودة: ${item.name}`);
+      const actions=make('div','drafts-card-actions'), open=make('button','btn btn-primary','متابعة التصميم'), remove=make('button','studio-text-button drafts-delete','حذف');
+      open.type=remove.type='button';open.setAttribute('aria-label',`متابعة تصميم ${item.name}`);remove.setAttribute('aria-label',`حذف المسودة: ${item.name}`);
       open.addEventListener('click',() => {if(write(DRAFT_KEY,{name:item.name.slice(0,80),config:item.config}))location.assign(page.dataset.designerUrl);else announce('تعذّر فتح المسودة لأن التخزين المحلي غير متاح.');});
-      remove.addEventListener('click',() => {const next=removeSavedRecord(read(SAVED_KEY),index,item);if(write(SAVED_KEY,next)){render();announce(`حُذفت مسودة «${item.name}» فقط.`);}else announce('تعذّر حذف المسودة لأن التخزين المحلي غير متاح.');});
-      actions.append(open,remove);body.append(title,dimensions,specs,price,actions);card.append(visual,body);host.append(card);
+      remove.addEventListener('click',() => {const next=removeSavedRecord(read(SAVED_KEY),index,item);if(write(SAVED_KEY,next)){render(position);announce(`حُذفت مسودة «${item.name}» فقط.`);}else announce('تعذّر حذف المسودة لأن التخزين المحلي غير متاح.');});
+      actions.append(open,remove);body.append(title,dimensions,specs,selected,price,actions);card.append(visual,body);host.append(card);
     }
+    if(Number.isInteger(focusPosition)){const buttons=host.querySelectorAll('.drafts-card-actions .btn-primary');buttons[Math.min(focusPosition,buttons.length-1)]?.focus();}
   }
   window.addEventListener('storage',event => {if(event.key===SAVED_KEY)render();});
   render();

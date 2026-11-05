@@ -1,6 +1,6 @@
 # Aqua Haven — public design preview
 
-Design revision 6: a rebuilt light and deep-navy homepage with a split photographic opening, three-way journey navigation, an asymmetric collection gallery, selected products, a dedicated tank-design spread, and an interactive details story. Shared catalog and studio colors follow the same navy palette. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
+Design revision 7: the light and deep-navy identity now extends through rebuilt collection, product, tank designer, saved-draft, about, inspiration and FAQ page compositions. Mobile controls, imagery, typography and spacing follow the homepage. Reference catalog, variant prices, image zoom and local draft behaviors remain available. The editable page-generation source is versioned separately in the owner's private aqua-haven-store repository under preview-design; this repository contains the complete deployed static output.
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 

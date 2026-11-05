@@ -6,8 +6,10 @@ Images were resized/re-encoded for this static preview without changing their su
 
 Catalog snapshot: 5 November 2026. No shopping, contact or payment service is provided here.
 
-Design revision 2: assets/editorial/hero-natural.webp is an AI-generated editorial concept made with the built-in image generation tool, not a photograph of an actual product or customer project. It is labeled as inspiration on the homepage. Product photographs were not replaced with generated images.
+Design revision 2: assets/editorial/hero-natural.webp is an AI-generated editorial concept made with the built-in image generation tool, not a photograph of an actual product or customer project. It was labeled as inspiration in that revision and is retained as an unused asset in revision 7. Product photographs were not replaced with generated images.
 
 IBM Plex Sans Arabic is provided locally from the official Google Fonts repository under the SIL Open Font License; see assets/fonts/OFL.txt. Source: https://github.com/google/fonts/tree/main/ofl/ibmplexsansarabic
 
-Design revision 3: assets/editorial/immersive-forest-v3.webp and immersive-forest-mobile-v3.webp are desktop/mobile encodings of one AI-generated aquascape concept made with the built-in image generation tool. They are inspirational scenery, not a photograph of a catalog item. The homepage identifies the concept. assets/editorial/aquascape-room.webp and aquascape-craft.webp are WebP encodings of the previously supplied Aqua Haven public-store photographs aquascape-details-01.png and aquascape-details-04.jpg. Original ownership and the notices above still apply.
+Design revision 3: assets/editorial/immersive-forest-v3.webp and immersive-forest-mobile-v3.webp are desktop/mobile encodings of one AI-generated aquascape concept made with the built-in image generation tool. They are inspirational scenery, not a photograph of a catalog item. The homepage identified the concept in that revision; these files are retained as unused assets in revision 7. assets/editorial/aquascape-room.webp and aquascape-craft.webp are WebP encodings of the previously supplied Aqua Haven public-store photographs aquascape-details-01.png and aquascape-details-04.jpg. Original ownership and the notices above still apply.
+
+Design revisions 6 and 7 use the existing Aqua Haven product and editorial photographs. No additional generated imagery or third-party media was purchased for these revisions.
