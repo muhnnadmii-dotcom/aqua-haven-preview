@@ -4,7 +4,7 @@ Design revision 8: a light and deep-navy aquatic gallery with an editorial homep
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 
-Homepage motion: one-time section and product entrances, a desktop cover-photo scroll effect, and a local pause preference. Reduced-motion settings disable the effects. Content remains visible without JavaScript; other pages do not load this motion script.
+Shared motion in `assets/site-scroll.js` and `assets/site-scroll.css` covers the homepage, collection and all 405 product pages: one-time entrances, desktop cover-photo scroll effects on the homepage and collection, and newly rendered catalog cards after search, filtering or pagination. The pause preference is stored in the browser and shared across these pages. Reduced-motion settings disable the effects. Content remains visible without JavaScript.
 
 Open `index.html` through any static HTTP server. All links are relative and work beneath a repository subpath. Deploy only the contents of this directory. No WordPress runtime, database, credentials, nonces, customer records or local preview tokens are included.
 

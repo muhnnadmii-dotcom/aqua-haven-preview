@@ -50,11 +50,11 @@
     document.querySelectorAll('[data-category]').forEach(a=>{if(a.dataset.category===category.value)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
     pagination.replaceChildren();if(pages>1){pagination.append(pageButton('السابق',page-1,page===1));const visible=[...new Set([1,...Array.from({length:5},(_,i)=>page+i-2).filter(x=>x>1&&x<pages),pages])].sort((a,b)=>a-b);let previous=0;for(const n of visible){if(n-previous>1)pagination.append(node('span','','…'));pagination.append(pageButton(format.format(n),n,false,n===page));previous=n;}pagination.append(pageButton('التالي',page+1,page===pages));}
     const next=new URLSearchParams();if(search.value.trim())next.set('s',search.value.trim());if(category.value)next.set('category',category.value);if(sort.value!=='default')next.set('orderby',sort.value);if(page>1)next.set('page',page);const queryString=next.toString();history.replaceState(null,'',location.pathname+(queryString?'?'+queryString:'')+location.hash);
-    if(scroll)grid.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
+    if(scroll)grid.scrollIntoView({behavior:(matchMedia('(prefers-reduced-motion: reduce)').matches||document.querySelector('main[data-scroll-motion="off"]'))?'instant':'smooth',block:'start'});
   }
   let searchTimer;const changed=()=>{page=1;render();};search.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(changed,180);});category.addEventListener('change',changed);sort.addEventListener('change',changed);
   $('aq-catalog-form').addEventListener('submit',event=>{event.preventDefault();clearTimeout(searchTimer);changed();});
   clear.addEventListener('click',()=>{search.value='';category.value='';sort.value='default';changed();search.focus();});
-  document.querySelectorAll('[data-category]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();category.value=a.dataset.category;changed();const listing=$('catalog-products');if(listing)listing.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
+  document.querySelectorAll('[data-category]').forEach(a=>a.addEventListener('click',event=>{event.preventDefault();category.value=a.dataset.category;changed();const listing=$('catalog-products');if(listing)listing.scrollIntoView({behavior:(matchMedia('(prefers-reduced-motion: reduce)').matches||document.querySelector('main[data-scroll-motion="off"]'))?'instant':'smooth',block:'start'});}));
   render();
 })();

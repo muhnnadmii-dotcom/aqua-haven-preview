@@ -1,0 +1,27 @@
+/* Shared motion controls; all content remains visible without enhancement. */
+body.v2 .site-motion-toggle{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:8px 14px;border:1px solid #c8d7e1;background:#f7f8f8f2;color:#102b46;font:inherit;font-size:14px;line-height:1.5;cursor:pointer;flex-shrink:0;white-space:nowrap}
+body.v2 .site-motion-toggle[hidden]{display:none!important}
+body.v2 .site-motion-toggle:hover{background:#fff}
+body.v2 .site-motion-toggle:focus-visible{outline:3px solid #39759c;outline-offset:4px}
+body.v2 .site-motion-toggle:disabled{cursor:default;color:#536e81}
+body.v2 [data-scroll-motion-icon]{display:grid;place-items:center;width:17px;font:17px/1 Arial,sans-serif}
+body.home-v8 .ah8-cover-scene>.site-motion-toggle{position:absolute;top:18px;left:18px;z-index:2}
+body.page-collection .catalog-v8 .exhibit-topline{flex-wrap:wrap;gap:12px 24px}
+body.page-collection .exhibit-topline>[lang=en]{margin-inline-start:auto}
+body.page-product .product-v8 .product-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:10px 14px}
+body.page-product .product-breadcrumb>.site-motion-toggle{margin-inline-start:auto}
+body.home-v8 .ah8-cover-scene.site-parallax-active>img,
+body.v2.page-collection .exhibit-stage.site-parallax-active>img{transform:translate3d(0,var(--site-photo-offset,0px),0) scale(1.08);transition:none!important;will-change:transform}
+body.v2 .exhibit-stage>img{transition:none!important}
+html:has(main[data-scroll-motion="off"]){scroll-behavior:auto}
+@media(max-width:760px){
+ body.home-v8 .ah8-cover-scene>.site-motion-toggle{top:12px;left:12px;padding-inline:12px}
+ body.page-collection .exhibit-topline>[lang=en]{display:none}
+ body.page-collection .exhibit-topline>.site-motion-toggle{margin-inline-start:auto}
+ body.page-collection .exhibit-topline{padding-bottom:12px}
+ body.home-v8 .ah8-cover-scene.site-parallax-active>img,body.v2.page-collection .exhibit-stage.site-parallax-active>img{transform:none;will-change:auto}
+}
+@media(prefers-reduced-motion:reduce){
+ body.home-v8 .ah8-cover-scene.site-parallax-active>img,body.v2.page-collection .exhibit-stage.site-parallax-active>img{transform:none!important;will-change:auto}
+ html:has(body:is(.home-v8,.page-collection,.page-product)){scroll-behavior:auto}
+}
