@@ -1,6 +1,6 @@
 {
   "generatedWith": "Built-in image_gen",
-  "encodingOnly": "WebP encoding and responsive downscaling; original generated PNGs preserved in work/realistic-scroll-v11/originals.",
+  "encodingOnly": "WebP encoding and responsive downscaling only; original generated PNGs preserved privately and unchanged.",
   "assets": [
     {
       "name": "room-desktop.webp",
@@ -49,5 +49,114 @@
       "hasAlpha": false,
       "revision": 2
     }
-  ]
+  ],
+  "sequenceMode": "built-in image_gen",
+  "sequenceFrames": [
+    {
+      "id": "underwater",
+      "phase": "dive",
+      "url": "assets/underwater.webp",
+      "width": 1774,
+      "height": 887,
+      "bytes": 427614,
+      "sha256": "06b2596914e9b01ae04ac91be1f958d5e88edd33521a293cf270d72989e25935",
+      "provenance": "assets/underwater.webp.json"
+    },
+    {
+      "id": "frame-03",
+      "phase": "dive",
+      "url": "assets/frames/frame-03.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 263564,
+      "sha256": "32cef41bf497417abe630b52a318ffb34e24d4bcd8cc16e6a84707b109d1209a",
+      "provenance": "assets/frames/frame-03.webp.json"
+    },
+    {
+      "id": "03-filter-glimpse",
+      "phase": "filtration",
+      "url": "assets/discovery/03-filter-glimpse.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 202294,
+      "sha256": "7a2ae1ff678c1c6d089372d99951738a1531ffe1ff56ceec84fc0bfe329d6fe1",
+      "provenance": "assets/discovery/03-filter-glimpse.webp.json"
+    },
+    {
+      "id": "04-filter-reveal",
+      "phase": "filtration",
+      "url": "assets/discovery/04-filter-reveal.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 234770,
+      "sha256": "2256889737f8fb6e738ed0fd51baa3944ba8a062e9d857bfa315aee80af1822a",
+      "provenance": "assets/discovery/04-filter-reveal.webp.json"
+    },
+    {
+      "id": "05-fish-glimpse",
+      "phase": "fish",
+      "url": "assets/discovery/05-fish-glimpse.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 178510,
+      "sha256": "4056fe725468e8f74b017d2c1aa2c2305cc66a5bdfab27632072bbd163b8a863",
+      "provenance": "assets/discovery/05-fish-glimpse.webp.json"
+    },
+    {
+      "id": "06-fish-reveal",
+      "phase": "fish",
+      "url": "assets/discovery/06-fish-reveal.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 210242,
+      "sha256": "8fcf48079b1c128f42651b9068d3e72f320bff31cc5eb3442f479415ec57ea22",
+      "provenance": "assets/discovery/06-fish-reveal.webp.json"
+    },
+    {
+      "id": "07-shrimp-glimpse",
+      "phase": "shrimp",
+      "url": "assets/discovery/07-shrimp-glimpse.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 185142,
+      "sha256": "328750d3d1f8780f2693c1242ce79a09f24e032b5d43044f0957afdb0fe19fdc",
+      "provenance": "assets/discovery/07-shrimp-glimpse.webp.json"
+    },
+    {
+      "id": "08-shrimp-reveal",
+      "phase": "shrimp",
+      "url": "assets/discovery/08-shrimp-reveal.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 150732,
+      "sha256": "b3ab524e4e5c25319c039c3c736710fc8168bf33298fc1a89a3b9f77b133a933",
+      "provenance": "assets/discovery/08-shrimp-reveal.webp.json"
+    },
+    {
+      "id": "09-surface-rise",
+      "phase": "surface",
+      "url": "assets/discovery/09-surface-rise.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 167668,
+      "sha256": "ece89022c4ee92151bea2f197f0a388109342b07422ba82290745be9dc1fb10b",
+      "provenance": "assets/discovery/09-surface-rise.webp.json"
+    },
+    {
+      "id": "10-surface-only",
+      "phase": "surface",
+      "url": "assets/discovery/10-surface-only.webp",
+      "width": 1600,
+      "height": 800,
+      "bytes": 287498,
+      "sha256": "07bf6f39aaa53a145ab2df33f22bb2c358662c695bd143bd5e65b5b59900f4b0",
+      "provenance": "assets/discovery/10-surface-only.webp.json"
+    }
+  ],
+  "sequenceFrameCount": 10,
+  "sequenceTotalBytes": 2308034,
+  "provenanceScan": {
+    "rasters": 25,
+    "missing": 0
+  }
 }

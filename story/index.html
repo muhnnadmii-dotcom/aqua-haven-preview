@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#f7f8f6">
   <title>أكوا هافن — عالمٌ يبدأ من هنا</title>
   <link rel="preload" href="assets/fonts/IBMPlexSansArabic-Regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="story.css?v=1">
-  <script type="module" src="story.js?v=1"></script>
+  <link rel="stylesheet" href="story.css?v=12">
+  <script type="module" src="story.js?v=12"></script>
 </head>
 <body>
   <a class="skip-link" href="#shop-components">انتقل إلى مكونات الحوض</a>
@@ -24,7 +24,8 @@
           <div class="tank-window"><picture class="tank-underwater-picture"><source media="(max-width: 700px)" srcset="assets/underwater.webp"><img class="underwater-image" src="assets/underwater.webp" alt="" decoding="async"></picture><img class="fish tank-fish tank-fish-one" src="assets/fish.webp" alt="" decoding="async"><img class="fish tank-fish tank-fish-two" src="assets/fish.webp" alt="" decoding="async"><img class="fish tank-fish tank-fish-three" src="assets/fish.webp" alt="" decoding="async"></div>
         </div>
         <div class="underwater-world" aria-hidden="true">
-          <picture class="underwater-picture"><source media="(max-width: 700px)" srcset="assets/underwater.webp"><img class="underwater-backdrop" src="assets/underwater.webp" alt="" decoding="async"></picture>
+          <picture class="underwater-picture entry-picture"><source media="(max-width: 700px)" srcset="assets/underwater.webp"><img class="underwater-backdrop" src="assets/underwater.webp" alt="" decoding="async"></picture>
+          <div class="interior-sequence"><img class="interior-frame interior-frame-a" src="assets/underwater.webp" alt="" decoding="async"><img class="interior-frame interior-frame-b" src="assets/underwater.webp" alt="" decoding="async"><canvas class="surface-ripple" aria-hidden="true" hidden></canvas></div>
           <div class="fish-school">
             <img class="fish fish-one" src="assets/fish.webp" alt="" decoding="async">
             <img class="fish fish-two" src="assets/fish.webp" alt="" decoding="async">
@@ -50,20 +51,23 @@
           <h2>وراء الزجاج،<br>حياة.</h2>
           <p>اقترب من التفاصيل، وابدأ رحلتك.</p>
         </div>
-        <div class="story-copy story-copy-sand" data-chapter="sand" aria-hidden="true">
-          <h2>تبدأ الحكاية<br>من القاع.</h2>
-          <p>مسارات الرمل، ومواضع الصخور.<br>هنا يأخذ المشهد شكله.</p>
-          <a class="story-inline-link" href="#component-sand">استكشف الأرضيات<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
-        </div>
-        <div class="story-copy story-copy-plants" data-chapter="plants" aria-hidden="true">
-          <h2>ثم تأتي<br>الخُضرة.</h2>
-          <p>أوراق وأحجام وتفاصيل.<br>اختر النباتات التي تبني بها مشهدك.</p>
-          <a class="story-inline-link" href="#component-plant">استكشف النباتات<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
-        </div>
         <div class="story-copy story-copy-filtration" data-chapter="filtration" aria-hidden="true">
-          <h2>خلف المشهد،<br>تفاصيل تعمل.</h2>
-          <p>تعرّف على الفلترة، ثم اختر معدات حوضك.</p>
-          <a class="story-inline-link" href="#component-filter">استكشف الفلتر<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
+          <h2>خلف الأوراق،<br>يبدأ التيار.</h2>
+          <p>تتبّع أنبوب السحب.<br>من هنا يبدأ طريق الماء إلى الفلتر.</p>
+          <a class="story-inline-link" href="../shop/?category=1685089">استكشف الفلاتر<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
+        </div>
+        <div class="story-copy story-copy-fish" data-chapter="fish" aria-hidden="true">
+          <h2>بين الأوراق،<br>حياة.</h2>
+          <p>اتبع اللمعة الصغيرة.<br>هناك من يختبئ بين النباتات.</p>
+          <a class="story-inline-link" href="../shop/?category=1685091">الطعام والتغذية<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
+        </div>
+        <div class="story-copy story-copy-shrimp" data-chapter="shrimp" aria-hidden="true">
+          <h2>عمّال النظافة<br>الصغار.</h2>
+          <p>على حافة ورقة،<br>تكتشف عالم الشرمب.</p>
+          <a class="story-inline-link" href="../products/997b2549-0003-487e-8d47-73e523868731/">استكشف غذاء الشرمب<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 12H6m6-6-6 6 6 6"/></svg></a>
+        </div>
+        <div class="story-copy story-copy-surface" data-chapter="surface" aria-hidden="true">
+          <h2 class="sr-only">سطح الماء، وتموّجات الضوء.</h2>
         </div>
 
         <div class="story-scroll-cue" aria-hidden="true">مرّر لتدخل الحوض<svg viewBox="0 0 24 24"><path d="M12 4v16m-5-5 5 5 5-5"/></svg></div>
@@ -71,10 +75,11 @@
           <div class="story-context"><span>معاينة تصميم</span><span class="story-progress" data-story-progress>في الغرفة</span></div>
           <nav class="story-chapters" aria-label="مراحل الرحلة" hidden>
             <button type="button" data-story-chapter="room" aria-current="step">الغرفة</button>
-            <button type="button" data-story-chapter="dive">داخل الحوض</button>
-            <button type="button" data-story-chapter="sand">الرمل</button>
-            <button type="button" data-story-chapter="plants">النباتات</button>
-            <button type="button" data-story-chapter="filtration">الفلترة</button>
+            <button type="button" data-story-chapter="dive" aria-label="داخل الحوض">الغوص</button>
+            <button type="button" data-story-chapter="filtration">الفلتر</button>
+            <button type="button" data-story-chapter="fish" aria-label="السمكة المختبئة">السمك</button>
+            <button type="button" data-story-chapter="shrimp">الشرمب</button>
+            <button type="button" data-story-chapter="surface" aria-label="سطح الماء">الماء</button>
           </nav>
           <button id="story-motion-toggle" class="story-motion-toggle" type="button" aria-pressed="false" hidden><span data-motion-icon aria-hidden="true"><svg viewBox="0 0 24 24"><path class="motion-pause" d="M8 5v14M16 5v14"/><path class="motion-play" d="m8 5 11 7-11 7Z"/></svg></span><span data-motion-label>إيقاف الحركة</span></button>
         </div>

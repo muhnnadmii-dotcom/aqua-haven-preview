@@ -1,4 +1,6 @@
-import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs';
+import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=12';
+import {createFrameSequence} from './frame-sequence.mjs?v=12';
+import {createSurfaceRipple} from './surface-ripple.mjs?v=12';
 
 // Native scrolling owns the journey. No wheel/touch interception, scroll locks,
 // third-party runtime, tracking, storage, backend calls, or generated shop links.
@@ -28,6 +30,17 @@ function initializeStory(story) {
   let metrics={top:0,travel:0},lastChapter=-1,staticChapter=1,lastProgress=0;
   const reduced=()=>reduce.matches || manualPaused;
   const frame=()=>{if(!raf&&!document.hidden)raf=requestAnimationFrame(render);};
+  const frameUrls=['assets/underwater.webp','assets/frames/frame-03.webp',
+    'assets/discovery/03-filter-glimpse.webp','assets/discovery/04-filter-reveal.webp',
+    'assets/discovery/05-fish-glimpse.webp','assets/discovery/06-fish-reveal.webp',
+    'assets/discovery/07-shrimp-glimpse.webp','assets/discovery/08-shrimp-reveal.webp',
+    'assets/discovery/09-surface-rise.webp','assets/discovery/10-surface-only.webp'];
+  const sequence=createFrameSequence({
+    first:story.querySelector('.interior-frame-a'),second:story.querySelector('.interior-frame-b'),
+    urls:frameUrls,focusPoints:[.5,.5,.40,.41,.52,.5,.49,.47,.5,.5],onReady:()=>{dirty=true;frame();}
+  });
+  if(!reduce.matches)sequence?.warm();
+  const surface=createSurfaceRipple(story.querySelector('.surface-ripple'),'assets/discovery/10-surface-only.webp',()=>{dirty=true;frame();});
   if(progressLabel){progressLabel.setAttribute('aria-live','polite');progressLabel.setAttribute('aria-atomic','true');}
 
   // Narration changes only at chapter boundaries, never on every animation frame.
@@ -49,7 +62,7 @@ function initializeStory(story) {
       const copy=copies.find(item=>item.dataset.chapter===button.dataset.storyChapter);
       if(copy)button.setAttribute('aria-controls',copy.id);
     }
-    if(progressLabel)progressLabel.textContent=`${new Intl.NumberFormat('ar-SA').format(index+1)} / ٥ · ${selected.label}`;
+    if(progressLabel){const numbers=new Intl.NumberFormat('ar-SA');progressLabel.textContent=`${numbers.format(index+1)} / ${numbers.format(CHAPTERS.length)} · ${selected.label}`;}
   }
 
   function measure() {
@@ -67,6 +80,8 @@ function initializeStory(story) {
     const {tank}=geometry;
     windowLayer.style.left=tank.x+'px';windowLayer.style.top=tank.y+'px';
     windowLayer.style.width=tank.width+'px';windowLayer.style.height=tank.height+'px';
+    sequence?.resize({width,height,mobile:mobile.matches});
+    surface?.resize(width,height);
     measureNeeded=false;return true;
   }
 
@@ -82,6 +97,14 @@ function initializeStory(story) {
     setVariable('--room-opacity',state.roomOpacity);setVariable('--window-opacity',state.windowOpacity);
     setVariable('--underwater-opacity',state.underwaterOpacity);setVariable('--immersion-opacity',state.immersionOpacity);
     setVariable('--underwater-scale',state.underwaterScale);
+    const staticDetail=reduced()&&state.chapter>=2;
+    const sequenceReady=sequence?.update(state.sequencePosition,{active:visible&&(!reduced()||staticDetail),preload:!reduced()});
+    const sequenceOpacity=sequenceReady?state.interiorOpacity:0;
+    setVariable('--interior-opacity',sequenceOpacity);
+    setVariable('--entry-opacity',sequenceOpacity>=1?0:1);
+    setVariable('--interior-scale',state.interiorScale);
+    setVariable('--fish-school-opacity',state.fishOpacity);
+    setVariable('--surface-ripple-opacity',reduced()?0:state.surfaceRippleOpacity);
     setVariable('--underwater-x',state.underwaterX+'px');setVariable('--underwater-y',state.underwaterY+'px');
     setVariable('--sand-focus',state.sand);setVariable('--plants-focus',state.plants);setVariable('--filter-focus',state.filter);
     selectChapter(state.chapter);
@@ -95,7 +118,8 @@ function initializeStory(story) {
   function staticState() {
     const target=CHAPTERS[staticChapter].target;
     const state=cameraState(target,geometry,underwaterAspect);
-    return {...state,scale:1,x:0,y:0,roomOpacity:staticChapter===0?1:0,underwaterOpacity:staticChapter===0?0:1,windowOpacity:1,immersionOpacity:0,underwaterScale:1,underwaterX:0,underwaterY:0,chapter:staticChapter,narrationOpacity:1,shadeOpacity:staticChapter===0?0:1,inkBlend:staticChapter===0?0:1};
+    const detail=staticChapter>=2,surface=staticChapter===CHAPTERS.length-1;
+    return {...state,scale:1,x:0,y:0,roomOpacity:staticChapter===0?1:0,underwaterOpacity:staticChapter===0?0:1,windowOpacity:1,immersionOpacity:0,underwaterScale:1,underwaterX:0,underwaterY:0,chapter:staticChapter,narrationOpacity:1,shadeOpacity:staticChapter===0||surface?0:1,inkBlend:staticChapter===0?0:1,interiorOpacity:detail?1:0,interiorScale:detail?state.interiorScale:1,sequencePosition:detail?Math.round(state.sequencePosition):0,fishOpacity:detail?0:1,surfaceRippleOpacity:0};
   }
   function resetFish(){for(const fish of fishes){fish.style.setProperty('--fish-x','0px');fish.style.setProperty('--fish-y','0px');fish.style.setProperty('--fish-roll','0deg');}}
   function swim(time) {
@@ -113,9 +137,11 @@ function initializeStory(story) {
     if(reduced())state=staticState();
     else{lastProgress=scrollProgress(currentScroll,metrics.top,metrics.travel);state=cameraState(lastProgress,geometry,underwaterAspect);}
     if(dirty){paint(state);dirty=false;}
-    const swimActive=!reduced()&&visible&&fishes.length>0;
+    const swimActive=!reduced()&&visible&&(state.roomOpacity>.02||state.fishOpacity>.02)&&fishes.length>0;
     if(swimActive){if(lastTime)fishTime+=Math.min(48,time-lastTime)/1000;lastTime=time;swim(fishTime);frame();}
     else lastTime=0;
+    if(!reduced()&&visible&&state.progress>.90)surface?.load();
+    if(!reduced()&&visible&&state.surfaceRippleOpacity>0&&surface?.isReady()){surface.draw(time);frame();}
   }
 
   function motionLabel() {
@@ -135,7 +161,7 @@ function initializeStory(story) {
     compact=nextCompact;
     story.classList.toggle('is-reduced-motion',reduce.matches);
     story.classList.toggle('is-motion-paused',manualPaused);
-    if(changed && nextCompact)staticChapter=1;
+    if(changed && nextCompact)staticChapter=Math.max(0,lastChapter);
     motionLabel();resetFish();lastTime=0;measureNeeded=dirty=true;
     if(preservePosition&&changed){
       // Shortening a pinned section must not strand the reader far below it.
