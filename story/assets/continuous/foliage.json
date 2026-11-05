@@ -1,0 +1,39 @@
+{
+  "id": "foliage",
+  "file": "foliage.webp",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 477748,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "transparentPixels": 762652,
+    "partialPixels": 810212,
+    "opaquePixels": 0,
+    "transparentFraction": 0.48488108317057294,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 16,
+      "y": 19,
+      "width": 1449,
+      "height": 988
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=true",
+  "referenceSources": [
+    "../underwater.webp"
+  ],
+  "prompt": "Use case: background-extraction / photorealistic-natural. Asset: ONE high-resolution photographic aquatic-plant cutout for a continuous-camera layered freshwater scene. Output an RGBA image with an ACTUAL TRANSPARENT BACKGROUND, preferably landscape1536x1024.\nReference image1 is the Aqua Haven aquascape master. Match its real bright-green Java fern / Anubias leaves, fine feathery fronds, natural upper-left daylight and fresh translucent leaf materials. The reference is identity/material/light guidance; do not reproduce its rectangular underwater background.\nGenerate ONE isolated lush, believable cluster/branch: several broad long and gently curved Java fern/Anubias leaves interwoven with a few fine feathery green fronds and slim stems, in a moderate three-quarter frontal view with natural depth and subtle overlapping leaves. Plant mass is off-centre toward LEFT and BOTTOM, with an organic diagonal reach into the upper/right area and useful open gaps. All major leaf tips stay inside the canvas with small margins. Keep a balanced reusable branch suitable for flipping and repeating at different scene depths.\nBackground and all INTER-LEAF GAPS must have true transparent alpha, including the small gaps through the fine fronds. Preserve delicate thin stems, serrated/irregular leaf margins, clear veins, real natural textures and partial translucency in backlit leaves. Sunlike daylight from upper left, bright natural green, gentle shadows belonging only to the leaves. No baked rectangular water, fog, caustic field or light halo.\nNo pot, substrate, sand, rocks, wood, room, aquarium wall, fish, shrimp, equipment, text, logo, border, sticker stroke or checkerboard pixels. No solid white or cyan backdrop. Do not create illustration, plastic plants, stylized3D or vector art. One coherent photorealistic plant cluster only, on genuine alpha transparency.",
+  "promptSha256": "ca7a137fc81f868f52cefd18adb098635d1aaafd58efcc0fb2b499bae230c494",
+  "sha256": "cf9cf0293cce5d7ba0fc93f49343e181e68fec6094a05bfa85448ee7393ec8ce",
+  "createdAt": "2026-11-05T21:30:00.175Z",
+  "note": "Illustrative photographic texture, not a product SKU or physically reconstructed scene."
+}

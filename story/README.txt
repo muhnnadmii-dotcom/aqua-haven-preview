@@ -1,54 +1,38 @@
-AQUA HAVEN — LIVING ROOM TO AQUARIUM
+AQUA HAVEN — ONE AQUARIUM, ONE CAMERA
 
-Separate interactive homepage prototype V12, 2026-11-05.
+Separate homepage prototype V13, 2026-11-06.
 
-Confirmed brief:
-Bright elegant living room in daylight; a planted freshwater tank on a table.
-Native page scrolling takes the camera toward the tank, through the glass,
-and inside. Ten coherent photographic camera views reveal a filter intake
-behind planting, a hidden tetra and a small cherry shrimp on a leaf edge.
-The camera finishes looking up at shimmering rippled water and a long
-sunlike reflection. Scrolling backward reverses the camera journey.
-The previous repeated zoom-in/zoom-out pulses have been removed.
+The bright daylight room is preserved. After the glass, one perspective
+camera moves through a photographic multiplane aquarium. Background,
+filter, tetra, shrimp-on-leaf and plant curtains stay in fixed world positions.
+Moving beside nearer real-alpha leaves reveals the farther subjects through
+geometric perspective and depth. No full-frame interior dissolves are used.
 
-This folder is the editable frontend source. Serve it over HTTP as /story/
-under the existing static preview so ../shop/, ../products/ and ../designer/
-keep their established routes. Open index.html through a local HTTP server;
-ES modules do not reliably work when opened using file://.
+The camera ends looking up at a fixed overhead water surface and a long
+sunlike reflection. Backward scrolling retraces the same spatial path.
+This is a photographic depth scene, not a fully modeled 3D aquarium or video.
+Original images, V12 ZIP and the earlier exploded-view concept are preserved.
 
-The preview does not connect this page to the WordPress checkout. Its links
-open the existing public frontend catalog preview. No payments are taken.
-The working local WordPress/WooCommerce store and earlier visual concept
-are preserved separately.
+Source: story.js controls native scroll and lifecycle; scene-math.mjs keeps
+the measured room entry; camera-math-v13.mjs defines the spatial path;
+continuous-scene.mjs renders photographic planes and alpha depth tests.
+frame-sequence.mjs provides discrete still fallbacks only.
 
-Artwork:
-Original room, portrait room, underwater scene and isolated tetra artwork
-were generated with the built-in image tool, without a paid API.
-WebP assets are encoded from preserved original PNGs. Product thumbnails
-are actual existing catalog photographs, used as examples, not an exact
-equipment or planting list for the inspirational scene. Prices/availability
-are intentionally not copied into this standalone homepage.
-The local production prompts are saved in work/realistic-scroll-v11/image-prompts.json.
-V12 camera and discovery prompts are preserved under work/realistic-scroll-v12;
-each shipped image has its exact prompt/origin in its .webp.json sidecar.
-Unused earlier experiments and original PNGs remain in the local work folder.
-Active sequence: assets-manifest.json / sequenceFrames, ten distinct images.
-Two image elements blend neighboring views; only nearby frames are prefetched.
-Portrait crops aim at the discovered object instead of losing it off-screen.
+Serve this folder as /story/ under the existing static preview. Parent shop,
+product and designer routes are required for ../ links. Use HTTP, not file://.
+Public route: https://muhnnadmii-dotcom.github.io/aqua-haven-preview/story/?v=13
 
-The water ending uses a small optional WebGL refraction layer. It is loaded
-only near the ending, capped near 30fps, and stops offscreen, while hidden,
-or when motion is paused/reduced. The complete photograph remains the fallback.
+Scroll normally, use six chapter buttons, or skip to the catalog. Pause and
+system reduced motion compact the scene with static chapter selection.
+Hidden documents/offscreen stages stop sustained animation. Missing WebGL
+keeps photographic detail fallbacks. No JavaScript keeps room/product links.
 
-Controls:
-Scroll normally to control the camera, or use the chapter buttons.
-Skip the journey to browse components immediately.
-Pause shows static discovery views and shortens the journey. Reduced-motion
-device settings provide the same accessible chapter navigation without loops.
-If JavaScript is unavailable, the room and component links remain usable.
+Built-in image generation supplied the scenery and real-alpha cutouts.
+No paid API was used. Original PNGs/prompts remain local; shipped sidecars
+record provenance. WebP conversion preserves composition and alpha.
+Scene artwork is inspiration; actual product photos/links are separate.
+Fish/shrimp scenes link to actual food items, not invented live-animal stock.
 
-Catalog truth:
-The current imported preview has no live fish or shrimp listing. Fish scenes
-lead to food and feeding; the shrimp scene leads to a real shrimp-food item.
-Illustrated creatures are not represented as available live-animal stock.
-The original V11 source backup and earlier concept remain saved separately.
+This static preview takes no payment, activates no WordPress theme and
+does not change aqh.sa, its domain or customers. The separate local
+WordPress/WooCommerce trial remains preserved.

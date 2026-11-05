@@ -1,0 +1,40 @@
+{
+  "id": "shrimp-leaf",
+  "file": "shrimp-leaf.webp",
+  "width": 1536,
+  "height": 1024,
+  "bytes": 183160,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "transparentPixels": 1187322,
+    "partialPixels": 385542,
+    "opaquePixels": 0,
+    "transparentFraction": 0.7548789978027344,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 1,
+      "y": 201,
+      "width": 1513,
+      "height": 727
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=true",
+  "referenceSources": [
+    "../underwater.webp",
+    "../discovery/08-shrimp-reveal.webp"
+  ],
+  "prompt": "Use case: background-extraction / precise-object-edit. Asset: ONE photorealistic alpha texture showing a cherry shrimp on one leaf, for the same Aqua Haven continuous-camera freshwater world. Reference image1 is the original master for lighting/color. Reference image2 is the exact shrimp-on-leaf scene whose subject identity must be preserved.\nIsolate/reconstruct the SAME tiny translucent RED CHERRY SHRIMP on the tip/edge of the SAME natural green Anubias-like broad leaf from reference2. Side profile facing RIGHT. Preserve its red segmented body, small dark eye, correct fine walking legs, tail and two long delicate antennae. No giant claws or lobster anatomy. Shrimp body is about2cm versus a roughly10cm leaf; keep this believable scale relationship.\nThe complete leaf extends from LEFT to its tip toward center-right, with a subtle gently rising bench-like curve under the shrimp. Include its clean natural stem on the left and the whole leaf silhouette, strong realistic vein network, leaf grain and slight translucency. Entire shrimp, ALL antennae, legs, tail and entire leaf must fit INSIDE the canvas with small margins, preferably landscape1536x1024. The shrimp sits around the middle-right on the leaf edge, not detached in space. Upper-left daylight and green/cyan reflected color match the references. Crisp photographic subject texture and natural depth, not a sticker or cartoon.\nCreate ACTUAL TRANSPARENT RGBA outside the shrimp and leaf, including all gaps around antennae and between tiny legs. No water rectangle, blur field, secondary plant, rocks, sand, wood, fish, room, equipment, cast backdrop shadow, text, logo, frame, solid white/cyan background or checkerboard pattern. Keep only the shrimp and its single leaf/stem, with genuine organic alpha edges and no outline halo.",
+  "promptSha256": "2adbcc0c47e196eced2f23b2e3fe137c8850e55defc1a45dea6983a08d62c7dd",
+  "sha256": "56f98aed0c61e331d258832671b7a8272c94d5b2f5e257790fa59d30bcd42b90",
+  "createdAt": "2026-11-05T21:29:52.976Z",
+  "note": "Illustrative photographic texture, not a product SKU or physically reconstructed scene."
+}

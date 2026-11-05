@@ -1,0 +1,40 @@
+{
+  "id": "filter",
+  "file": "filter.webp",
+  "width": 1024,
+  "height": 1536,
+  "bytes": 105222,
+  "hasAlpha": true,
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "transparentPixels": 1310721,
+    "partialPixels": 262143,
+    "opaquePixels": 0,
+    "transparentFraction": 0.8333339691162109,
+    "changedDuringEncoding": 0,
+    "boundsAt16": {
+      "x": 427,
+      "y": 28,
+      "width": 172,
+      "height": 1481
+    }
+  },
+  "encoding": {
+    "format": "webp",
+    "quality": 90,
+    "alphaQuality": 100,
+    "resized": false,
+    "contentEditsAfterGeneration": false
+  },
+  "generatedWith": "Built-in image_gen; transparent_background=true",
+  "referenceSources": [
+    "../underwater.webp",
+    "../discovery/04-filter-reveal.webp"
+  ],
+  "prompt": "Use case: background-extraction / precise-object-edit. Asset: ONE photorealistic alpha cutout of a clear glass aquarium filter INTAKE. Reference image1 is the Aqua Haven underwater master for green/cyan daylight and material context. Reference image2 is the exact glass intake design to isolate and preserve.\nExtract/reconstruct only the same slender transparent cylindrical VERTICAL GLASS INTAKE tube, with the small slotted strainer at its LOWER END, as in reference2. Present the entire tube from a plain open top through its rounded lower end, fully inside a portrait1024x1536 canvas with small top/bottom margins. Keep it straight and vertical, not U-shaped, no bending stand or hose assembly. The lower cylindrical strainer has the same believable narrow rounded vertical intake slits. Maintain the correct delicate clear glass thickness, cylindrical refraction, upper-left specular edges and pale daylight glints that remain readable against a cyan environment.\nCRITICAL: actual TRANSPARENT RGBA background. Remove ALL plant, wood, water-scene rectangle and other environment from around and THROUGH the tube. The glass should retain subtle pale highlights and physically plausible translucent alpha, so a new cyan background can be seen through it. Do not replace the glass with an opaque white tube, and do not bake a cyan/green rectangle inside its transparent volume. Empty areas outside the tube and in the intake slots must be transparent.\nNo canister box, pump body, stand, suction cup, new equipment, fake SKU, brand, letters, plants, animals, room, floor shadow, frame, border, checkerboard texture, or opaque backdrop. Exact same real-looking glass intake lower-end design as reference2, on genuine alpha transparency.",
+  "promptSha256": "c2cc7af9329da3dd69c026ad35a9e6ef756144cf338a36291ed15b2a93f170b3",
+  "sha256": "dec945f8bfafb8ee2641dd35b5c18952abf92485667a3bca3985ba7673bdab98",
+  "createdAt": "2026-11-05T21:29:52.849Z",
+  "note": "Illustrative photographic texture, not a product SKU or physically reconstructed scene."
+}

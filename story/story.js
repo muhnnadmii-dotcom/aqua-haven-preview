@@ -1,6 +1,6 @@
-import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=12';
-import {createFrameSequence} from './frame-sequence.mjs?v=12';
-import {createSurfaceRipple} from './surface-ripple.mjs?v=12';
+import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=13';
+import {createFrameSequence} from './frame-sequence.mjs?v=13';
+import {createContinuousScene} from './continuous-scene.mjs?v=13';
 
 // Native scrolling owns the journey. No wheel/touch interception, scroll locks,
 // third-party runtime, tracking, storage, backend calls, or generated shop links.
@@ -27,7 +27,7 @@ function initializeStory(story) {
   let initialized=false,manualPaused=false,compact=reduce.matches;
   let measureNeeded=true,dirty=true,visible=true,raf=0,lastTime=0,fishTime=0;
   let currentScroll=window.scrollY,geometry=null,underwaterAspect=1.5;
-  let metrics={top:0,travel:0},lastChapter=-1,staticChapter=1,lastProgress=0;
+  let metrics={top:0,travel:0},lastChapter=-1,staticChapter=1,lastProgress=0,lastCameraTime=0;
   const reduced=()=>reduce.matches || manualPaused;
   const frame=()=>{if(!raf&&!document.hidden)raf=requestAnimationFrame(render);};
   const frameUrls=['assets/underwater.webp','assets/frames/frame-03.webp',
@@ -39,8 +39,19 @@ function initializeStory(story) {
     first:story.querySelector('.interior-frame-a'),second:story.querySelector('.interior-frame-b'),
     urls:frameUrls,focusPoints:[.5,.5,.40,.41,.52,.5,.49,.47,.5,.5],onReady:()=>{dirty=true;frame();}
   });
-  if(!reduce.matches)sequence?.warm();
-  const surface=createSurfaceRipple(story.querySelector('.surface-ripple'),'assets/discovery/10-surface-only.webp',()=>{dirty=true;frame();});
+  // The image player is only a discrete fallback. The enhanced interior is
+  // one persistent world: moving the camera changes depth and occlusion.
+  const worldCanvas=story.querySelector('.continuous-scene');
+  const world=createContinuousScene(worldCanvas,{
+    urls:{background:'assets/underwater.webp',foliage:'assets/continuous/foliage.webp',
+      filter:'assets/continuous/filter.webp',fish:'assets/fish.webp',
+      shrimp:'assets/continuous/shrimp-leaf.webp',surface:'assets/discovery/10-surface-only.webp'},
+    onReady:({status,error})=>{
+      worldCanvas.dataset.sceneStatus=status;
+      if(error)worldCanvas.dataset.sceneError=error;else delete worldCanvas.dataset.sceneError;
+      dirty=true;frame();
+    }
+  });
   if(progressLabel){progressLabel.setAttribute('aria-live','polite');progressLabel.setAttribute('aria-atomic','true');}
 
   // Narration changes only at chapter boundaries, never on every animation frame.
@@ -81,7 +92,7 @@ function initializeStory(story) {
     windowLayer.style.left=tank.x+'px';windowLayer.style.top=tank.y+'px';
     windowLayer.style.width=tank.width+'px';windowLayer.style.height=tank.height+'px';
     sequence?.resize({width,height,mobile:mobile.matches});
-    surface?.resize(width,height);
+    world?.resize(width,height,{mobile:mobile.matches,entryScale:cameraState(.48,geometry,underwaterAspect).underwaterScale});
     measureNeeded=false;return true;
   }
 
@@ -97,14 +108,18 @@ function initializeStory(story) {
     setVariable('--room-opacity',state.roomOpacity);setVariable('--window-opacity',state.windowOpacity);
     setVariable('--underwater-opacity',state.underwaterOpacity);setVariable('--immersion-opacity',state.immersionOpacity);
     setVariable('--underwater-scale',state.underwaterScale);
-    const staticDetail=reduced()&&state.chapter>=2;
-    const sequenceReady=sequence?.update(state.sequencePosition,{active:visible&&(!reduced()||staticDetail),preload:!reduced()});
+    const worldReady=world?.isReady()??false;
+    // A fallback changes only on explicit chapter selection. Never blend whole
+    // photographs to stand in for movement through the enhanced world.
+    const fallbackIndex=Math.round(cameraState(CHAPTERS[state.chapter].target,geometry,underwaterAspect).sequencePosition);
+    const sequenceReady=!worldReady&&sequence?.update(fallbackIndex,{active:visible&&state.chapter>=2,preload:false});
     const sequenceOpacity=sequenceReady?state.interiorOpacity:0;
+    const worldOpacity=worldReady?state.interiorOpacity:0;
     setVariable('--interior-opacity',sequenceOpacity);
-    setVariable('--entry-opacity',sequenceOpacity>=1?0:1);
+    setVariable('--continuous-opacity',worldOpacity);
+    setVariable('--entry-opacity',Math.max(sequenceOpacity,worldOpacity)>=1?0:1);
     setVariable('--interior-scale',state.interiorScale);
-    setVariable('--fish-school-opacity',state.fishOpacity);
-    setVariable('--surface-ripple-opacity',reduced()?0:state.surfaceRippleOpacity);
+    setVariable('--fish-school-opacity',worldReady?0:state.fishOpacity);
     setVariable('--underwater-x',state.underwaterX+'px');setVariable('--underwater-y',state.underwaterY+'px');
     setVariable('--sand-focus',state.sand);setVariable('--plants-focus',state.plants);setVariable('--filter-focus',state.filter);
     selectChapter(state.chapter);
@@ -133,15 +148,33 @@ function initializeStory(story) {
   function render(time) {
     raf=0;if(document.hidden||!initialized)return;
     if(measureNeeded&&!measure())return;
-    let state;
-    if(reduced())state=staticState();
-    else{lastProgress=scrollProgress(currentScroll,metrics.top,metrics.travel);state=cameraState(lastProgress,geometry,underwaterAspect);}
+    let state,cameraMoving=false;
+    if(reduced()){state=staticState();lastCameraTime=0;}
+    else{
+      const target=scrollProgress(currentScroll,metrics.top,metrics.travel);
+      // Follow one continuous scroll coordinate. Short wheel steps become a
+      // camera movement, without adding a new easing restart at each chapter.
+      const elapsed=lastCameraTime?Math.min(64,time-lastCameraTime):0;
+      if(!lastCameraTime)lastProgress=target;
+      lastProgress+=(target-lastProgress)*(1-Math.exp(-elapsed/80));
+      if(Math.abs(target-lastProgress)<.00001)lastProgress=target;
+      cameraMoving=target!==lastProgress;
+      lastCameraTime=time;
+      state=cameraState(lastProgress,geometry,underwaterAspect);
+      if(cameraMoving)dirty=true;
+    }
     if(dirty){paint(state);dirty=false;}
     const swimActive=!reduced()&&visible&&(state.roomOpacity>.02||state.fishOpacity>.02)&&fishes.length>0;
     if(swimActive){if(lastTime)fishTime+=Math.min(48,time-lastTime)/1000;lastTime=time;swim(fishTime);frame();}
     else lastTime=0;
-    if(!reduced()&&visible&&state.progress>.90)surface?.load();
-    if(!reduced()&&visible&&state.surfaceRippleOpacity>0&&surface?.isReady()){surface.draw(time);frame();}
+    if(visible){
+      world?.load();
+      if(world?.isReady()&&state.interiorOpacity>0){
+        world.draw(state.progress,time,{motion:!reduced()});
+        if(!reduced())frame();
+      }
+    }
+    if(cameraMoving&&visible&&!reduced())frame();
   }
 
   function motionLabel() {
@@ -162,7 +195,7 @@ function initializeStory(story) {
     story.classList.toggle('is-reduced-motion',reduce.matches);
     story.classList.toggle('is-motion-paused',manualPaused);
     if(changed && nextCompact)staticChapter=Math.max(0,lastChapter);
-    motionLabel();resetFish();lastTime=0;measureNeeded=dirty=true;
+    motionLabel();resetFish();lastTime=lastCameraTime=0;measureNeeded=dirty=true;
     if(preservePosition&&changed){
       // Shortening a pinned section must not strand the reader far below it.
       const top=before.top+oldScroll;
@@ -182,14 +215,14 @@ function initializeStory(story) {
   }
 
   window.addEventListener('scroll',()=>{currentScroll=window.scrollY;dirty=true;frame();},{passive:true});
-  const resized=()=>{measureNeeded=dirty=true;frame();};
+  const resized=()=>{lastCameraTime=0;measureNeeded=dirty=true;frame();};
   window.addEventListener('resize',resized,{passive:true});
   window.addEventListener('pageshow',()=>{currentScroll=window.scrollY;resized();});
   if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(resized);observer.observe(stage);observer.observe(story);}
   if(typeof IntersectionObserver!=='undefined'){
-    const observer=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;lastTime=0;dirty=true;frame();},{threshold:0});observer.observe(stage);
+    const observer=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;lastTime=lastCameraTime=0;dirty=true;frame();},{threshold:0});observer.observe(stage);
   }
-  document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;}else{currentScroll=window.scrollY;dirty=true;frame();}});
+  document.addEventListener('visibilitychange',()=>{lastTime=lastCameraTime=0;if(document.hidden){if(raf)cancelAnimationFrame(raf);raf=0;}else{currentScroll=window.scrollY;dirty=true;frame();}});
   reduce.addEventListener('change',()=>applyMode({preservePosition:initialized}));
   mobile.addEventListener('change',resized);
   photo.addEventListener('load',()=>{resized();start();});underwater.addEventListener('load',()=>{resized();start();});

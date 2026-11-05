@@ -51,7 +51,13 @@
     }
   ],
   "sequenceMode": "built-in image_gen",
-  "sequenceFrames": [
+  "sequenceFrameCount": 10,
+  "sequenceTotalBytes": 2308034,
+  "provenanceScan": {
+    "rasters": 25,
+    "missing": 0
+  },
+  "staticFallbackFrames": [
     {
       "id": "underwater",
       "phase": "dive",
@@ -153,10 +159,63 @@
       "provenance": "assets/discovery/10-surface-only.webp.json"
     }
   ],
-  "sequenceFrameCount": 10,
-  "sequenceTotalBytes": 2308034,
-  "provenanceScan": {
-    "rasters": 25,
-    "missing": 0
+  "currentRenderer": "V13: one fixed photographic multiplane world with a continuous perspective camera",
+  "continuousScene": {
+    "camera": "camera-math-v13.mjs",
+    "renderer": "continuous-scene.mjs",
+    "perChapterTextureChanges": false,
+    "textures": [
+      {
+        "role": "background",
+        "url": "assets/underwater.webp",
+        "bytes": 427614,
+        "sha256": "06b2596914e9b01ae04ac91be1f958d5e88edd33521a293cf270d72989e25935",
+        "provenance": "assets/underwater.webp.json"
+      },
+      {
+        "role": "foliage",
+        "url": "assets/continuous/foliage.webp",
+        "bytes": 477748,
+        "sha256": "cf9cf0293cce5d7ba0fc93f49343e181e68fec6094a05bfa85448ee7393ec8ce",
+        "width": 1536,
+        "height": 1024,
+        "hasAlpha": true,
+        "provenance": "assets/continuous/foliage.json"
+      },
+      {
+        "role": "filter",
+        "url": "assets/continuous/filter.webp",
+        "bytes": 105222,
+        "sha256": "dec945f8bfafb8ee2641dd35b5c18952abf92485667a3bca3985ba7673bdab98",
+        "width": 1024,
+        "height": 1536,
+        "hasAlpha": true,
+        "provenance": "assets/continuous/filter.json"
+      },
+      {
+        "role": "fish",
+        "url": "assets/fish.webp",
+        "bytes": 34704,
+        "sha256": "cc97646ad1b4d9e3924970e2e859c4f2a8a27f5ab0959389c7e10e4a8dd3636d",
+        "provenance": "assets/fish.webp.json"
+      },
+      {
+        "role": "shrimp",
+        "url": "assets/continuous/shrimp-leaf.webp",
+        "bytes": 183160,
+        "sha256": "56f98aed0c61e331d258832671b7a8272c94d5b2f5e257790fa59d30bcd42b90",
+        "width": 1536,
+        "height": 1024,
+        "hasAlpha": true,
+        "provenance": "assets/continuous/shrimp-leaf.json"
+      },
+      {
+        "role": "surface",
+        "url": "assets/discovery/10-surface-only.webp",
+        "bytes": 287498,
+        "sha256": "07bf6f39aaa53a145ab2df33f22bb2c358662c695bd143bd5e65b5b59900f4b0",
+        "provenance": "assets/discovery/10-surface-only.webp.json"
+      }
+    ]
   }
 }
