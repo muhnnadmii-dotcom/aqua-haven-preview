@@ -1,0 +1,94 @@
+/* Aqua Haven: shared finishing system, applied after the incumbent components. */
+/* Keep cross-page navigation immediate; motion belongs to the page content. */
+@view-transition { navigation: none; }
+body.v2 {
+  --haven-ink: #102b46;
+  --haven-muted: #4f6679;
+  --haven-paper: #f7f8f8;
+  --haven-rule: #ccd8e0;
+  --haven-gutter: clamp(20px, 4vw, 64px);
+  --haven-ease: cubic-bezier(.16, 1, .3, 1);
+  caret-color: var(--haven-ink);
+}
+body.v2 ::selection { background: #c5dbe8; color: #102b46; }
+body.v2 :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid #28658a;
+  outline-offset: 5px;
+}
+body.v2 :is(button, input, select, textarea) { accent-color: #245776; }
+body.v2 :is(a, button, input, select, textarea, summary) { scroll-margin-block: 104px 24px; }
+body.v2 :is(h1, h2, h3) { text-wrap: balance; }
+body.v2 :is(input, textarea)::placeholder { color: #536b7c; opacity: 1; }
+body.v2 .container {
+  width: min(1360px, calc(100% - var(--haven-gutter) * 2));
+}
+body.v2 .preview-strip { display: none; }
+body.v2 .site-header {
+  position: sticky;
+  top: 0;
+  background: #f7f8f8;
+  backdrop-filter: none;
+  border-bottom: 1px solid var(--haven-rule);
+  z-index: 30;
+}
+body.v2 .header-inner {
+  height: 84px;
+  grid-template-columns: 184px minmax(0, 1fr) auto;
+  gap: 24px;
+}
+body.v2 .site-brand { width: 166px; max-width: 100%; }
+body.v2 .main-nav { gap: clamp(15px, 1.8vw, 28px); }
+body.v2 .main-nav a { padding-block: 27px; font-size: 15px; }
+body.v2 .main-nav a::after { height: 1px; bottom: 20px; }
+body.v2 .header-tools { gap: 4px; }
+body.v2 .header-tools :is(.icon-link, .menu-button) {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  color: var(--haven-ink);
+}
+body.v2 .menu-button[aria-expanded="true"] { background: #e5edf2; }
+body.v2 .skip-link { background: var(--haven-ink); }
+body.v2 .footer-v8 .footer-note { color: #c5d6e3; max-width: 34ch; }
+body.v2 .footer-v8 .footer-bottom { color: #c5d6e3; }
+body.v2 .footer-v8 .footer-grid > div:not(.footer-brand) > a { min-height: 44px; }
+body.v2 .footer-v8 .footer-grid h2 { color: #c5d6e3; }
+body.v2 .footer-v8 .footer-brand p { letter-spacing: 0; }
+body.v2 .site-footer :is(a, button):focus-visible { outline-color: #c5e1f2; }
+body.v2 .footer-v8 .footer-grid > div:not(.footer-brand) > a:hover { transform: none; }
+html:has(main[data-scroll-motion="off"])::view-transition-old(root),
+html:has(main[data-scroll-motion="off"])::view-transition-new(root) { animation: none !important; }
+@media (max-width: 1100px) {
+  body.v2 .header-inner { grid-template-columns: minmax(0, 1fr) auto; gap: 16px; }
+  body.v2 .menu-button { display: inline-flex; }
+  body.v2 .main-nav {
+    display: none;
+    position: absolute;
+    inset: 100% 0 auto;
+    padding: 12px var(--haven-gutter) 24px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    max-height: calc(100dvh - 84px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--haven-paper);
+    border-bottom: 1px solid var(--haven-rule);
+    box-shadow: 0 18px 28px #102b4610;
+  }
+  body.v2 .main-nav.is-open { display: flex; }
+  body.v2 .main-nav a { padding: 13px 0; min-height: 48px; border-bottom: 1px solid var(--haven-rule); }
+  body.v2 .main-nav a::after { display: none; }
+  body.v2 .main-nav .mobile-only { display: flex; }
+}
+@media (max-width: 760px) {
+  body.v2 .header-inner { height: 72px; gap: 12px; }
+  body.v2 .main-nav { max-height: calc(100dvh - 72px); }
+  body.v2 .site-brand { width: clamp(112px, 32vw, 152px); }
+  body.v2 .header-tools { gap: 0; }
+  body.v2 .footer-v8 .footer-grid { gap: 28px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  body.v2 .site-header :is(a, button) { transition: none; }
+}

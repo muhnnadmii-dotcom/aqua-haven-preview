@@ -12,10 +12,12 @@
     toggle.setAttribute('aria-expanded',String(open));
     toggle.setAttribute('aria-label',open?'إغلاق القائمة':'فتح القائمة');
     nav?.classList.toggle('is-open',open);
+    if(open)nav?.querySelector('a')?.focus({preventScroll:true});
   });
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&toggle?.getAttribute('aria-expanded')==='true')close(true);});
   document.addEventListener('click',e=>{if(toggle?.getAttribute('aria-expanded')==='true'&&!e.target.closest('.site-header'))close();});
   nav?.addEventListener('click',e=>{if(e.target.closest('a'))close();});
+  matchMedia('(min-width:1101px)').addEventListener('change',e=>{if(e.matches)close();});
   if(document.body.classList.contains('home-page')){
     if(location.hash==='#studio'&&!document.querySelector('#studio'))location.replace('designer/');
     if(location.hash==='#my-tanks')location.replace('my-tanks/');
