@@ -1,32 +1,50 @@
 (()=>{'use strict';
   const $=id=>document.getElementById(id),tag=$('aq-preview-data');if(!tag)return;
-  let data;try{data=JSON.parse(tag.textContent);}catch{return;}
+  let data;try{data=JSON.parse(tag.textContent);}catch{return;}if(!data||typeof data!=='object')return;
   const format=new Intl.NumberFormat('ar-SA',{maximumFractionDigits:2});
   const money=value=>value===null||!Number.isFinite(Number(value))?'السعر غير محدد':format.format(Number(value))+' ر.س';
   const priceLabel=p=>p.minPrice===p.maxPrice?money(p.minPrice):money(p.minPrice)+' – '+money(p.maxPrice);
   const node=(name,className,text)=>{const el=document.createElement(name);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;};
+  function unavailableImage(img,container=img.parentElement){
+    if(!container)return;
+    img.hidden=true;
+    if(container.querySelector('.collection-placeholder'))return;
+    const empty=node('div','collection-placeholder');empty.append(node('span','','AQUA HAVEN'),node('p','','صورة المنتج غير متاحة'));container.append(empty);
+  }
+  function watchImage(img,container){
+    img.addEventListener('error',()=>unavailableImage(img,container),{once:true});
+    if(img.complete&&img.naturalWidth===0)unavailableImage(img,container);
+  }
   const arrow=()=>{const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('width','20');svg.setAttribute('height','20');svg.setAttribute('fill','none');svg.setAttribute('stroke','currentColor');svg.setAttribute('stroke-width','1.5');svg.setAttribute('aria-hidden','true');const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M19 12H5m6-6-6 6 6 6');svg.append(path);return svg;};
   if(data.mode==='product'){
     const zoom=$('product-zoom'),dialog=$('product-image-dialog'),close=$('product-zoom-close');
-    if(zoom&&dialog&&close){zoom.addEventListener('click',()=>{if(typeof dialog.showModal==='function')dialog.showModal();});close.addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});}
+    if(zoom&&dialog&&close){
+      if(typeof dialog.showModal!=='function')zoom.hidden=true;
+      else zoom.addEventListener('click',()=>{try{if(!dialog.open)dialog.showModal();}catch{zoom.hidden=true;}});
+      close.addEventListener('click',()=>{if(typeof dialog.close==='function')dialog.close();});dialog.addEventListener('click',event=>{if(event.target===dialog&&typeof dialog.close==='function')dialog.close();});
+    }
+    document.querySelectorAll('.product-stage-image img').forEach(img=>{watchImage(img);img.addEventListener('error',()=>{if(zoom)zoom.hidden=true;},{once:true});if(img.complete&&img.naturalWidth===0&&zoom)zoom.hidden=true;});
+    document.querySelectorAll('#product-image-dialog img').forEach(img=>watchImage(img));
+    document.querySelectorAll('.product-related .collection-card-image img').forEach(img=>watchImage(img));
     const select=$('aq-variant');if(select)select.addEventListener('change',()=>{
-      const variant=select.value===''?null:data.variants[Number(select.value)];
+      const index=/^\d+$/.test(select.value)?Number(select.value):-1;
+      const variant=Array.isArray(data.variants)&&Number.isSafeInteger(index)?data.variants[index]:null;
       $('aq-reference-price').textContent=variant?money(variant.effectivePrice??variant.price):data.initialPrice;
-      $('aq-variant-details').textContent=variant?(variant.attributes.map(a=>`${a.name}: ${a.value}`).join(' · ')||variant.name)+' · سعر مرجعي للمعاينة.':'اختر أحد الخيارات لعرض سعره.';
+      $('aq-variant-details').textContent=variant?((Array.isArray(variant.attributes)?variant.attributes:[]).map(a=>`${a.name}: ${a.value}`).join(' · ')||variant.name)+' · سعر مرجعي للمعاينة.':'اختر أحد الخيارات لعرض سعره.';
     });document.querySelectorAll('.product-details-aside a[href^="#"], [data-product-panel]').forEach(a=>a.addEventListener('click',()=>{const panel=document.getElementById(a.getAttribute('href').slice(1));if(panel&&panel.tagName==='DETAILS')panel.open=true;}));return;
   }
   if(data.mode!=='shop')return;
-  const products=Array.isArray(data.products)?data.products:[],categories=Array.isArray(data.categories)?data.categories:[],base=data.base||'../',pageSize=16;
+  const products=Array.isArray(data.products)?data.products.filter(p=>p&&typeof p.id==='string'&&typeof p.name==='string'&&Array.isArray(p.categories)):[],categories=Array.isArray(data.categories)?data.categories.filter(c=>c&&typeof c.id==='string'&&Array.isArray(c.parentIds)):[],base=data.base||'../',pageSize=16;
   const search=$('aq-search'),category=$('aq-category'),sort=$('aq-sort'),grid=$('aq-product-grid'),pagination=$('aq-pagination'),clear=$('aq-clear-filters');
   if(!search||!category||!sort||!grid)return;
-  const normalize=s=>String(s||'').toLocaleLowerCase('ar').normalize('NFKC').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[إأآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه');
+  const normalize=s=>String(s||'').toLocaleLowerCase('ar').normalize('NFKC').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[إأآٱ]/g,'ا').replace(/[ىی]/g,'ي').replace(/ک/g,'ك').replace(/ة/g,'ه');
   const searchText=new Map(products.map(p=>[p.id,normalize([p.name,p.summary,...p.categories.map(c=>c.name)].join(' '))]));
-  const params=new URLSearchParams(location.search);let page=Math.max(1,parseInt(params.get('page')||'1',10)||1);
-  search.value=params.get('s')||'';category.value=params.get('category')||'';sort.value=['price','price-desc','name'].includes(params.get('orderby'))?params.get('orderby'):'default';
+  const params=new URLSearchParams(location.search),requestedPage=params.get('page')||'1';let page=/^[1-9]\d*$/.test(requestedPage)&&Number.isSafeInteger(Number(requestedPage))?Number(requestedPage):1;
+  search.value=params.get('s')||'';category.value=categories.some(c=>c.id===params.get('category'))?params.get('category'):'';sort.value=['price','price-desc','name'].includes(params.get('orderby'))?params.get('orderby'):'default';
   const href=p=>base+'products/'+encodeURIComponent(p.id)+'/';
   function tile(p){
     const article=node('article','collection-card catalog-card-v7'),photo=node('a','collection-card-image');photo.href=href(p);photo.setAttribute('aria-label','تفاصيل '+p.name);
-    if(typeof p.image==='string'&&/^assets\/[a-z0-9_./-]+$/i.test(p.image)&&!p.image.includes('..')){const img=node('img');img.src=base+p.image;img.alt=p.name;img.loading='lazy';img.decoding='async';img.width=800;img.height=800;photo.append(img);}else{const empty=node('div','collection-placeholder');empty.append(node('span','','AQUA HAVEN'),node('p','','صورة المنتج غير متاحة'));photo.append(empty);}
+    if(typeof p.image==='string'&&/^assets\/[a-z0-9_./-]+$/i.test(p.image)&&!p.image.includes('..')){const img=node('img');img.src=base+p.image;img.alt=p.name;img.loading='lazy';img.decoding='async';img.width=800;img.height=800;photo.append(img);watchImage(img,photo);}else{const empty=node('div','collection-placeholder');empty.append(node('span','','AQUA HAVEN'),node('p','','صورة المنتج غير متاحة'));photo.append(empty);}
     const open=node('span','catalog-card-open');open.setAttribute('aria-hidden','true');open.append(arrow());photo.append(open);
     const body=node('div','collection-card-copy'),title=node('h2','catalog-card-title'),link=node('a','',p.name);link.href=href(p);link.dir='auto';title.append(link);
     const bottom=node('div','collection-card-bottom'),details=node('a','collection-card-link','التفاصيل ');details.href=href(p);details.append(arrow());bottom.append(node('span','collection-price',priceLabel(p)),details);
@@ -49,7 +67,7 @@
     const filterPanel=$('catalog-filter-panel');if(filterPanel)filterPanel.classList.toggle('has-active-filters',!!category.value||sort.value!=='default');
     document.querySelectorAll('[data-category]').forEach(a=>{if(a.dataset.category===category.value)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});
     pagination.replaceChildren();if(pages>1){pagination.append(pageButton('السابق',page-1,page===1));const visible=[...new Set([1,...Array.from({length:5},(_,i)=>page+i-2).filter(x=>x>1&&x<pages),pages])].sort((a,b)=>a-b);let previous=0;for(const n of visible){if(n-previous>1)pagination.append(node('span','','…'));pagination.append(pageButton(format.format(n),n,false,n===page));previous=n;}pagination.append(pageButton('التالي',page+1,page===pages));}
-    const next=new URLSearchParams();if(search.value.trim())next.set('s',search.value.trim());if(category.value)next.set('category',category.value);if(sort.value!=='default')next.set('orderby',sort.value);if(page>1)next.set('page',page);const queryString=next.toString();history.replaceState(null,'',location.pathname+(queryString?'?'+queryString:'')+location.hash);
+    const next=new URLSearchParams();if(search.value.trim())next.set('s',search.value.trim());if(category.value)next.set('category',category.value);if(sort.value!=='default')next.set('orderby',sort.value);if(page>1)next.set('page',page);const queryString=next.toString();try{history.replaceState(null,'',location.pathname+(queryString?'?'+queryString:'')+location.hash);}catch{/* Filtering remains available when URL updates are blocked. */}
     if(scroll)grid.scrollIntoView({behavior:(matchMedia('(prefers-reduced-motion: reduce)').matches||document.querySelector('main[data-scroll-motion="off"]'))?'instant':'smooth',block:'start'});
   }
   let searchTimer;const changed=()=>{page=1;render();};search.addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(changed,180);});category.addEventListener('change',changed);sort.addEventListener('change',changed);

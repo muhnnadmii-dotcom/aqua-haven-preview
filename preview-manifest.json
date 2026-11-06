@@ -1,9 +1,9 @@
 {
-  "designVersion": 16,
-  "builtAt": "2026-11-06T05:26:54.096Z",
+  "designVersion": 17,
+  "builtAt": "2026-11-06T07:00:42.679Z",
   "products": 405,
   "categories": 21,
-  "pages": 420,
+  "pages": 421,
   "homepage": "/",
   "homepageAlias": "/story/",
   "sharedNavigationVersion": 15,
@@ -14,5 +14,55 @@
     "pages": 420,
     "products": 405,
     "scope": "Arabic copy and control names; supplier specifications preserved, source conflicts logged separately."
+  },
+  "qualityRevision": 17,
+  "cinematicComparison": {
+    "path": "/flow/",
+    "type": "Separate cinematic comparison using the existing photographic aquarium",
+    "scrolling": "Native and reversible",
+    "motion": "Original pause control and reduced-motion alternative",
+    "boundary": "Original homepage and story alias remain available; no checkout or backend integration"
+  },
+  "quality": {
+    "revision": 17,
+    "baselineCommit": "b268c39142b2ef445939edcc45f4c229c0d40736",
+    "baselineDesignScore": {
+      "total": 30,
+      "maximum": 40
+    },
+    "baselineTechnicalScore": {
+      "total": 13,
+      "maximum": 20
+    },
+    "scoreMeaning": "Independent pre-fix baseline scores; no automatic after score or universal accessibility certification",
+    "scope": "Mobile task entry, category grouping, readable guidance, local form recovery and delivery optimization",
+    "boundary": "Static public preview with local drafts and illustrative estimates; no accounts, orders, payments or submissions"
+  },
+  "controlledPerformanceEvidence": {
+    "profile": "Three cold route-isolated runs each; Chrome,390x844,DPR1,visible,180000bytes/sec shared server +120ms per response,unthrottled CPU,localhost. Resource counts include identical3187B lab probe; HTML response body is not included in resource total.",
+    "runsBefore": 3,
+    "runsAfter": 3,
+    "medianLoadMsBefore": 31842.5,
+    "medianLoadMsAfter": 7148.300000011921,
+    "encodedResourceBytesBefore": 3635314,
+    "encodedResourceBytesAfter": 1533258,
+    "resourceReductionPercent": 57.8232306755345,
+    "lcpTargetBefore": [
+      "IMG",
+      "IMG",
+      "IMG"
+    ],
+    "lcpTargetAfter": [
+      "H1",
+      "H1",
+      "H1"
+    ],
+    "limitations": [
+      "Lab samples, not physical mobile or field Core Web Vitals.",
+      "LCP target changed: baseline late underwater IMG to optimized H1. The opening room stays visible; later invisible compositing no longer replaces the opening LCP.",
+      "Load event excludes later asynchronous texture completion; encoded byte totals were saved after scene ready.",
+      "No whole-site INP, universal FPS or real4G claim.",
+      "CSS bundling lowers blocking request count; it does not remove all legacy stylesheet bytes."
+    ]
   }
 }

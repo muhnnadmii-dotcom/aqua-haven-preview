@@ -1,5 +1,19 @@
 # Aqua Haven — public design preview
 
+<!-- v17-release-info:start -->
+Release revision 17 contains 421 HTML pages: the existing 420-page preview plus the separate `/flow/` cinematic comparison. It retains 405 products and 21 categories. The source remains a static design preview; no account, order, payment, service submission or live-store connection is enabled.
+
+The independent pre-fix review scored design 30/40 and technical quality 13/20 against V16 commit `b268c39142b2ef445939edcc45f4c229c0d40736`. These are baseline scores, not an after-fix certification. The cinematic comparison keeps native reversible scrolling and the original pause/reduced-motion alternatives; `/` and `/story/` remain available.
+
+Controlled local measurements used three cold runs before and after under the same documented profile: median load 31.84s → 7.15s; encoded observed resource bytes fell 57.8%. LCP changed from a late underwater image to the opening heading, so it is not a like-for-like image speed claim. Load excludes later asynchronous texture completion; resource totals were captured after scene readiness. These are lab observations, not field Core Web Vitals, physical-mobile, universal-FPS or whole-site-INP results.
+<!-- v17-release-info:end -->
+
+Quality revision 17: reviewed homepage, shop, product and designer independently before fixes. Mobile product identity/reference pricing now precedes the photograph; the designer has a visible editing shortcut; category filtering preserves all original options in their real parent groups. Readable guidance and inline input errors use shared marine palette tokens. Local drafts refuse incompatible/corrupt/newer snapshots and failed storage writes, with manual-copy recovery. No backend or submission was added.
+
+`flow/` is a separate cinematic comparison: the same aquarium water meets a rising pearl store section on native reversible scrolling. The original homepage remains at `/` and `/story/`. Pausing/reduced motion removes the extra transition layout; the skip link reaches actual product categories.
+
+Delivery optimization uses full-glyph WOFF2 fonts, proportional mobile aquarium textures, reused decoded images and early story-height reservation. `assets/store-core-v17.css` preserves the exact order of sixteen editable source stylesheets; `assets/quality-v17.css` loads last. Regenerate the bundle from those sources before publishing CSS edits (the local project build helper is `work/five-pass-v17/bundle-pages.cjs`). This is request consolidation, not removal of all legacy CSS.
+
 Copy revision 16: Arabic text was reviewed across all 420 pages and 405 product descriptions, with exact repeated fragments mapped to their uses. Store/product/designer/service labels are consistent; vague showroom copy was replaced with concrete aquarium language. Supplier product names, prices, technical numbers and variant data are preserved. This is editorial review, not manufacturer verification. The V14 aquarium renderer and V15 layout remain unchanged.
 
 Distribution revision 15: the immersive aquarium is now the actual homepage, also available at `story/`. The approved V14 camera and renderer are preserved. A shared navigation and footer connect the shop, portfolio, services, tank designer, search and local drafts across 420 pages. Below the aquarium the homepage offers categories and selected products, archive projects, the designer, services and inspiration. The cart control explains that checkout is unavailable in this static preview; it does not create a cart or account.

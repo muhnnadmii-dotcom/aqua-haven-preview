@@ -1,6 +1,6 @@
 import {CHAPTERS,parseBounds,coverGeometry,scrollProgress,cameraState} from './scene-math.mjs?v=14';
 import {createFrameSequence} from './frame-sequence.mjs?v=14';
-import {createContinuousScene} from './continuous-scene.mjs?v=14';
+import {createContinuousScene} from './continuous-scene.mjs?v=17';
 
 // Native scrolling owns the journey. No wheel/touch interception, scroll locks,
 // third-party runtime, tracking, storage, backend calls, or generated shop links.
@@ -43,10 +43,12 @@ function initializeStory(story) {
   // The image player is only a discrete fallback. The enhanced interior is
   // one persistent world: moving the camera changes depth and occlusion.
   const worldCanvas=story.querySelector('.continuous-scene');
+  const texture=(name)=>asset(`assets/grounded-v14/${name}${mobile.matches?'-mobile':''}.webp`);
   const world=createContinuousScene(worldCanvas,{
-    urls:{background:asset('assets/underwater.webp'),foliage:asset('assets/grounded-v14/foliage.webp'),
-      filter:asset('assets/grounded-v14/filter.webp'),fish:asset('assets/fish.webp'),
-      shrimp:asset('assets/grounded-v14/shrimp-plant.webp'),surface:asset('assets/discovery/10-surface-only.webp'),sand:asset('assets/grounded-v14/sand.webp')},
+    urls:{background:asset('assets/underwater.webp'),foliage:texture('foliage'),
+      filter:texture('filter'),fish:asset('assets/fish.webp'),
+      shrimp:texture('shrimp-plant'),surface:asset('assets/discovery/10-surface-only.webp'),sand:texture('sand')},
+    preloaded:{background:underwater,fish:story.querySelector('.tank-fish')},
     onReady:({status,error})=>{
       worldCanvas.dataset.sceneStatus=status;
       if(error)worldCanvas.dataset.sceneError=error;else delete worldCanvas.dataset.sceneError;
@@ -89,9 +91,11 @@ function initializeStory(story) {
     // untransformed camera parent; transform-origin must stay at its center.
     metrics.top=story.getBoundingClientRect().top+window.scrollY;
     metrics.travel=Math.max(0,story.offsetHeight-height);
+    const controlsHeight=story.querySelector('.story-toolbar')?.offsetHeight||134;
     const {tank}=geometry;
     windowLayer.style.left=tank.x+'px';windowLayer.style.top=tank.y+'px';
     windowLayer.style.width=tank.width+'px';windowLayer.style.height=tank.height+'px';
+    story.style.setProperty('--story-controls-height',controlsHeight+'px');
     sequence?.resize({width,height,mobile:mobile.matches});
     world?.resize(width,height,{mobile:mobile.matches,entryScale:cameraState(.48,geometry,underwaterAspect).underwaterScale});
     measureNeeded=false;return true;
@@ -206,11 +210,12 @@ function initializeStory(story) {
     currentScroll=window.scrollY;frame();
   }
   function start() {
-    if(initialized||!photo.naturalWidth||!underwater.naturalWidth)return;
+    if(initialized||!photo.complete||!underwater.complete||!photo.naturalWidth||!underwater.naturalWidth)return;
     initialized=true;
     // The non-enhanced HTML is one ordinary room scene followed by shopping.
     // Only a working, decoded photographic sequence receives the tall journey.
     story.classList.add('is-enhanced');
+    document.documentElement.classList.remove('story-pending');
     if(toggle)toggle.hidden=false;if(navigation)navigation.hidden=false;
     applyMode();
   }
@@ -219,7 +224,7 @@ function initializeStory(story) {
   const resized=()=>{lastCameraTime=0;measureNeeded=dirty=true;frame();};
   window.addEventListener('resize',resized,{passive:true});
   window.addEventListener('pageshow',()=>{currentScroll=window.scrollY;resized();});
-  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(resized);observer.observe(stage);observer.observe(story);}
+  if(typeof ResizeObserver!=='undefined'){const observer=new ResizeObserver(resized);observer.observe(stage);observer.observe(story);const toolbar=story.querySelector('.story-toolbar');if(toolbar)observer.observe(toolbar);}
   if(typeof IntersectionObserver!=='undefined'){
     const observer=new IntersectionObserver(entries=>{visible=entries[0]?.isIntersecting??true;lastTime=lastCameraTime=0;dirty=true;frame();},{threshold:0});observer.observe(stage);
   }
@@ -227,6 +232,8 @@ function initializeStory(story) {
   reduce.addEventListener('change',()=>applyMode({preservePosition:initialized}));
   mobile.addEventListener('change',resized);
   photo.addEventListener('load',()=>{resized();start();});underwater.addEventListener('load',()=>{resized();start();});
+  const releasePending=()=>document.documentElement.classList.remove('story-pending');
+  photo.addEventListener('error',releasePending,{once:true});underwater.addEventListener('error',releasePending,{once:true});
   for(const button of buttons)button.addEventListener('click',()=>{
     const index=CHAPTERS.findIndex(chapter=>chapter.id===button.dataset.storyChapter);if(index<0||!initialized)return;
     if(reduced()){staticChapter=index;dirty=true;frame();window.scrollTo({top:metrics.top,behavior:'instant'});}

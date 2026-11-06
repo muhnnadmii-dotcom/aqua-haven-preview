@@ -19,24 +19,25 @@
   const summary = $('hs-brief-summary'), status = $('hs-storage-status'), copyStatus = $('hs-copy-status');
   const digits = new Intl.NumberFormat('ar-SA', {maximumFractionDigits:1});
   const emptySummary = 'اختر الخدمة وأضف بيانات الحوض، ثم اضغط «جهّز ملخص الخدمة».';
-  let saveTimer = 0, prepared = false, restored = false;
+  let saveTimer = 0, prepared = false, restored = false, revision = 0, copying = false;
+  let storageState = {status:'unavailable'};
+  form.noValidate=true;
   const owns = (object, value) => typeof value === 'string' && Object.prototype.hasOwnProperty.call(object, value);
+  const dimensions = [fields.length,fields.width,fields.height];
+  const dimensionMax = new Map([[fields.length,400],[fields.width,200],[fields.height,200]]);
+  dimensions.forEach(field=>{field.type='text';field.inputMode='numeric';});
+  fields.idea.dir='auto';summary.dir='auto';
   function dimension(value, max) {
-    const str = typeof value === 'string' ? value.trim() : '';
-    return /^\d{1,3}$/.test(str) && Number(str) >= 10 && Number(str) <= max ? String(Number(str)) : '';
+    const str = typeof value === 'string' ? value.trim().replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-0x660)).replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-0x6f0)) : '';
+    return /^\d{1,3}$/.test(str) && Number.isSafeInteger(Number(str)) && Number(str) >= 10 && Number(str) <= max ? Number(str) : null;
   }
-  function cleanDraft(input) {
-    const d = input && typeof input === 'object' && !Array.isArray(input) ? input : {};
-    return {
-      service:owns(serviceNames,d.service) ? d.service : 'custom',
-      system:owns(systemNames,d.system) ? d.system : 'undecided',
-      place:owns(placeNames,d.place) ? d.place : 'home',
-      length:dimension(d.length,400), width:dimension(d.width,200), height:dimension(d.height,200),
-      idea:typeof d.idea === 'string' ? d.idea.replace(/\u0000/g,'').slice(0,600) : '',
-    };
+  function validStored(input) {
+    const d=input?.draft;
+    return input&&typeof input==='object'&&!Array.isArray(input)&&input.version===1&&d&&typeof d==='object'&&!Array.isArray(d)&&owns(serviceNames,d.service)&&owns(systemNames,d.system)&&owns(placeNames,d.place)&&['length','width','height','idea'].every(name=>typeof d[name]==='string');
   }
   function currentDraft() {
-    return cleanDraft(Object.fromEntries(Object.entries(fields).map(([name,field]) => [name,field.value])));
+    // Incomplete input remains editable after reload, rather than becoming blank.
+    return Object.fromEntries(Object.entries(fields).map(([name,field]) => [name,field.value]));
   }
   function fill(draft) {
     for (const [name,field] of Object.entries(fields)) field.value = draft[name];
@@ -45,24 +46,43 @@
     $('hs-service-context').textContent = hints[fields.service.value] || hints.custom;
     $('hs-idea-count').textContent = digits.format(fields.idea.value.length) + ' / ' + digits.format(600);
   }
-  function validate(show = false) {
-    const dimensions = [fields.length,fields.width,fields.height];
-    dimensions.forEach(field => field.setCustomValidity(''));
-    const filled = dimensions.filter(field => field.value !== '').length;
-    if (filled > 0 && filled < 3) dimensions.filter(field => field.value === '').forEach(field => field.setCustomValidity('أكمل الأبعاد الثلاثة، أو اتركها جميعًا فارغة.'));
-    fields.idea.setCustomValidity(fields.idea.value.trim().length > 0 && fields.idea.value.trim().length < 10 ? 'اكتب ملاحظة من 10 أحرف على الأقل، أو اترك الحقل فارغًا.' : '');
-    return show ? form.reportValidity() : form.checkValidity();
+  function fieldError(field,message,show) {
+    field.setCustomValidity(message);
+    if(show||field.getAttribute('aria-invalid')==='true'){
+      if(message)field.setAttribute('aria-invalid','true');else field.removeAttribute('aria-invalid');
+      const error=$(field.id+'-error');if(error){error.textContent=message;error.hidden=!message;}
+    }
+  }
+  function validate(show = false,focus = show) {
+    let first=null;
+    const filled=dimensions.filter(field=>field.value.trim()!=='').length;
+    for(const field of dimensions){
+      const max=dimensionMax.get(field),blank=field.value.trim()==='';
+      const message=blank?(filled?'أكمل الأبعاد الثلاثة، أو اتركها جميعًا فارغة.':''):(dimension(field.value,max)===null?`أدخل عددًا صحيحًا من ١٠ إلى ${digits.format(max)} سم.`:'');
+      fieldError(field,message,show);if(message&&!first)first=field;
+    }
+    const ideaLength=fields.idea.value.trim().length;
+    const message=fields.idea.value.length>600?'اكتب الملاحظات في ٦٠٠ حرف أو أقل، مع احتساب الرموز.':ideaLength>0&&ideaLength<10?'اكتب ملاحظة من ١٠ أحرف على الأقل، أو اترك الحقل فارغًا.':'';
+    fieldError(fields.idea,message,show);if(message&&!first)first=fields.idea;
+    for(const [name,names]of [['service',serviceNames],['system',systemNames],['place',placeNames]]){
+      const message=owns(names,fields[name].value)?'':'اختر أحد الخيارات المتاحة.';fieldError(fields[name],message,show);if(message&&!first)first=fields[name];
+    }
+    if(first&&focus){first.focus();first.reportValidity();}
+    return !first;
   }
   function saveDraft(message = '') {
     const draft = currentDraft();
-    const payload = JSON.stringify({version:1, updatedAt:new Date().toISOString(), draft});
+    const payload = JSON.stringify({...storageState.value,version:1, updatedAt:new Date().toISOString(), draft:{...storageState.value?.draft,...draft}});
     try {
+      if(!['missing','ready'].includes(storageState.status))throw new Error('Existing draft unavailable.');
       if (payload.length > 5000) throw new Error('Draft exceeds local limit.');
+      if(localStorage.getItem(key)!==storageState.raw)throw new Error('Draft changed in another page.');
       localStorage.setItem(key,payload);
+      storageState={status:'ready',raw:payload,value:JSON.parse(payload)};
       status.textContent = message || 'حُفظت المسودة في هذا المتصفح. لم تُرسل إلى أكوا هافن.';
       return true;
     } catch {
-      status.textContent = 'تعذّر الحفظ في هذا المتصفح. يمكنك تجهيز الملخص ونسخه قبل مغادرة الصفحة.';
+      status.textContent = 'تعذّر حفظ آخر تعديل. بقيت المسودة السابقة كما هي؛ جهّز الملخص وانسخه قبل مغادرة الصفحة.';
       return false;
     }
   }
@@ -73,9 +93,10 @@
       'نوع النظام: ' + systemNames[draft.system],
       'المكان: ' + placeNames[draft.place],
     ];
-    if (draft.length && draft.width && draft.height) {
-      lines.push('الأبعاد التقريبية: طول ' + digits.format(Number(draft.length)) + ' × عرض ' + digits.format(Number(draft.width)) + ' × ارتفاع ' + digits.format(Number(draft.height)) + ' سم');
-      lines.push('الحجم الهندسي التقريبي: ' + digits.format(Number(draft.length) * Number(draft.width) * Number(draft.height) / 1000) + ' لتر');
+    const length=dimension(draft.length,400),width=dimension(draft.width,200),height=dimension(draft.height,200);
+    if (length!==null && width!==null && height!==null) {
+      lines.push('الأبعاد التقريبية: طول ' + digits.format(length) + ' × عرض ' + digits.format(width) + ' × ارتفاع ' + digits.format(height) + ' سم');
+      lines.push('الحجم الهندسي التقريبي: ' + digits.format(length * width * height / 1000) + ' لتر');
     } else lines.push('الأبعاد: لم تتحدد بعد');
     if (draft.idea.trim()) lines.push('', 'الملاحظات:', draft.idea.trim());
     lines.push('', 'مسودة على جهازك — لم تُرسل إلى فريق أكوا هافن.', 'ليست حجزًا أو طلبًا أو عرض سعر.');
@@ -90,9 +111,10 @@
     return true;
   }
   function changed() {
+    revision++;
     updateHints();
-    // Clear prior custom errors without surfacing validation on every keystroke.
-    [fields.length,fields.width,fields.height,fields.idea].forEach(field => field.setCustomValidity(''));
+    // Refresh existing errors quietly; new errors appear on blur or preparation.
+    validate();
     if (prepared) copyStatus.textContent = 'تغيّرت المسودة. جهّز الملخص مجددًا قبل نسخه.';
     prepared = false; copy.disabled = true;
     clearTimeout(saveTimer);
@@ -107,40 +129,48 @@
     return true;
   }
   async function copySummary() {
-    if (!prepared) return;
+    if (!prepared||copying) return;
     const content = summary.textContent;
+    const requestRevision=revision;copying=true;copy.disabled=true;
     let copied = false;
     try {
       if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
         await navigator.clipboard.writeText(content); copied = true;
       }
     } catch { /* Local selection fallback below. */ }
+    if(requestRevision!==revision){copying=false;copy.disabled=!prepared;return;}
     if (!copied) {
       try { if (selectSummary()) copied = document.execCommand('copy'); } catch { copied = false; }
     }
     copyStatus.textContent = copied ? 'نُسخ الملخص. لم يُرسل إلى أي جهة.' : 'تعذّر النسخ التلقائي. حدّد نص الملخص وانسخه يدويًا.';
+    copying=false;copy.disabled=!prepared;
     if (copied) copy.focus({preventScroll:true});
   }
   function clearDraft() {
+    try {
+      if(storageState.status==='unavailable'||localStorage.getItem(key)!==storageState.raw)throw new Error('Draft changed.');
+      localStorage.removeItem(key);
+    } catch {status.textContent='تعذّر حذف المسودة. بقيت الحقول وبيانات التخزين كما هي؛ أعد فتح الصفحة وحاول مجددًا.';return;}
+    storageState={status:'missing',raw:null,value:null};revision++;
     clearTimeout(saveTimer); saveTimer = 0; form.reset();
-    [fields.length,fields.width,fields.height,fields.idea].forEach(field => field.setCustomValidity(''));
+    Object.values(fields).forEach(field=>fieldError(field,'',true));
     summary.textContent = emptySummary; prepared = false; copy.disabled = true; copyStatus.textContent = ''; updateHints();
-    try { localStorage.removeItem(key); status.textContent = 'حُذفت مسودة الخدمة من هذا المتصفح. يمكنك البدء من جديد.'; }
-    catch { status.textContent = 'تم تفريغ الحقول هنا، لكن تعذّر حذف المسودة من تخزين المتصفح.'; }
+    status.textContent = 'حُذفت مسودة الخدمة من هذا المتصفح. يمكنك البدء من جديد.';
     fields.service.focus({preventScroll:true});
   }
 
   try {
-    const raw = localStorage.getItem(key);
-    if (raw) {
+    const raw=localStorage.getItem(key);storageState={status:raw===null?'missing':'invalid',raw,value:null};
+    if (raw!==null) {
       if (raw.length > 7000) throw new Error('Invalid local draft size.');
       const stored = JSON.parse(raw);
-      if (!stored || stored.version !== 1 || !stored.draft) throw new Error('Unknown local draft.');
-      fill(cleanDraft(stored.draft)); restored = true;
+      if (!validStored(stored)) throw new Error('Unknown local draft.');
+      storageState={status:'ready',raw,value:stored};
+      fill(stored.draft); restored = true;
       status.textContent = 'استُعيدت مسودتك من هذا المتصفح. لم تُرسل إلى أكوا هافن.';
     }
   } catch {
-    status.textContent = 'تعذّر استعادة مسودة الخدمة. يمكنك تجهيز ملخص جديد ونسخه.';
+    status.textContent = 'تعذّر استعادة مسودة الخدمة. بقيت بياناتها كما هي؛ يمكنك تجهيز ملخص جديد ونسخه.';
   }
   try {
     const requested = new URLSearchParams(location.search).get('service');
@@ -154,6 +184,7 @@
   form.addEventListener('submit', event => {event.preventDefault(); if (prepare()) summary.focus();});
   form.addEventListener('input',changed);
   form.addEventListener('change',changed);
+  [...dimensions,fields.idea].forEach(field=>field.addEventListener('blur',()=>validate(true,false)));
   clear.addEventListener('click',clearDraft);
   copy.addEventListener('click',copySummary);
   document.querySelectorAll('[data-service-choice]').forEach(button => button.addEventListener('click', () => {

@@ -12,21 +12,51 @@ export function estimateDesign(c) {
   return {price:Math.round((tank+(c.addons.filter?129:0)+(c.addons.light?179:0)+(c.addons.plants?39:0))*100)/100,litres:Math.round(c.length*c.width*c.height/100)/10,tank};
 }
 export function savedEntries(value) {
-  return Array.isArray(value) ? value.map((item,index) => ({item,index})).filter(({item}) => typeof item?.name === 'string' && validDesign(item.config)).slice(0,12) : [];
+  return Array.isArray(value) ? value.map((item,index) => ({item,index})).filter(({item}) => typeof item?.name === 'string' && validDesign(item.config)) : [];
 }
 // Remove exactly one selected record, retaining every other record, including older formats.
 export function removeSavedRecord(records, index, snapshot) {
-  if (!Array.isArray(records)) return [];
+  if (!Array.isArray(records)) return null;
   const next = records.slice();
   const fingerprint = JSON.stringify(snapshot);
-  const current = JSON.stringify(next[index]) === fingerprint ? index : next.findIndex(item => JSON.stringify(item) === fingerprint);
-  if (current >= 0) next.splice(current,1);
+  const current = index>=0&&index<next.length&&JSON.stringify(next[index]) === fingerprint ? index : next.findIndex(item => JSON.stringify(item) === fingerprint);
+  if (current < 0) return null;
+  next.splice(current,1);
   return next;
+}
+// Keep the entered script intact; normalize only the value used for validation.
+export function parseDimension(value,min,max) {
+  const normalized=String(value??'').trim().replace(/[٠-٩]/g,c=>String(c.charCodeAt(0)-0x660)).replace(/[۰-۹]/g,c=>String(c.charCodeAt(0)-0x6f0));
+  if(!/^\d{1,3}$/.test(normalized))return null;
+  const number=Number(normalized);
+  return Number.isSafeInteger(number)&&number>=min&&number<=max?number:null;
 }
 const money = n => new Intl.NumberFormat('ar-SA',{maximumFractionDigits:2}).format(n)+' ر.س';
 const decimal = n => new Intl.NumberFormat('ar-SA',{maximumFractionDigits:1}).format(n);
-const read = key => {try {return JSON.parse(localStorage.getItem(key)||'null');} catch {return null;}};
-const write = (key,value) => {try {localStorage.setItem(key,JSON.stringify(value));return true;} catch {return false;}};
+const validDraft = value => !!value && typeof value==='object' && !Array.isArray(value) && (value.version===undefined||value.version===1) && typeof value.name==='string' && validDesign(value.config);
+function readStorage(key,valid) {
+  let raw;
+  try {raw=localStorage.getItem(key);} catch {return {status:'unavailable'};}
+  if(raw===null)return {status:'missing',raw:null,value:null};
+  try {const value=JSON.parse(raw);return {status:valid(value)?'ready':'invalid',raw,value};}
+  catch {return {status:'invalid',raw};}
+}
+// A failed read, unknown format or a newer tab's edit never becomes an empty draft.
+function writeStorage(key,state,value) {
+  if(!state||!['missing','ready'].includes(state.status))return null;
+  try {
+    const raw=JSON.stringify(value);
+    if(localStorage.getItem(key)!==state.raw)return null;
+    localStorage.setItem(key,raw);
+    return {status:'ready',raw,value};
+  } catch {return null;}
+}
+async function changeSavedRecords(action) {
+  // Cooperating tabs serialize list changes where Web Locks are supported.
+  // The snapshot check in writeStorage also protects the fallback path.
+  if(typeof navigator.locks?.request==='function')return navigator.locks.request(SAVED_KEY,action);
+  return action();
+}
 function announce(message) {const status=document.querySelector('#studio-status');if(status)status.textContent=message;}
 if (typeof document !== 'undefined') {
   if (document.querySelector('#tank-form')) initializeDesigner();
@@ -35,6 +65,24 @@ if (typeof document !== 'undefined') {
 function initializeDesigner() {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const form=$('#tank-form'), name=$('#tank-name');
+  form.noValidate=true;name.dir='auto';
+  const dimensionLimits={length:[40,160],width:[25,80],height:[25,80]};
+  const numberFields=$$('[data-number]');
+  numberFields.forEach(field=>{field.type='text';field.inputMode='numeric';});
+  function fieldError(field,message,show=true) {
+    field.setCustomValidity(message);
+    if(show||field.getAttribute('aria-invalid')==='true') {
+      const error=$('#'+field.id+'-error');
+      if(message)field.setAttribute('aria-invalid','true');else field.removeAttribute('aria-invalid');
+      if(error){error.textContent=message;error.hidden=!message;}
+    }
+  }
+  function checkField(field,show=false) {
+    if(field===name){const message=name.value.length>80?'اكتب اسمًا من ٨٠ حرفًا أو أقل، مع احتساب الرموز.':'';fieldError(field,message,show);return !message;}
+    const [min,max]=dimensionLimits[field.dataset.number],value=parseDimension(field.value,min,max);
+    const message=value===null?`أدخل عددًا صحيحًا من ${decimal(min)} إلى ${decimal(max)} سم.`:'';
+    fieldError(field,message,show);return value!==null;
+  }
   const panels=$$('[data-studio-panel]'), stepLinks=$$('[data-studio-step]');
   const stepBack=$('#studio-step-back'), stepNext=$('#studio-step-next');
   let currentStep=0;
@@ -51,9 +99,10 @@ function initializeDesigner() {
     if(scroll)$('#studio-dimensions')?.closest('.studio-controls')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
   }
   function validateForm() {
-    const invalid=form.querySelector('input:invalid');
+    const invalid=[...numberFields,name].filter(field=>!checkField(field,true))[0];
     if(invalid && hasSteps){const index=panels.indexOf(invalid.closest('[data-studio-panel]'));if(index>=0)showStep(index);}
-    return form.reportValidity();
+    if(invalid){invalid.focus();invalid.reportValidity();return false;}
+    return true;
   }
   if(hasSteps){
     $('.studio-v8')?.classList.add('is-step-enhanced');
@@ -63,8 +112,8 @@ function initializeDesigner() {
     }
     stepBack.addEventListener('click',()=>showStep(currentStep-1,{focus:true,scroll:true}));
     stepNext.addEventListener('click',()=>{
-      const invalid=panels[currentStep].querySelector('input:invalid');
-      if(invalid){invalid.reportValidity();return;}
+      const invalid=numberFields.filter(field=>field.closest('[data-studio-panel]')===panels[currentStep]).filter(field=>!checkField(field,true))[0];
+      if(invalid){invalid.focus();invalid.reportValidity();return;}
       if(currentStep<panels.length-1)showStep(currentStep+1,{focus:true,scroll:true});
       else {$('#studio-estimate').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});$('#studio-summary-title')?.focus({preventScroll:true});}
     });
@@ -74,12 +123,14 @@ function initializeDesigner() {
   }
   let config={length:90,width:45,height:45,glass:'standard',addons:{filter:true,light:true,plants:true}};
   let paused=matchMedia('(prefers-reduced-motion: reduce)').matches, builder;
-  const draft=read(DRAFT_KEY);
-  if(validDesign(draft?.config)) {config=structuredClone(draft.config);name.value=typeof draft.name==='string'?draft.name.slice(0,80):'';}
+  let draftState=readStorage(DRAFT_KEY,validDraft);
+  if(draftState.status==='ready') {config=structuredClone(draftState.value.config);name.value=draftState.value.name;}
+  else if(draftState.status==='invalid')announce('تعذّر قراءة المسودة السابقة. بقيت محفوظة كما هي؛ يمكنك نسخ ملخص تصميمك الجديد.');
+  else if(draftState.status==='unavailable')announce('تخزين المتصفح غير متاح. يمكنك تعديل الحوض ونسخ ملخصه قبل مغادرة الصفحة.');
   try {builder=createTankScene($('[data-scene="builder"]'),config);} catch {$('#scene-fallback').hidden=false;}
-  function refresh() {
+  function refresh(persist=true) {
     const quote=estimateDesign(config);
-    builder?.update(config);
+    try {builder?.update(config);} catch {builder=undefined;$('#scene-fallback').hidden=false;}
     $('#scene-dimensions').textContent=`${config.length} × ${config.width} × ${config.height} cm`;
     $('#quote-price').textContent=money(quote.price);
     $('#quote-volume').textContent=decimal(quote.litres);
@@ -89,39 +140,62 @@ function initializeDesigner() {
     $$('[data-preview-volume]').forEach(el=>el.textContent=decimal(quote.litres)+' لتر');
     $$('[data-preview-glass]').forEach(el=>el.textContent=config.glass==='ultra'?'فائق الصفاء':'صافي');
     $$('[data-preview-price]').forEach(el=>el.textContent=money(quote.price));
-    write(DRAFT_KEY,{name:name.value.slice(0,80),config});
+    if(persist && checkField(name)) {
+      const next=writeStorage(DRAFT_KEY,draftState,{...draftState.value,name:name.value,config});
+      if(next)draftState=next;
+      else announce('تعذّر حفظ آخر تعديل. بقيت المسودة السابقة كما هي؛ انسخ ملخصك للاحتفاظ بالتعديل.');
+    }
     $$('[data-preset]').forEach(button => {const active=button.dataset.preset===`${config.length},${config.width},${config.height}`;button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',String(active));});
   }
-  function sync() {
+  function sync(persist=true) {
     for(const key of ['length','width','height']) {$(`[data-dimension="${key}"]`).value=config[key];$(`[data-number="${key}"]`).value=config[key];}
+    numberFields.forEach(field=>fieldError(field,''));
     $$('input[name="glass"]').forEach(el => el.checked=el.value===config.glass);
     for(const key of ['filter','light','plants']) $(`input[name="${key}"]`).checked=config.addons[key];
-    refresh();
+    refresh(persist);
   }
-  $$('[data-dimension]').forEach(el => el.addEventListener('input',() => {const key=el.dataset.dimension;config[key]=Number(el.value);$(`[data-number="${key}"]`).value=el.value;refresh();}));
+  $$('[data-dimension]').forEach(el => el.addEventListener('input',() => {const key=el.dataset.dimension,value=parseDimension(el.value,...dimensionLimits[key]);if(value===null)return;config[key]=value;const field=$(`[data-number="${key}"]`);field.value=el.value;fieldError(field,'');refresh();}));
   $$('[data-number]').forEach(el => el.addEventListener('input',() => {
-    if(!el.checkValidity() || el.value==='') return;
-    const key=el.dataset.number;config[key]=Number(el.value);$(`[data-dimension="${key}"]`).value=el.value;refresh();
+    if(!checkField(el)) return;
+    const key=el.dataset.number;config[key]=parseDimension(el.value,...dimensionLimits[key]);$(`[data-dimension="${key}"]`).value=config[key];refresh();
   }));
+  numberFields.forEach(el=>el.addEventListener('blur',()=>checkField(el,true)));
   $$('input[name="glass"]').forEach(el => el.addEventListener('change',() => {if(el.checked){config.glass=el.value;refresh();}}));
   for(const key of ['filter','light','plants']) $(`input[name="${key}"]`).addEventListener('change',event => {config.addons[key]=event.target.checked;refresh();});
-  $$('[data-preset]').forEach(el => el.addEventListener('click',() => {[config.length,config.width,config.height]=el.dataset.preset.split(',').map(Number);sync();}));
-  name.addEventListener('input',refresh);
+  $$('[data-preset]').forEach(el => el.addEventListener('click',() => {const values=el.dataset.preset.split(',').map(Number),next={...config,length:values[0],width:values[1],height:values[2]};if(!validDesign(next))return;config=next;sync();}));
+  name.addEventListener('input',()=>{checkField(name);refresh();});
+  name.addEventListener('blur',()=>checkField(name,true));
   form.addEventListener('submit',event => event.preventDefault());
-  $('#save-tank').addEventListener('click',() => {
+  $('#save-tank').addEventListener('click',async() => {
     if(!validateForm()) return;
-    const value=read(SAVED_KEY), records=Array.isArray(value)?value:[];
-    if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ تصميمًا. احذف تصميمًا من «تصاميمي المحفوظة» لإضافة آخر.');return;}
-    const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim().slice(0,80)||'تصميم حوض',config:structuredClone(config)};
-    const saved=write(SAVED_KEY,[record,...records]);
-    if(saved && $('#studio-saved-link')) $('#studio-saved-link').hidden=false;
-    announce(saved?'حُفظ التصميم. ستجده في «تصاميمي المحفوظة» على هذا المتصفح.':'تعذّر الحفظ في المتصفح. انسخ ملخص التصميم للاحتفاظ به.');
+    const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim()||'تصميم حوض',config:structuredClone(config)};
+    const button=$('#save-tank');button.disabled=true;
+    try {await changeSavedRecords(()=>{
+      const state=readStorage(SAVED_KEY,Array.isArray);
+      if(!['ready','missing'].includes(state.status)){announce('تعذّر قراءة التصاميم السابقة. بقيت كما هي؛ انسخ ملخص تصميمك للاحتفاظ به.');return;}
+      const records=state.value||[];
+      if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ تصميمًا. احذف تصميمًا من «تصاميمي المحفوظة» لإضافة آخر.');return;}
+      const saved=writeStorage(SAVED_KEY,state,[record,...records]);
+      if(saved && $('#studio-saved-link')) $('#studio-saved-link').hidden=false;
+      announce(saved?'حُفظ التصميم. ستجده في «تصاميمي المحفوظة» على هذا المتصفح.':'تعذّر الحفظ أو تغيّرت التصاميم في صفحة أخرى. بقيت التصاميم السابقة كما هي؛ انسخ ملخص تصميمك.');
+    });}catch{announce('تعذّر الحفظ في المتصفح. بقيت التصاميم السابقة كما هي؛ انسخ ملخص تصميمك.');}
+    finally{button.disabled=false;}
   });
   $('#copy-design').addEventListener('click',async() => {
     if(!validateForm()) return;
     const quote=estimateDesign(config), extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key]) => config.addons[key]).map(([,label]) => label).join('، ')||'بدون إضافات';
     const summary=`${name.value.trim()||'تصميم حوض'} — أكوا هافن\n${config.length} × ${config.width} × ${config.height} سم\n${config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'} · ${extras}\nتكلفة تقديرية: ${money(quote.price)} · ${decimal(quote.litres)} لتر\nتصميم تقريبي؛ ليس عرض سعر أو مخطط تصنيع.`;
-    try {await navigator.clipboard.writeText(summary);announce('نُسخ ملخص التصميم.');} catch {announce('النسخ التلقائي غير متاح. يمكنك تحديد المقاسات والتقدير ونسخهما.');}
+    const button=$('#copy-design'),fallback=$('#studio-copy-fallback'),text=$('#studio-copy-text');
+    button.disabled=true;
+    try {
+      if(typeof navigator.clipboard?.writeText!=='function')throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(summary);
+      if(fallback)fallback.hidden=true;
+      announce('نُسخ ملخص التصميم.');
+    } catch {
+      if(fallback&&text){fallback.hidden=false;text.value=summary;text.focus();text.select();}
+      announce('تعذّر النسخ التلقائي. حدّد الملخص الظاهر وانسخه يدويًا.');
+    } finally {button.disabled=false;}
   });
   const motion=$('#motion-toggle');
   function updateMotion(){builder?.pause(paused);motion.setAttribute('aria-pressed',String(paused));motion.textContent=paused?'تشغيل الحركة':'إيقاف الحركة';}
@@ -129,30 +203,33 @@ function initializeDesigner() {
   $('#rotate-left').addEventListener('click',() => builder?.rotate(-.4));
   $('#rotate-right').addEventListener('click',() => builder?.rotate(.4));
   $('#reset-view').addEventListener('click',() => builder?.reset());
-  sync();updateMotion();
+  sync(false);updateMotion();
 }
 function initializeDrafts() {
   const page=document.querySelector('[data-drafts-page]'), host=document.querySelector('#tank-list');
   const make=(tag,className,text) => {const el=document.createElement(tag);if(className)el.className=className;if(text!==undefined)el.textContent=text;return el;};
   function render(focusPosition) {
     host.replaceChildren();
-    const entries=savedEntries(read(SAVED_KEY));
+    const state=readStorage(SAVED_KEY,Array.isArray),entries=savedEntries(state.value);
     document.querySelector('#drafts-count').textContent=decimal(entries.length);
     if(!entries.length) {
       const empty=make('div','drafts-empty'), icon=make('div','drafts-empty-symbol');icon.setAttribute('aria-hidden','true');
       const title=make('h2','','لم تحفظ أيّ تصميم بعد.'), text=make('p','','اختر المقاسات والزجاج والإضافات في المصمّم، ثم احفظ التصميم لتجده هنا.');
+      if(!['ready','missing'].includes(state.status)){title.textContent='تعذّر عرض التصاميم المحفوظة.';text.textContent='لم تُحذف بياناتك. أعد فتح الصفحة عند توفر تخزين المتصفح، أو ابدأ تصميمًا وانسخ ملخصه.';announce('تعذّر قراءة التصاميم المحفوظة. بقيت بيانات التخزين كما هي.');}
+      else if(Array.isArray(state.value)&&state.value.length){title.textContent='لا توجد تصاميم يمكن فتحها هنا.';text.textContent='بقيت السجلات السابقة محفوظة كما هي. يمكنك بدء تصميم جديد ونسخ ملخصه.';}
       const link=make('a','btn btn-primary','صمّم أول حوض');link.href=page.dataset.designerUrl;
       empty.append(icon,title,text,link);host.append(empty);if(Number.isInteger(focusPosition))link.focus();return;
     }
     for(const [position,{item,index}] of entries.entries()) {
       const quote=estimateDesign(item.config), card=make('article','drafts-card'), visual=make('div','drafts-card-visual'), tank=make('div','drafts-mini-tank');
       visual.setAttribute('aria-hidden','true');tank.style.setProperty('--draft-ratio',String(item.config.length/item.config.height));
-      if(item.config.addons.plants){const img=make('img');img.src=page.dataset.plantImage;img.alt='';img.loading='lazy';tank.append(img);}
+      if(item.config.addons.plants){const img=make('img');img.src=page.dataset.plantImage;img.alt='';img.loading='lazy';img.addEventListener('error',()=>{img.hidden=true;},{once:true});tank.append(img);}
       if(item.config.addons.light)tank.append(make('span','drafts-mini-light'));
-      if(item.config.addons.filter && page.dataset.filterImage){const filter=make('img','drafts-mini-filter');filter.src=page.dataset.filterImage;filter.alt='';filter.loading='lazy';tank.append(filter);}
+      if(item.config.addons.filter && page.dataset.filterImage){const filter=make('img','drafts-mini-filter');filter.src=page.dataset.filterImage;filter.alt='';filter.loading='lazy';filter.addEventListener('error',()=>{filter.hidden=true;},{once:true});tank.append(filter);}
       const number=make('span','drafts-card-number',`تصميم ${decimal(position+1).padStart(2,'٠')}`);
       visual.append(number,tank);
       const body=make('div','drafts-card-body'), title=make('h2','',item.name||'تصميم حوض');
+      title.dir='auto';
       const dimensions=make('p','drafts-card-dimensions',`${item.config.length} × ${item.config.width} × ${item.config.height} سم`);dimensions.dir='ltr';
       const specs=make('p','drafts-card-specs',`${decimal(quote.litres)} لتر · ${item.config.glass==='ultra'?'فائق الصفاء':'زجاج صافي'}`);
       const extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key])=>item.config.addons[key]).map(([,label])=>label).join(' · ')||'بدون إضافات';
@@ -160,12 +237,17 @@ function initializeDrafts() {
       const price=make('p','drafts-card-price');price.append(make('span','','تكلفة تقديرية'),make('strong','',money(quote.price)));
       const actions=make('div','drafts-card-actions'), open=make('button','btn btn-primary','متابعة التصميم'), remove=make('button','studio-text-button drafts-delete','حذف');
       open.type=remove.type='button';open.setAttribute('aria-label',`متابعة تصميم ${item.name}`);remove.setAttribute('aria-label',`حذف التصميم: ${item.name}`);
-      open.addEventListener('click',() => {if(write(DRAFT_KEY,{name:item.name.slice(0,80),config:item.config}))location.assign(page.dataset.designerUrl);else announce('تعذّر فتح التصميم لأن التخزين في المتصفح غير متاح.');});
-      remove.addEventListener('click',() => {const next=removeSavedRecord(read(SAVED_KEY),index,item);if(write(SAVED_KEY,next)){render(position);announce(`حُذف تصميم «${item.name}» فقط.`);}else announce('تعذّر حذف التصميم لأن التخزين في المتصفح غير متاح.');});
+      open.addEventListener('click',() => {const draft=readStorage(DRAFT_KEY,validDraft);if(writeStorage(DRAFT_KEY,draft,{name:item.name,config:item.config}))location.assign(page.dataset.designerUrl);else announce('تعذّر فتح التصميم. بقيت المسودة السابقة كما هي؛ أعد فتح الصفحة وحاول مجددًا.');});
+      remove.addEventListener('click',async() => {
+        remove.disabled=true;
+        try{await changeSavedRecords(()=>{const latest=readStorage(SAVED_KEY,Array.isArray),next=removeSavedRecord(latest.value,index,item);if(next&&writeStorage(SAVED_KEY,latest,next)){render(position);announce(`حُذف تصميم «${item.name}» فقط.`);}else announce('تعذّر الحذف أو تغيّرت التصاميم في صفحة أخرى. أعد فتح الصفحة؛ لم تُحذف سجلات أخرى.');});}
+        catch{announce('تعذّر الحذف في المتصفح. بقيت التصاميم السابقة كما هي.');}
+        finally{remove.disabled=false;}
+      });
       actions.append(open,remove);body.append(title,dimensions,specs,selected,price,actions);card.append(visual,body);host.append(card);
     }
     if(Number.isInteger(focusPosition)){const buttons=host.querySelectorAll('.drafts-card-actions .btn-primary');buttons[Math.min(focusPosition,buttons.length-1)]?.focus();}
   }
-  window.addEventListener('storage',event => {if(event.key===SAVED_KEY)render();});
+  window.addEventListener('storage',event => {if(event.key===SAVED_KEY||event.key===null)render();});
   render();
 }

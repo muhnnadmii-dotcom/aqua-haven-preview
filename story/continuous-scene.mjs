@@ -195,7 +195,7 @@ function meshData(columns=1,rows=1){
   return new Float32Array(result);
 }
 
-export function createContinuousScene(canvas,{urls={},assetCalibration={},onReady}={}){
+export function createContinuousScene(canvas,{urls={},preloaded={},assetCalibration={},onReady}={}){
   const sources={...DEFAULT_URLS,...urls},keys=Object.keys(DEFAULT_URLS);
   let gl=null,program=null,status='idle',error=null,loadPromise=null;
   let width=1,height=1,mobile=false,entryScale=1.43,geometryDirty=true,objects=[];
@@ -222,8 +222,10 @@ export function createContinuousScene(canvas,{urls={},assetCalibration={},onRead
   }
   function loadImage(key){
     return new Promise((resolve,reject)=>{
-      const image=new Image();image.decoding='async';
-      image.onload=async()=>{
+      const candidate=preloaded[key];
+      const reuse=candidate&&new URL(candidate.currentSrc||candidate.src,document.baseURI).href===new URL(sources[key],document.baseURI).href;
+      const image=reuse?candidate:new Image();image.decoding='async';
+      const upload=async()=>{
         try{
           try{await image.decode();}catch{}
           if(!image.naturalWidth)throw Error('empty image');
@@ -236,7 +238,12 @@ export function createContinuousScene(canvas,{urls={},assetCalibration={},onRead
           textures[key]=texture;textureAspects[key]=image.naturalWidth/image.naturalHeight;resolve();
         }catch{reject(Error('photographic texture unavailable: '+key));}
       };
-      image.onerror=()=>reject(Error('photographic texture unavailable: '+key));image.src=sources[key];
+      const failed=()=>reject(Error('photographic texture unavailable: '+key));
+      if(reuse&&image.complete){image.naturalWidth?upload():failed();}
+      else{
+        image.addEventListener('load',upload,{once:true});image.addEventListener('error',failed,{once:true});
+        if(!reuse){image.fetchPriority='low';image.src=sources[key];}
+      }
     });
   }
   function resize(nextWidth,nextHeight,options={}){
