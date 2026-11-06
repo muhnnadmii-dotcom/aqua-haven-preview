@@ -1,6 +1,6 @@
 {
-  "designVersion": 15,
-  "builtAt": "2026-11-06T02:20:00.000Z",
+  "designVersion": 16,
+  "builtAt": "2026-11-06T05:26:54.096Z",
   "products": 405,
   "categories": 21,
   "pages": 420,
@@ -8,5 +8,11 @@
   "homepageAlias": "/story/",
   "sharedNavigationVersion": 15,
   "preservedAquariumRendererVersion": 14,
-  "scope": "Public design preview with local drafts and illustrative tank estimates; no transactions or accounts."
+  "scope": "Public design preview with local drafts and illustrative tank estimates; no transactions or accounts.",
+  "copyRevision": 16,
+  "editorialCoverage": {
+    "pages": 420,
+    "products": 405,
+    "scope": "Arabic copy and control names; supplier specifications preserved, source conflicts logged separately."
+  }
 }

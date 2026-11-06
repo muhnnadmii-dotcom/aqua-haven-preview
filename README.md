@@ -1,5 +1,7 @@
 # Aqua Haven — public design preview
 
+Copy revision 16: Arabic text was reviewed across all 420 pages and 405 product descriptions, with exact repeated fragments mapped to their uses. Store/product/designer/service labels are consistent; vague showroom copy was replaced with concrete aquarium language. Supplier product names, prices, technical numbers and variant data are preserved. This is editorial review, not manufacturer verification. The V14 aquarium renderer and V15 layout remain unchanged.
+
 Distribution revision 15: the immersive aquarium is now the actual homepage, also available at `story/`. The approved V14 camera and renderer are preserved. A shared navigation and footer connect the shop, portfolio, services, tank designer, search and local drafts across 420 pages. Below the aquarium the homepage offers categories and selected products, archive projects, the designer, services and inspiration. The cart control explains that checkout is unavailable in this static preview; it does not create a cart or account.
 
 The pearl and deep-navy identity, panoramic collection opening, product stage and guided tank workbench remain. The portfolio has four archive case studies with 17 original aquarium photographs. Services help visitors prepare and copy a brief saved only in their browser. This repository contains the complete editable static output.

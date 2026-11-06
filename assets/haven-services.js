@@ -9,16 +9,16 @@
   const systemNames = {undecided:'لم أحدد بعد', freshwater:'مياه عذبة', marine:'مياه بحرية'};
   const placeNames = {home:'مساحة منزلية', business:'مساحة أعمال'};
   const hints = {
-    custom:'ابدأ بالمكان والمقاس والتكوين الذي تتصوّره.',
+    custom:'اذكر المكان والمقاس والتنسيق الذي تريده للحوض.',
     maintenance:'صف الحوض القائم وما يحتاج إلى مراجعة أو عناية.',
     consultation:'حدّد السؤال أو الملاحظة التي تريد توضيحها عن الحوض.',
-    business:'فكّر في المساحة وطبيعة الاستخدام والحضور البصري المطلوب.',
+    business:'اذكر المساحة وطبيعة استخدامها والشكل الذي تريده للحوض.',
   };
   const fields = {service:$('hs-service'), system:$('hs-system'), place:$('hs-place'), length:$('hs-length'), width:$('hs-width'), height:$('hs-height'), idea:$('hs-idea')};
   const generate = $('hs-generate'), clear = $('hs-clear'), copy = $('hs-copy');
   const summary = $('hs-brief-summary'), status = $('hs-storage-status'), copyStatus = $('hs-copy-status');
   const digits = new Intl.NumberFormat('ar-SA', {maximumFractionDigits:1});
-  const emptySummary = 'اختر التفاصيل، ثم اضغط «جهّز ملخص الفكرة» لعرض ملخصك هنا.';
+  const emptySummary = 'اختر الخدمة وأضف بيانات الحوض، ثم اضغط «جهّز ملخص الخدمة».';
   let saveTimer = 0, prepared = false, restored = false;
   const owns = (object, value) => typeof value === 'string' && Object.prototype.hasOwnProperty.call(object, value);
   function dimension(value, max) {
@@ -50,7 +50,7 @@
     dimensions.forEach(field => field.setCustomValidity(''));
     const filled = dimensions.filter(field => field.value !== '').length;
     if (filled > 0 && filled < 3) dimensions.filter(field => field.value === '').forEach(field => field.setCustomValidity('أكمل الأبعاد الثلاثة، أو اتركها جميعًا فارغة.'));
-    fields.idea.setCustomValidity(fields.idea.value.trim().length > 0 && fields.idea.value.trim().length < 10 ? 'اكتب فكرة من 10 أحرف على الأقل، أو اترك الحقل فارغًا.' : '');
+    fields.idea.setCustomValidity(fields.idea.value.trim().length > 0 && fields.idea.value.trim().length < 10 ? 'اكتب ملاحظة من 10 أحرف على الأقل، أو اترك الحقل فارغًا.' : '');
     return show ? form.reportValidity() : form.checkValidity();
   }
   function saveDraft(message = '') {
@@ -68,7 +68,7 @@
   }
   function buildSummary(draft) {
     const lines = [
-      'مسودة مشروع — أكوا هافن',
+      'ملخص الخدمة — أكوا هافن',
       'الاحتياج: ' + serviceNames[draft.service],
       'نوع النظام: ' + systemNames[draft.system],
       'المكان: ' + placeNames[draft.place],
@@ -77,7 +77,7 @@
       lines.push('الأبعاد التقريبية: طول ' + digits.format(Number(draft.length)) + ' × عرض ' + digits.format(Number(draft.width)) + ' × ارتفاع ' + digits.format(Number(draft.height)) + ' سم');
       lines.push('الحجم الهندسي التقريبي: ' + digits.format(Number(draft.length) * Number(draft.width) * Number(draft.height) / 1000) + ' لتر');
     } else lines.push('الأبعاد: لم تتحدد بعد');
-    if (draft.idea.trim()) lines.push('', 'الفكرة:', draft.idea.trim());
+    if (draft.idea.trim()) lines.push('', 'الملاحظات:', draft.idea.trim());
     lines.push('', 'مسودة على جهازك — لم تُرسل إلى فريق أكوا هافن.', 'ليست حجزًا أو طلبًا أو عرض سعر.');
     return lines.join('\n');
   }
@@ -125,7 +125,7 @@
     clearTimeout(saveTimer); saveTimer = 0; form.reset();
     [fields.length,fields.width,fields.height,fields.idea].forEach(field => field.setCustomValidity(''));
     summary.textContent = emptySummary; prepared = false; copy.disabled = true; copyStatus.textContent = ''; updateHints();
-    try { localStorage.removeItem(key); status.textContent = 'حُذفت المسودة المحلية. يمكنك بدء فكرة جديدة.'; }
+    try { localStorage.removeItem(key); status.textContent = 'حُذفت مسودة الخدمة من هذا المتصفح. يمكنك البدء من جديد.'; }
     catch { status.textContent = 'تم تفريغ الحقول هنا، لكن تعذّر حذف المسودة من تخزين المتصفح.'; }
     fields.service.focus({preventScroll:true});
   }
@@ -140,7 +140,7 @@
       status.textContent = 'استُعيدت مسودتك من هذا المتصفح. لم تُرسل إلى أكوا هافن.';
     }
   } catch {
-    status.textContent = 'تعذّر استعادة مسودة محلية. يمكنك تجهيز فكرة جديدة ونسخ ملخصها.';
+    status.textContent = 'تعذّر استعادة مسودة الخدمة. يمكنك تجهيز ملخص جديد ونسخه.';
   }
   try {
     const requested = new URLSearchParams(location.search).get('service');

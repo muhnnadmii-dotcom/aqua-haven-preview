@@ -183,7 +183,7 @@ function initializeStory(story) {
     const paused=reduced();toggle.setAttribute('aria-pressed',String(paused));
     toggle.disabled=reduce.matches;
     const label=toggle.querySelector('[data-motion-label]');
-    const fullLabel=reduce.matches?'الحركة متوقفة حسب إعدادات الجهاز':manualPaused?'تشغيل الرحلة بالتمرير':'إيقاف الحركة وعرض المشهد';
+    const fullLabel=reduce.matches?'الحركة متوقفة حسب إعدادات جهازك':manualPaused?'تشغيل الرحلة بالتمرير':'إيقاف الحركة';
     const text=reduce.matches?'الحركة متوقفة':manualPaused?'تشغيل الحركة':'إيقاف الحركة';
     toggle.setAttribute('aria-label',fullLabel);
     if(label)label.textContent=text;else toggle.textContent=text;

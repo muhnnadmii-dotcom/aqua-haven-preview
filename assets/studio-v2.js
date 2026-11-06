@@ -111,16 +111,16 @@ function initializeDesigner() {
   $('#save-tank').addEventListener('click',() => {
     if(!validateForm()) return;
     const value=read(SAVED_KEY), records=Array.isArray(value)?value:[];
-    if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ مسودة. احذف فكرة من صفحة مسوداتي لإضافة أخرى.');return;}
-    const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim().slice(0,80)||'فكرة حوض',config:structuredClone(config)};
+    if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ تصميمًا. احذف تصميمًا من «تصاميمي المحفوظة» لإضافة آخر.');return;}
+    const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim().slice(0,80)||'تصميم حوض',config:structuredClone(config)};
     const saved=write(SAVED_KEY,[record,...records]);
     if(saved && $('#studio-saved-link')) $('#studio-saved-link').hidden=false;
-    announce(saved?'حُفظت الفكرة. ستجدها في صفحة «مسوداتي» على هذا المتصفح.':'التخزين المحلي غير متاح. يمكنك نسخ الملخص بدلًا من الحفظ.');
+    announce(saved?'حُفظ التصميم. ستجده في «تصاميمي المحفوظة» على هذا المتصفح.':'تعذّر الحفظ في المتصفح. انسخ ملخص التصميم للاحتفاظ به.');
   });
   $('#copy-design').addEventListener('click',async() => {
     if(!validateForm()) return;
     const quote=estimateDesign(config), extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key]) => config.addons[key]).map(([,label]) => label).join('، ')||'بدون إضافات';
-    const summary=`${name.value.trim()||'فكرة حوض'} — أكوا هافن\n${config.length} × ${config.width} × ${config.height} سم\n${config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'} · ${extras}\nتقدير توضيحي: ${money(quote.price)} · ${decimal(quote.litres)} لتر\nتجربة تصميم فقط؛ ليست عرض بيع أو مخطط تصنيع.`;
+    const summary=`${name.value.trim()||'تصميم حوض'} — أكوا هافن\n${config.length} × ${config.width} × ${config.height} سم\n${config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'} · ${extras}\nتكلفة تقديرية: ${money(quote.price)} · ${decimal(quote.litres)} لتر\nتصميم تقريبي؛ ليس عرض سعر أو مخطط تصنيع.`;
     try {await navigator.clipboard.writeText(summary);announce('نُسخ ملخص التصميم.');} catch {announce('النسخ التلقائي غير متاح. يمكنك تحديد المقاسات والتقدير ونسخهما.');}
   });
   const motion=$('#motion-toggle');
@@ -140,7 +140,7 @@ function initializeDrafts() {
     document.querySelector('#drafts-count').textContent=decimal(entries.length);
     if(!entries.length) {
       const empty=make('div','drafts-empty'), icon=make('div','drafts-empty-symbol');icon.setAttribute('aria-hidden','true');
-      const title=make('h2','','أول فكرة تبدأ من هنا.'), text=make('p','','جرّب المقاسات والتفاصيل في المصمم، ثم احفظ الفكرة لتجدها هنا.');
+      const title=make('h2','','لم تحفظ أيّ تصميم بعد.'), text=make('p','','اختر المقاسات والزجاج والإضافات في المصمّم، ثم احفظ التصميم لتجده هنا.');
       const link=make('a','btn btn-primary','صمّم أول حوض');link.href=page.dataset.designerUrl;
       empty.append(icon,title,text,link);host.append(empty);if(Number.isInteger(focusPosition))link.focus();return;
     }
@@ -150,18 +150,18 @@ function initializeDrafts() {
       if(item.config.addons.plants){const img=make('img');img.src=page.dataset.plantImage;img.alt='';img.loading='lazy';tank.append(img);}
       if(item.config.addons.light)tank.append(make('span','drafts-mini-light'));
       if(item.config.addons.filter && page.dataset.filterImage){const filter=make('img','drafts-mini-filter');filter.src=page.dataset.filterImage;filter.alt='';filter.loading='lazy';tank.append(filter);}
-      const number=make('span','drafts-card-number',`فكرة ${decimal(position+1).padStart(2,'٠')}`);
+      const number=make('span','drafts-card-number',`تصميم ${decimal(position+1).padStart(2,'٠')}`);
       visual.append(number,tank);
-      const body=make('div','drafts-card-body'), title=make('h2','',item.name||'فكرة حوض');
+      const body=make('div','drafts-card-body'), title=make('h2','',item.name||'تصميم حوض');
       const dimensions=make('p','drafts-card-dimensions',`${item.config.length} × ${item.config.width} × ${item.config.height} سم`);dimensions.dir='ltr';
       const specs=make('p','drafts-card-specs',`${decimal(quote.litres)} لتر · ${item.config.glass==='ultra'?'فائق الصفاء':'زجاج صافي'}`);
       const extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key])=>item.config.addons[key]).map(([,label])=>label).join(' · ')||'بدون إضافات';
       const selected=make('p','drafts-card-extras',extras);
-      const price=make('p','drafts-card-price');price.append(make('span','','تقدير توضيحي'),make('strong','',money(quote.price)));
+      const price=make('p','drafts-card-price');price.append(make('span','','تكلفة تقديرية'),make('strong','',money(quote.price)));
       const actions=make('div','drafts-card-actions'), open=make('button','btn btn-primary','متابعة التصميم'), remove=make('button','studio-text-button drafts-delete','حذف');
-      open.type=remove.type='button';open.setAttribute('aria-label',`متابعة تصميم ${item.name}`);remove.setAttribute('aria-label',`حذف المسودة: ${item.name}`);
-      open.addEventListener('click',() => {if(write(DRAFT_KEY,{name:item.name.slice(0,80),config:item.config}))location.assign(page.dataset.designerUrl);else announce('تعذّر فتح المسودة لأن التخزين المحلي غير متاح.');});
-      remove.addEventListener('click',() => {const next=removeSavedRecord(read(SAVED_KEY),index,item);if(write(SAVED_KEY,next)){render(position);announce(`حُذفت مسودة «${item.name}» فقط.`);}else announce('تعذّر حذف المسودة لأن التخزين المحلي غير متاح.');});
+      open.type=remove.type='button';open.setAttribute('aria-label',`متابعة تصميم ${item.name}`);remove.setAttribute('aria-label',`حذف التصميم: ${item.name}`);
+      open.addEventListener('click',() => {if(write(DRAFT_KEY,{name:item.name.slice(0,80),config:item.config}))location.assign(page.dataset.designerUrl);else announce('تعذّر فتح التصميم لأن التخزين في المتصفح غير متاح.');});
+      remove.addEventListener('click',() => {const next=removeSavedRecord(read(SAVED_KEY),index,item);if(write(SAVED_KEY,next)){render(position);announce(`حُذف تصميم «${item.name}» فقط.`);}else announce('تعذّر حذف التصميم لأن التخزين في المتصفح غير متاح.');});
       actions.append(open,remove);body.append(title,dimensions,specs,selected,price,actions);card.append(visual,body);host.append(card);
     }
     if(Number.isInteger(focusPosition)){const buttons=host.querySelectorAll('.drafts-card-actions .btn-primary');buttons[Math.min(focusPosition,buttons.length-1)]?.focus();}

@@ -39,7 +39,7 @@
       button.setAttribute('aria-pressed', String(button.dataset.projectFilter === category));
     }
     if (focusedProjectHidden) filterButtons.find(button => button.dataset.projectFilter === category)?.focus({ preventScroll: true });
-    if (count) count.textContent = visible === 0 ? 'لا توجد مشاهد في هذا التصنيف.' : visible === 1 ? 'مشهد واحد من الأرشيف' : `${digits.format(visible)} مشاهد من الأرشيف`;
+    if (count) count.textContent = visible === 0 ? 'لا توجد أحواض في هذا التصنيف.' : visible === 1 ? 'عدد الأحواض: ١' : `عدد الأحواض: ${digits.format(visible)}`;
     if (updateURL) {
       const url = new URL(location.href);
       if (category === 'all') url.searchParams.delete('category');

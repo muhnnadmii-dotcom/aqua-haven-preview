@@ -12,7 +12,7 @@
     const select=$('aq-variant');if(select)select.addEventListener('change',()=>{
       const variant=select.value===''?null:data.variants[Number(select.value)];
       $('aq-reference-price').textContent=variant?money(variant.effectivePrice??variant.price):data.initialPrice;
-      $('aq-variant-details').textContent=variant?(variant.attributes.map(a=>`${a.name}: ${a.value}`).join(' · ')||variant.name)+' · سعر مرجعي للمعاينة.':'اختر خيارًا لعرض سعره المرجعي.';
+      $('aq-variant-details').textContent=variant?(variant.attributes.map(a=>`${a.name}: ${a.value}`).join(' · ')||variant.name)+' · سعر مرجعي للمعاينة.':'اختر أحد الخيارات لعرض سعره.';
     });document.querySelectorAll('.product-details-aside a[href^="#"], [data-product-panel]').forEach(a=>a.addEventListener('click',()=>{const panel=document.getElementById(a.getAttribute('href').slice(1));if(panel&&panel.tagName==='DETAILS')panel.open=true;}));return;
   }
   if(data.mode!=='shop')return;
@@ -30,7 +30,7 @@
     const open=node('span','catalog-card-open');open.setAttribute('aria-hidden','true');open.append(arrow());photo.append(open);
     const body=node('div','collection-card-copy'),title=node('h2','catalog-card-title'),link=node('a','',p.name);link.href=href(p);link.dir='auto';title.append(link);
     const bottom=node('div','collection-card-bottom'),details=node('a','collection-card-link','التفاصيل ');details.href=href(p);details.append(arrow());bottom.append(node('span','collection-price',priceLabel(p)),details);
-    body.append(node('p','collection-card-category',p.categories?.[0]?.name||'أكوا هافن'),title);if(!p.inStock)body.append(node('p','collection-stock','غير متوفر في اللقطة'));body.append(bottom);article.append(photo,body);return article;
+    body.append(node('p','collection-card-category',p.categories?.[0]?.name||'أكوا هافن'),title);if(!p.inStock)body.append(node('p','collection-stock','غير متوفر حسب الكتالوج'));body.append(bottom);article.append(photo,body);return article;
   }
   function selectedCategories(id){
     const ids=new Set(id?[id]:[]);let changed=true;while(changed){changed=false;for(const c of categories)if(!ids.has(c.id)&&c.parentIds.some(parent=>ids.has(parent))){ids.add(c.id);changed=true;}}return ids;
