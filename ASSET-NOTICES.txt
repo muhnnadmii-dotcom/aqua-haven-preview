@@ -1,5 +1,9 @@
 Aqua Haven public design prototype
 
+Setup revision20 reuses existing catalog photographs for22 curated product/variation choices; no new imagery, video, model, font, paid media or third-party art was acquired for this feature. The substrate cross-section uses product imagery as illustrative material fills. It is a schematic of nominal dimensions and selected layers, not a photograph of an assembled product, exact coverage guarantee or manufacturing specification. Product and trademark ownership remain as described below.
+
+Setup prices and availability are reference snapshots. Litre-based soil packages are distinct from weight-based sand/gravel; no undocumented density is supplied. Custom manufacturing pricing remains separate. The public builder saves a browser-local trial equipment list. Its separately tested local WordPress/Woo cart adapter, private runtime configuration, database, sessions, nonces and test tools are not included in this public static directory.
+
 Identity revision 18 uses the owner's supplied Aqua Haven visual identity: original English horizontal, Arabic horizontal and betta-A SVG marks. The source identity documents and private folder paths are not published. Brand marks retain their original proportions and colours; ownership remains with Aqua Haven.
 
 Changa and Outfit variable fonts are self-hosted WOFF2 conversions from the official Google Fonts repository under the SIL Open Font License. Full glyph and shaping tables are preserved; see assets/fonts/Changa-OFL.txt and Outfit-OFL.txt. Sources: https://github.com/google/fonts/tree/main/ofl/changa and https://github.com/google/fonts/tree/main/ofl/outfit .

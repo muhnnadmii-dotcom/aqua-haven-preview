@@ -1,14 +1,14 @@
 {
-  "designVersion": 19,
-  "builtAt": "2026-11-06T17:49:37.424Z",
+  "designVersion": 20,
+  "builtAt": "2026-11-06T19:52:21.021Z",
   "products": 405,
   "categories": 21,
-  "pages": 421,
+  "pages": 422,
   "homepage": "/",
   "homepageAlias": "/story/",
   "sharedNavigationVersion": 15,
   "preservedAquariumRendererVersion": 14,
-  "scope": "Public design preview with local drafts and illustrative tank estimates; no transactions or accounts.",
+  "scope": "Public static design preview with browser-local drafts and trial equipment lists; no transactions, accounts or live inventory.",
   "copyRevision": 16,
   "editorialCoverage": {
     "pages": 420,
@@ -101,5 +101,44 @@
       "delight"
     ],
     "boundary": "Browser-local designs and static catalog; no checkout, backend, account sync or live submissions"
+  },
+  "setupRevision": 20,
+  "setup": {
+    "revision": 20,
+    "path": "/setup/",
+    "catalogChoices": 22,
+    "choicesByRole": {
+      "tank": 6,
+      "soil": 3,
+      "substrate": 4,
+      "filter": 3,
+      "light": 3,
+      "food": 3
+    },
+    "steps": [
+      "Empty tank and glass",
+      "Soil and substrate zones",
+      "Filter",
+      "Lighting",
+      "Food",
+      "Quantity review"
+    ],
+    "maximumSubstrateZones": 3,
+    "geometry": "Approximate substrate heights and volumes from nominal tank dimensions; internal dimensions and glass thickness are not supplied",
+    "quantities": "Litre-based soil packs can be counted by volume; kilogram-based substrates need manual pack quantities because bulk density is undocumented",
+    "customPricing": "Separate service-brief path; custom manufacturing is outside the setup cart",
+    "publicMode": "Browser-local trial equipment list and copyable summary; no live purchasing cart, checkout, payment or account sync",
+    "localWooVerification": {
+      "environment": "Separate Windows loopback WordPress/WooCommerce trial",
+      "port": 9473,
+      "checkedAt": "2026-11-06T19:38:24.763Z",
+      "checksPassed": 32,
+      "productLines": 7,
+      "totalUnits": 8,
+      "itemsTotalMinor": 80700,
+      "currency": "SAR",
+      "replay": "Request retry did not duplicate items",
+      "boundary": "Guest cart integration only; no checkout, order, payment or live-store changes; runtime source and private configuration are not in this static package"
+    }
   }
 }

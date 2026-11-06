@@ -1,0 +1,494 @@
+{
+  "version": 20,
+  "items": [
+    {
+      "key": "tank-30-clear",
+      "role": "tank",
+      "sourceId": "1e89a4c7-6ae0-4340-afbc-7c2648bfc071",
+      "sourceVariantId": "df8ff9d9-88ca-40e8-b3ce-fe61196dc8e8",
+      "name": "حوض زجاج تيمبر 30×30×30 سم - شفاف",
+      "price": 299,
+      "image": "assets/catalog/e0ba6ee3ac5cab51a6ea1848.webp",
+      "dimensions": {
+        "length": 30,
+        "width": 30,
+        "height": 30
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/48d3742e3297d38631841cd3.json"
+    },
+    {
+      "key": "tank-40-clear",
+      "role": "tank",
+      "sourceId": "445c1e08-e715-4e70-af30-b340d83f4ff4",
+      "sourceVariantId": "ce7fa3bc-53d4-4404-a23c-4c3a321894b7",
+      "name": "حوض زجاج تيمبر 40×25×30 سم - شفاف",
+      "price": 329,
+      "image": "assets/catalog/4f7b4e916630951d323c8a8c.webp",
+      "dimensions": {
+        "length": 40,
+        "width": 25,
+        "height": 30
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/c88ce21ef24263a5188f65fb.json"
+    },
+    {
+      "key": "tank-45-clear",
+      "role": "tank",
+      "sourceId": "6d381a7e-400d-4c71-a6cf-bd17006a77ee",
+      "sourceVariantId": "ae1353b7-8f0d-4a39-a5b1-28ba2e0a0c9f",
+      "name": "حوض زجاج تيمبر 45×25×30 سم - شفاف",
+      "price": 349,
+      "image": "assets/catalog/b2c870c43d0c73f922c01375.webp",
+      "dimensions": {
+        "length": 45,
+        "width": 25,
+        "height": 30
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/f5a28d8928c2a9a8a54c04ab.json"
+    },
+    {
+      "key": "tank-50-clear",
+      "role": "tank",
+      "sourceId": "77861668-6e60-4b79-bf35-0f1398f30907",
+      "sourceVariantId": "8005db7c-3c51-4fd1-a3db-3a6229f2a534",
+      "name": "Timber Glass Aquarium – 50×25×30 cm – Clear",
+      "price": 399,
+      "image": "assets/catalog/a70b11357eb1f6926c877672.webp",
+      "dimensions": {
+        "length": 50,
+        "width": 25,
+        "height": 30
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/9bf15d287dac901f83abe2cd.json"
+    },
+    {
+      "key": "tank-60-clear",
+      "role": "tank",
+      "sourceId": "05c9513d-0348-4a59-8b6c-ef039d286f49",
+      "sourceVariantId": "39193692-eb56-4505-b00b-c84891f569ff",
+      "name": "حوض زجاج تيمبر 60×35×35 سم - شفاف",
+      "price": 649,
+      "image": "assets/catalog/154c4f94afb09a3ad184c23d.webp",
+      "dimensions": {
+        "length": 60,
+        "width": 35,
+        "height": 35
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/1d6609c5bfee2dea84f74c3b.json"
+    },
+    {
+      "key": "tank-80-clear",
+      "role": "tank",
+      "sourceId": "6d7e5c29-b927-413e-b480-e295fe0f09bc",
+      "sourceVariantId": "a2e81107-8428-419c-b071-76b7e09a2cbb",
+      "name": "حوض زجاج تيمبر 80×40×40 سم - شفاف",
+      "price": 1049,
+      "image": "assets/catalog/ea8046507e711a4e81ee917b.webp",
+      "dimensions": {
+        "length": 80,
+        "width": 40,
+        "height": 40
+      },
+      "notes": [
+        "حوض زجاجي فارغ؛ التجهيزات منفصلة.",
+        "الخيار المحدد هو لون الخلفية «شفاف»، وليس درجة زجاج فائق الصفاء.",
+        "الأبعاد اسميّة كما في الكتالوج؛ القياس الداخلي وسماكة الزجاج غير موثقين."
+      ],
+      "variantAttributes": [
+        {
+          "name": "لون الخلفية",
+          "value": "شفاف"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/f44260371aa0840fd345c09a.json"
+    },
+    {
+      "key": "soil-active-1l",
+      "role": "soil",
+      "sourceId": "605c52a0-ce58-4f5e-bd6b-d545c7587f3d",
+      "sourceVariantId": null,
+      "name": "تربة احترافية للأحواض المزروعة – 1 لتر",
+      "price": 45,
+      "image": "assets/catalog/60b4e27cbe76182880f40324.webp",
+      "packLitres": 1,
+      "notes": [
+        "تربة نشطة للأحواض المزروعة؛ العبوة ١ لتر.",
+        "الحجم باللتر موثق؛ يمكن حساب عدد العبوات من حجم الطبقة التقريبي دون افتراض كثافة وزنية."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/d5a6b070543283399c300ff9.json"
+    },
+    {
+      "key": "soil-active-8l",
+      "role": "soil",
+      "sourceId": "e3b3f84e-41b0-4727-ae11-1f35ccbbf740",
+      "sourceVariantId": null,
+      "name": "تربة احترافية للأحواض المزروعة – 8 لتر",
+      "price": 199,
+      "image": "assets/catalog/ba12af4673726842430e3636.webp",
+      "packLitres": 8,
+      "notes": [
+        "تربة نشطة للأحواض المزروعة؛ العبوة ٨ لترات.",
+        "الحجم باللتر موثق؛ ليست تربة أساس بيرلايت."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/0498cb23f4ab663508939149.json"
+    },
+    {
+      "key": "soil-premium-2l",
+      "role": "soil",
+      "sourceId": "fbcfff0f-d500-47ea-9578-0c5385cc7395",
+      "sourceVariantId": null,
+      "name": "تربة بريميوم للأحواض المزروعة – 2 لتر",
+      "price": 69,
+      "image": "assets/catalog/e254194242687073da97bbb0.webp",
+      "packLitres": 2,
+      "notes": [
+        "تربة نشطة للأحواض المزروعة؛ العبوة ٢ لتر.",
+        "يمكن حساب عدد العبوات من حجم الطبقة التقريبي دون تحويل الكيلوجرام إلى لتر."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/882b030176146d0c9bd971da.json"
+    },
+    {
+      "key": "sand-white-1kg",
+      "role": "substrate",
+      "sourceId": "dbb15a6c-d519-461f-8b1a-57afc36fe844",
+      "sourceVariantId": null,
+      "name": "رمل أبيض طبيعي – 1 كجم",
+      "price": 30,
+      "image": "assets/catalog/5500c41936805a681e58be59.webp",
+      "packKg": 1,
+      "notes": [
+        "رمل طبيعي أبيض للمياه العذبة بحسب الوصف.",
+        "الوزن موثق؛ الحجم الحجمي والكثافة الظاهرية غير موثقين، لذا عدد العبوات يدوي ولا يُستنتج من ارتفاع الطبقة."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/7764292ecd35c13e6a3f160f.json"
+    },
+    {
+      "key": "gravel-black-1kg",
+      "role": "substrate",
+      "sourceId": "89e27036-f40f-483f-a470-04457db09225",
+      "sourceVariantId": null,
+      "name": "حصى أسود فاخر – | 1 كجم",
+      "price": 30,
+      "image": "assets/catalog/cb6bd9b3d46d7c89ec701209.webp",
+      "packKg": 1,
+      "notes": [
+        "حصى أسود ناعم؛ وصف الحبيبات ١–٣ مم.",
+        "الوزن موثق؛ الحجم الحجمي والكثافة الظاهرية غير موثقين، لذا عدد العبوات يدوي ولا يُستنتج من ارتفاع الطبقة."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/eee5067626bd565c4ab63f27.json"
+    },
+    {
+      "key": "sand-golden-1kg",
+      "role": "substrate",
+      "sourceId": "057b7bb1-a96a-4cf3-b7e5-2bd365f984ca",
+      "sourceVariantId": "7b945751-ef57-46f7-8f4b-0ae509ea382b",
+      "name": "رمل طبيعي ذهبي مائل للبني – 1 كجم",
+      "price": 30,
+      "image": "assets/catalog/dda66c21e753a6cbfce3307f.webp",
+      "packKg": 1,
+      "notes": [
+        "الخيار المحدد عبوة ١ كجم، وسعرها ٣٠ ر.س.",
+        "الوزن موثق؛ الحجم الحجمي والكثافة الظاهرية غير موثقين، لذا عدد العبوات يدوي ولا يُستنتج من ارتفاع الطبقة."
+      ],
+      "variantAttributes": [
+        {
+          "name": "الوزن",
+          "value": "1KG"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/70aa896b02458617b58e24a1.json"
+    },
+    {
+      "key": "gravel-volcanic-1kg",
+      "role": "substrate",
+      "sourceId": "ae483b93-503a-48a1-a960-a7f9db9023ac",
+      "sourceVariantId": null,
+      "name": "حصى بركاني مسامي – 1 كجم",
+      "price": 30,
+      "image": "assets/catalog/5238d29d614aea39b101e05b.webp",
+      "packKg": 1,
+      "notes": [
+        "حصى بركاني مسامي؛ يذكر الوصف طبقة تأسيس أو عنصر تنسيق.",
+        "الوزن موثق؛ الحجم الحجمي والكثافة الظاهرية غير موثقين، لذا عدد العبوات يدوي ولا يُستنتج من ارتفاع الطبقة."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/d54982e70351304a94fcb797.json"
+    },
+    {
+      "key": "filter-a2000-300",
+      "role": "filter",
+      "sourceId": "2b74e889-31f9-4d05-b03d-93208efd6394",
+      "sourceVariantId": null,
+      "name": "فلتر شلال دوفين – 300 لتر/ساعة",
+      "price": 129,
+      "image": "assets/catalog/fdf2e4338ac293960a10a70c.webp",
+      "flowLph": 300,
+      "notes": [
+        "الموديل A2000؛ التدفق المسجل ٣٠٠ لتر/ساعة.",
+        "حجم الحوض المناسب المسجل: حتى ٤٠ لتر.",
+        "مدى الحوض وارد في الوصف؛ لا يثبت الملاءمة لكل حمولة حيوية."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/1a20def5378aa74032b607fd.json"
+    },
+    {
+      "key": "filter-cf300-410",
+      "role": "filter",
+      "sourceId": "f088211a-ae05-498c-a6b7-49eaf04c820d",
+      "sourceVariantId": null,
+      "name": "فلتر كانستر خارجي دوفين – 410 لتر/ساعة",
+      "price": 199,
+      "image": "assets/catalog/43a1e00e029c1fa70d7c59a1.webp",
+      "flowLph": 410,
+      "notes": [
+        "الموديل CF300؛ التدفق المسجل حتى ٤١٠ لتر/ساعة.",
+        "النص الحرفي للمدى: حجم الحوض المسجل: حتى 60–80 لتر.",
+        "هذا مدى مسجّل في الكتالوج، وليس ضمان توافق أو قياس تدفق فعلي بعد الوسائط."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/654e4353cd8b0bf3fae8916c.json"
+    },
+    {
+      "key": "filter-h100-350",
+      "role": "filter",
+      "sourceId": "bfc81fcd-ce25-4e89-8ff8-422cb2dbece9",
+      "sourceVariantId": null,
+      "name": "فلتر شلال دوفين – 350 لتر/ساعة",
+      "price": 69,
+      "image": "assets/catalog/65df785060ad5e36245b2e95.webp",
+      "flowLph": 350,
+      "notes": [
+        "الموديل H100؛ التدفق المسجل ٣٥٠ لتر/ساعة.",
+        "لا يوجد مدى حجم حوض موثق لهذا المنتج؛ الاختيار يدوي."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/5ae1f80fa2b798104649e1f3.json"
+    },
+    {
+      "key": "light-3w-30-40",
+      "role": "light",
+      "sourceId": "6fb8723d-9c43-437a-9284-519e928bb026",
+      "sourceVariantId": "cb54b237-70fa-4ea1-9daa-98e80a2acb0b",
+      "name": "إضاءة للأحواض - 3 واط – 30–40 سم",
+      "price": 55,
+      "image": "assets/catalog/513d00ab2f7ab4917a72e4c3.webp",
+      "notes": [
+        "٣ واط؛ الوصف يذكر أحواضًا بطول ٣٠–٤٠ سم.",
+        "المدى المذكور لطول الحوض المتوافق، وليس طول الوحدة الضوئية نفسه.",
+        "ملاءمة نمو النباتات وشدتها والطيف غير محسومة من هذا المدى وحده."
+      ],
+      "variantAttributes": [
+        {
+          "name": "الخيارات",
+          "value": "3 وات 30-40 سم"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/05e1325829f02d890aa40959.json",
+      "fitTankLengthCm": {
+        "min": 30,
+        "max": 40
+      }
+    },
+    {
+      "key": "light-5w-40-50",
+      "role": "light",
+      "sourceId": "6fb8723d-9c43-437a-9284-519e928bb026",
+      "sourceVariantId": "099a372e-09ca-483f-830d-c2cc7e6dc79f",
+      "name": "إضاءة للأحواض - 5 واط – 40–50 سم",
+      "price": 65,
+      "image": "assets/catalog/513d00ab2f7ab4917a72e4c3.webp",
+      "notes": [
+        "٥ واط؛ الوصف يذكر أحواضًا بطول ٤٠–٥٠ سم.",
+        "المدى المذكور لطول الحوض المتوافق، وليس طول الوحدة الضوئية نفسه.",
+        "ملاءمة نمو النباتات وشدتها والطيف غير محسومة من هذا المدى وحده."
+      ],
+      "variantAttributes": [
+        {
+          "name": "الخيارات",
+          "value": "5 وات 50-40 سم"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/05e1325829f02d890aa40959.json",
+      "fitTankLengthCm": {
+        "min": 40,
+        "max": 50
+      }
+    },
+    {
+      "key": "light-slim-led106",
+      "role": "light",
+      "sourceId": "d6d51331-424b-42f8-afa6-26ed967145dc",
+      "sourceVariantId": "790bf220-dae8-4236-81d9-c2ee21816ca8",
+      "name": "إضاءة حوض نحيفة — دوفين Slim LED - LED 106",
+      "price": 125,
+      "image": "assets/catalog/42fb703a7277ac3e6b80c5fe.webp",
+      "notes": [
+        "الخيار LED 106 بسعر ١٢٥ ر.س.",
+        "لا يوجد طول موثق للوحدة أو مدى طول حوض موثق؛ يراجع المقاس قبل الاختيار.",
+        "لا تُستنتج الملاءمة لنباتات الحوض من اسم الموديل."
+      ],
+      "variantAttributes": [
+        {
+          "name": "الخيارات",
+          "value": "LED 106"
+        }
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/0cd9e1c48415f2b71da577a7.json"
+    },
+    {
+      "key": "food-vipagran-30g",
+      "role": "food",
+      "sourceId": "32271aa6-87ee-491c-b411-5127c678e7ef",
+      "sourceVariantId": null,
+      "name": "حبيبات Sera Vipagran Nature – 30 جم",
+      "price": 35,
+      "image": "assets/catalog/927f9051f81c74bb2eebaa3b.webp",
+      "packKg": 0.03,
+      "notes": [
+        "حبيبات Sera Vipagran Nature؛ الوصف لمعظم أسماك الزينة العذبة والأحواض المجتمعية.",
+        "عبوة ٣٠ جم؛ لا تُحسب جرعة الغذاء أو مدة العبوة من حجم الحوض وحده."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/f1292556af1303fa471bef1e.json"
+    },
+    {
+      "key": "food-shrimp-55g",
+      "role": "food",
+      "sourceId": "997b2549-0003-487e-8d47-73e523868731",
+      "sourceVariantId": null,
+      "name": "طعام Sera Shrimps Nature – 55 جم",
+      "price": 45,
+      "image": "assets/catalog/0e51f2485f88d58c01839531.webp",
+      "packKg": 0.055,
+      "notes": [
+        "مخصص لروبيان الزينة بحسب وصف المنتج؛ عبوة ٥٥ جم.",
+        "لا يُعرض كغذاء عام لكل الكائنات."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/7514b3ed96c2812c274d76e4.json"
+    },
+    {
+      "key": "food-betta-50ml",
+      "role": "food",
+      "sourceId": "7809b04b-aef7-420e-8e41-491975cd353d",
+      "sourceVariantId": null,
+      "name": "حبيبات Sera Bettagran Nature للبيتا – 50 مل",
+      "price": 45,
+      "image": "assets/catalog/dc8ef79569faf910e02c5753.webp",
+      "notes": [
+        "Sera Bettagran Nature مخصص لأسماك البيتا؛ عبوة ٥٠ مل.",
+        "السعة موثقة بالملليلتر؛ لا تمثل كتلة ولا جرعة تغذية."
+      ],
+      "inStock": true,
+      "sourceNote": "Reference catalog snapshot and matching local product detail; stock and price are not live. work/catalog-import/products/c92c749f18fd3eb6fa8aaea8.json"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "8d7304a2-17b8-428a-be15-e7b4df81be2f",
+      "reason": "Conflicting base-soil package: title says500g; description and weight bullet say1kg. Need owner confirmation before any quantity or price calculation."
+    },
+    {
+      "id": "378f36c7-26bb-43b0-86d7-57cb5b6233ff",
+      "reason": "Coco Soil is explicitly terrarium substrate; exclude from submerged freshwater setup."
+    },
+    {
+      "id": "b8c3da03-64a4-4829-8a92-a3ffe952b0bc",
+      "reason": "Marine aragonite; reference out of stock and not a generic planted freshwater substrate."
+    },
+    {
+      "id": "e7225fe4-c158-4e42-949b-51e676db22d2",
+      "reason": "Complete planted33L kit includes filter/light/soil/decor; do not use as empty base and double-charge components."
+    },
+    {
+      "id": "bed0ff73-3599-4ca7-b04c-4b99a923684e",
+      "reason": "Tank includes a side filter; not selected as an empty base for a separate-filter wizard."
+    },
+    {
+      "id": "199464b5-8d02-42e4-be64-d799b86b1474",
+      "reason": "Reef/coral light, not a default planted freshwater option."
+    },
+    {
+      "id": "ebc01579-ca49-4089-94f0-1c4177e7efd1",
+      "reason": "Reef/coral light; 60x60cm quoted coverage is not fixture physical length or planted freshwater validation."
+    },
+    {
+      "id": "cb985955-45f3-49a5-8012-b2daf98cd499",
+      "reason": "Light riser only, not a light fixture."
+    },
+    {
+      "id": "cce6aeb4-1552-46dc-af8d-314f498e379e",
+      "reason": "Light mounting bracket only, not a light fixture."
+    }
+  ]
+}
