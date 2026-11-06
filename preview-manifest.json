@@ -1,6 +1,6 @@
 {
-  "designVersion": 18,
-  "builtAt": "2026-11-06T16:28:08.574Z",
+  "designVersion": 19,
+  "builtAt": "2026-11-06T17:49:37.424Z",
   "products": 405,
   "categories": 21,
   "pages": 421,
@@ -82,5 +82,24 @@
     "footerLogo": "Arabic horizontal",
     "editorialPhotographs": 3,
     "ownerOverride": "Preserve the approved light/daylight world and exact headline"
+  },
+  "journeyRevision": 19,
+  "journey": {
+    "revision": 19,
+    "scope": "Simplified homepage controls, optional first-tank guidance and exact saved-design confirmation",
+    "surfaces": [
+      "/",
+      "/story/",
+      "/flow/",
+      "/shop/",
+      "/designer/",
+      "/my-tanks/"
+    ],
+    "workflows": [
+      "distill",
+      "onboard",
+      "delight"
+    ],
+    "boundary": "Browser-local designs and static catalog; no checkout, backend, account sync or live submissions"
   }
 }

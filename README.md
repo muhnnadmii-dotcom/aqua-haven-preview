@@ -1,5 +1,7 @@
 # Aqua Haven — public design preview
 
+Journey revision 19 simplifies the homepage chapter controls into one native disclosure, keeps the original camera and pause controller, removes repeated catalogue decoration and duplicate service entry, and adds optional «أول حوض لك؟» guidance to ready tanks, the custom designer or equipment. Saving a design now shows the exact stored snapshot and a continuation link; editing or a failed action clears the old confirmation. The six entry/task pages are refined; all 405 product pages and the catalog remain unchanged. Saved designs stay in the same browser. No checkout, account sync or backend was added.
+
 Identity revision 18 applies the owner-supplied blue/gold Aqua Haven marks, Changa Arabic and Outfit Latin typography throughout all 421 pages. The English horizontal mark is used in the header and the Arabic mark in the footer/about. Three genuine supplied aquarium photographs illustrate inspiration, shop and services; actual catalog product images and the calibrated camera remain unchanged. The opening headline is «اكتشف عالم الأحياء المائية» alone. The site stays light by the owner’s direction. The earlier performance measurements below belong to revision 17, not a new revision-18 benchmark.
 
 <!-- v17-release-info:start -->

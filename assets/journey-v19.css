@@ -1,0 +1,90 @@
+/* V19 distill: a quieter control surface around the unchanged aquarium. */
+.home-journey .aquarium-story:not(.is-enhanced) .story-toolbar { display: none; }
+.home-journey .story-toolbar {
+  inset-inline: auto var(--story-gutter);
+  bottom: 24px;
+  width: min(460px, calc(100% - 44px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 14px;
+  background: var(--brand-mist);
+  color: var(--brand-navy);
+}
+.home-journey .story-route-picker { position: relative; min-width: 0; flex: 1; }
+.home-journey .story-route-picker > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.home-journey .story-route-picker > summary::-webkit-details-marker { display: none; }
+.home-journey .story-route-picker > summary .story-progress { display: inline; opacity: 1; }
+.home-journey .story-route-picker > summary > svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.home-journey .story-route-picker[open] > summary > svg { transform: rotate(180deg); }
+.home-journey .story-route-picker > .story-chapters {
+  position: absolute;
+  inset-inline-start: -14px;
+  bottom: calc(100% + 14px);
+  width: 300px;
+  max-width: calc(100vw - 44px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px 10px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 0;
+  background: var(--brand-mist);
+  box-shadow: 0 10px 24px rgb(0 36 63 / 15%);
+}
+.home-journey .story-route-picker:not([open]) > .story-chapters { display: none; }
+.home-journey .story-route-picker .story-chapters button { min-height: 48px; min-width: 44px; font-size: 14px; padding: 8px 4px; }
+.home-journey .story-route-picker .story-chapters button:is(:hover,[aria-current]) { background: #e8f0f6; }
+.home-journey .story-toolbar > .story-motion-toggle { min-height: 48px; padding: 8px 0; font-size: 14px; flex: none; }
+.home-journey .story-skip { bottom: 98px; }
+.home-journey .home-opening-links { bottom: 132px; }
+.home-journey .home-opening-secondary { padding-inline: 4px; background: transparent; border: 0; text-decoration: underline; text-underline-offset: 6px; }
+.home-journey .home-opening-secondary svg { display: none; }
+.home-journey .story-scroll-cue { bottom: 190px; }
+
+/* Category names carry meaning; decorative catalogue numbers do not. */
+body.page-collection.journey-v19 .exhibit-stage > .site-motion-toggle {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  inset-inline-end: 12px;
+  padding: 8px 12px;
+  min-height: 44px;
+  background: var(--brand-mist);
+  color: var(--brand-navy);
+  border: 0;
+  font-size: 14px;
+}
+body.page-collection.journey-v19 .collection-exhibit { padding-top: 28px; }
+body.page-collection.journey-v19 .collection-story-copy nav > a { grid-template-columns: 1fr auto; }
+body.journey-v19 .studio-page-heading h1 { margin-top: 0; }
+body.journey-v19 .drafts-toolbar { border-top: 0; padding-top: 8px; }
+
+@media (max-width: 700px) {
+  .home-journey .story-toolbar { inset-inline: 18px; width: auto; bottom: 18px; padding: 4px 12px; gap: 14px; }
+  .home-journey .story-route-picker > summary { min-height: 48px; }
+  .home-journey .story-route-picker > .story-chapters { max-width: calc(100vw - 36px); inset-inline-start: -12px; }
+  .home-journey .story-toolbar > .story-motion-toggle { gap: 8px; }
+  .home-journey .story-skip { bottom: 84px; min-height: 44px; }
+  .home-journey .home-opening-links { bottom: 144px; gap: 22px; }
+  .home-journey .story-scroll-cue { bottom: 206px; }
+  body.page-collection.journey-v19 .collection-exhibit { padding-top: 20px; }
+}
+@media (max-width: 359px) {
+  .home-journey .story-toolbar { inset-inline: 12px; padding-inline: 10px; gap: 10px; }
+  .home-journey .story-toolbar > .story-motion-toggle { gap: 5px; font-size: 13px; }
+  .home-journey .story-route-picker > summary { gap: 7px; font-size: 13px; }
+  .home-journey .story-route-picker > .story-chapters { max-width: calc(100vw - 24px); inset-inline-start: -10px; }
+  .home-journey .home-opening-links { gap: 16px; }
+}

@@ -1,0 +1,141 @@
+/* First-tank guidance lives in the store, outside the aquarium camera stage. */
+.ah-start {
+  color: var(--brand-navy, #003b6f);
+  border-block: 1px solid var(--brand-rule, #ccd7e0);
+  margin-block: 0 40px;
+  text-align: start;
+}
+.ah-start summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 76px;
+  padding-block: 16px;
+  cursor: pointer;
+  list-style: none;
+}
+.ah-start summary::-webkit-details-marker { display: none; }
+.ah-start summary::marker { content: ''; }
+.ah-start-summary-copy { display: grid; gap: 2px; }
+.ah-start-title { font-size: 22px; line-height: 1.5; font-weight: 800; }
+.ah-start-subtitle { color: var(--brand-muted, #55677a); font-size: 15px; line-height: 1.7; }
+.ah-start summary > svg {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  margin-inline-start: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+.ah-start[open] summary > svg { transform: rotate(45deg); }
+.ah-start summary:focus-visible,
+.ah-start a:focus-visible {
+  outline: 2px solid var(--brand-navy, #003b6f);
+  outline-offset: 5px;
+}
+.ah-start-body { padding-block: 8px 28px; }
+.ah-start-choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  border: 0;
+  margin: 0 0 24px;
+  padding: 0;
+  min-width: 0;
+}
+.ah-start-choices[hidden], .ah-start-panel[hidden] { display: none; }
+.ah-start-choices legend {
+  float: none;
+  width: 100%;
+  margin-block-end: 12px;
+  padding: 0;
+  font-size: 15px;
+  color: var(--brand-muted, #55677a);
+}
+.ah-start-choices label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 54px;
+  border: 1px solid var(--brand-control-rule, #71899e);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.ah-start-choices label[data-start-selected] {
+  background: var(--brand-navy, #003b6f);
+  border-color: var(--brand-navy, #003b6f);
+  color: var(--brand-mist, #f7f9fb);
+}
+.ah-start-choices input {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--brand-navy, #003b6f);
+  cursor: pointer;
+}
+.ah-start-choices label[data-start-selected] input { accent-color: var(--brand-mist, #f7f9fb); }
+.ah-start-choices label:focus-within {
+  outline: 2px solid var(--brand-navy, #003b6f);
+  outline-offset: 3px;
+}
+.ah-start-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px 40px;
+  padding-block: 12px;
+}
+.ah-start:not([data-start-ready]) .ah-start-panel + .ah-start-panel {
+  border-block-start: 1px solid var(--brand-rule, #ccd7e0);
+  margin-block-start: 16px;
+  padding-block-start: 24px;
+}
+.ah-start-panel h3 {
+  margin: 0 0 8px;
+  font-size: 23px;
+  line-height: 1.5;
+  font-weight: 800;
+}
+.ah-start-panel p {
+  max-width: 64ch;
+  margin: 0;
+  color: var(--brand-muted, #55677a);
+  font-size: 16px;
+  line-height: 1.9;
+}
+body:is(.home-journey, .v2) .ah-start .ah-start-next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 48px;
+  padding: 10px 22px;
+  background: var(--brand-navy, #003b6f);
+  color: var(--brand-mist, #f7f9fb);
+  text-decoration: none;
+  font-size: 15px;
+  line-height: 1.8;
+}
+body:is(.home-journey, .v2) .ah-start .ah-start-next:visited { color: var(--brand-mist, #f7f9fb); }
+body:is(.home-journey, .v2) .ah-start .ah-start-next:hover {
+  background: var(--brand-abyss, #00243f);
+  color: var(--brand-mist, #f7f9fb);
+}
+.ah-start-next svg { flex: 0 0 20px; width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+@media (max-width: 700px) {
+  .ah-start { margin-block-end: 28px; }
+  .ah-start-title { font-size: 20px; }
+  .ah-start-choices { grid-template-columns: 1fr; gap: 8px; margin-block-end: 20px; }
+  .ah-start-choices label { padding: 12px 14px; }
+  .ah-start-panel { grid-template-columns: 1fr; gap: 18px; }
+  .ah-start-panel h3 { font-size: 21px; }
+  .ah-start-next { justify-self: start; max-width: 100%; }
+}
+@media (forced-colors: active) {
+  .ah-start-choices label[data-start-selected] { outline: 2px solid Highlight; }
+  .ah-start-next { border: 1px solid ButtonText; }
+}

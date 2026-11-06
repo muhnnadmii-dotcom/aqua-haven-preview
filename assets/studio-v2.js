@@ -58,6 +58,21 @@ async function changeSavedRecords(action) {
   return action();
 }
 function announce(message) {const status=document.querySelector('#studio-status');if(status)status.textContent=message;}
+function createSavedReceipt(record,archiveUrl) {
+  const make=(tag,className,text)=>{const node=document.createElement(tag);node.className=className;if(text!==undefined)node.textContent=text;return node;};
+  const quote=estimateDesign(record.config), receipt=make('section','saved-design-receipt');
+  receipt.id='studio-saved-receipt';receipt.setAttribute('aria-labelledby','studio-saved-title');
+  const geometry=make('div','saved-design-geometry');geometry.setAttribute('aria-hidden','true');
+  const outline=make('div','saved-design-outline');outline.style.setProperty('--saved-ratio',String(record.config.length/record.config.height));geometry.append(outline);
+  const body=make('div','saved-design-receipt-body'), heading=make('h3','saved-design-title','حُفظ تصميمك.'), name=make('p','saved-design-name',record.name);
+  heading.id='studio-saved-title';name.dir='auto';
+  const dimensions=make('p','saved-design-dimensions',`${record.config.length} × ${record.config.width} × ${record.config.height} سم`);dimensions.dir='ltr';
+  const specs=make('p','saved-design-specs',`${decimal(quote.litres)} لتر · ${record.config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'}`);
+  const selected=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key])=>record.config.addons[key]).map(([,label])=>label).join(' · ')||'بدون إضافات';
+  const extras=make('p','saved-design-extras',selected), link=make('a','saved-design-open','افتح تصاميمي المحفوظة');link.href=archiveUrl;
+  const note=make('p','saved-design-local','في هذا المتصفح فقط. يمكنك العودة وتعديل هذه النسخة.');
+  body.append(heading,name,dimensions,specs,extras,link,note);receipt.append(geometry,body);return receipt;
+}
 if (typeof document !== 'undefined') {
   if (document.querySelector('#tank-form')) initializeDesigner();
   if (document.querySelector('[data-drafts-page]')) initializeDrafts();
@@ -65,6 +80,13 @@ if (typeof document !== 'undefined') {
 function initializeDesigner() {
   const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
   const form=$('#tank-form'), name=$('#tank-name');
+  const savedLink=$('#studio-saved-link'), saveArea=$('.studio-summary-save');
+  let savedReceipt;
+  function clearSavedReceipt(){if(savedReceipt){savedReceipt.remove();savedReceipt=undefined;announce('');}if(savedLink?.dataset.hasSaved==='true')savedLink.hidden=false;}
+  function showSavedReceipt(record){
+    if(!saveArea||!savedLink)return;
+    clearSavedReceipt();savedReceipt=createSavedReceipt(record,savedLink.href);saveArea.append(savedReceipt);savedLink.hidden=true;savedLink.dataset.hasSaved='true';
+  }
   form.noValidate=true;name.dir='auto';
   const dimensionLimits={length:[40,160],width:[25,80],height:[25,80]};
   const numberFields=$$('[data-number]');
@@ -129,6 +151,7 @@ function initializeDesigner() {
   else if(draftState.status==='unavailable')announce('تخزين المتصفح غير متاح. يمكنك تعديل الحوض ونسخ ملخصه قبل مغادرة الصفحة.');
   try {builder=createTankScene($('[data-scene="builder"]'),config);} catch {$('#scene-fallback').hidden=false;}
   function refresh(persist=true) {
+    if(persist)clearSavedReceipt();
     const quote=estimateDesign(config);
     try {builder?.update(config);} catch {builder=undefined;$('#scene-fallback').hidden=false;}
     $('#scene-dimensions').textContent=`${config.length} × ${config.width} × ${config.height} cm`;
@@ -166,7 +189,10 @@ function initializeDesigner() {
   name.addEventListener('input',()=>{checkField(name);refresh();});
   name.addEventListener('blur',()=>checkField(name,true));
   form.addEventListener('submit',event => event.preventDefault());
+  form.addEventListener('input',clearSavedReceipt);
+  window.addEventListener('storage',event=>{if(event.key===SAVED_KEY||event.key===null)clearSavedReceipt();});
   $('#save-tank').addEventListener('click',async() => {
+    clearSavedReceipt();
     if(!validateForm()) return;
     const record={id:globalThis.crypto?.randomUUID?.() || `draft-${Date.now()}-${Math.random().toString(36).slice(2)}`,name:name.value.trim()||'تصميم حوض',config:structuredClone(config)};
     const button=$('#save-tank');button.disabled=true;
@@ -176,12 +202,13 @@ function initializeDesigner() {
       const records=state.value||[];
       if(savedEntries(records).length>=12) {announce('وصلت إلى ١٢ تصميمًا. احذف تصميمًا من «تصاميمي المحفوظة» لإضافة آخر.');return;}
       const saved=writeStorage(SAVED_KEY,state,[record,...records]);
-      if(saved && $('#studio-saved-link')) $('#studio-saved-link').hidden=false;
+      if(saved && savedLink){savedLink.hidden=false;showSavedReceipt(record);}
       announce(saved?'حُفظ التصميم. ستجده في «تصاميمي المحفوظة» على هذا المتصفح.':'تعذّر الحفظ أو تغيّرت التصاميم في صفحة أخرى. بقيت التصاميم السابقة كما هي؛ انسخ ملخص تصميمك.');
     });}catch{announce('تعذّر الحفظ في المتصفح. بقيت التصاميم السابقة كما هي؛ انسخ ملخص تصميمك.');}
     finally{button.disabled=false;}
   });
   $('#copy-design').addEventListener('click',async() => {
+    clearSavedReceipt();
     if(!validateForm()) return;
     const quote=estimateDesign(config), extras=[['filter','فلتر'],['light','إضاءة'],['plants','نباتات']].filter(([key]) => config.addons[key]).map(([,label]) => label).join('، ')||'بدون إضافات';
     const summary=`${name.value.trim()||'تصميم حوض'} — أكوا هافن\n${config.length} × ${config.width} × ${config.height} سم\n${config.glass==='ultra'?'زجاج فائق الصفاء':'زجاج صافي'} · ${extras}\nتكلفة تقديرية: ${money(quote.price)} · ${decimal(quote.litres)} لتر\nتصميم تقريبي؛ ليس عرض سعر أو مخطط تصنيع.`;
@@ -226,7 +253,7 @@ function initializeDrafts() {
       if(item.config.addons.plants){const img=make('img');img.src=page.dataset.plantImage;img.alt='';img.loading='lazy';img.addEventListener('error',()=>{img.hidden=true;},{once:true});tank.append(img);}
       if(item.config.addons.light)tank.append(make('span','drafts-mini-light'));
       if(item.config.addons.filter && page.dataset.filterImage){const filter=make('img','drafts-mini-filter');filter.src=page.dataset.filterImage;filter.alt='';filter.loading='lazy';filter.addEventListener('error',()=>{filter.hidden=true;},{once:true});tank.append(filter);}
-      const number=make('span','drafts-card-number',`تصميم ${decimal(position+1).padStart(2,'٠')}`);
+      const number=make('span','drafts-card-number','معاينة تقريبية');
       visual.append(number,tank);
       const body=make('div','drafts-card-body'), title=make('h2','',item.name||'تصميم حوض');
       title.dir='auto';
