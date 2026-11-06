@@ -1,9 +1,9 @@
 {
-  "designVersion": 21,
+  "designVersion": 22,
   "builtAt": "2026-11-06T21:44:49.803Z",
   "products": 405,
   "categories": 21,
-  "pages": 423,
+  "pages": 424,
   "homepage": "/",
   "homepageAlias": "/story/",
   "sharedNavigationVersion": 15,
@@ -229,7 +229,13 @@
         "Trial weighted lots only; production kilogram inventory, fulfilment and shipping remain future work.",
         "No universal equipment-compatibility or physical-device performance certification."
       ]
-    }
+    },
+    "version": 22,
+    "productTray": true,
+    "beginnerGuidance": true,
+    "inlinePhotoChoices": true,
+    "optionalSurface": true,
+    "pairedFactoryFinishes": true
   },
   "setupV20": {
     "revision": 20,
@@ -269,5 +275,9 @@
       "boundary": "Guest cart integration only; no checkout, order, payment or live-store changes; runtime source and private configuration are not in this static package"
     },
     "historicalEvidence": "Original V20 ordinary-cart adapter only; not V21 weighted-cart verification"
+  },
+  "setupV21": {
+    "path": "/setup-v21/",
+    "preservedFrom": "f23b2f291c46b4c6c7c244f41017a9134e88fd18"
   }
 }

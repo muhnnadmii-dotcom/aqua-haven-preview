@@ -1,3 +1,7 @@
+## Revision22 — beginner aquarium setup
+
+The light/navy workbench uses inline product photographs, factory-paired clear/black finishes and an editable persistent product tray. Sand and nutrient soil are optional. Documented litre packages support explicit depth planning, with package rounding disclosed. Beginner explanations cover benefits and alternatives. Small canister and light forms are illustrative, with compatibility evidence kept distinct. All459 product choices and405 original product pages retain their identities, prices and stock snapshot. `/setup-v21/` preserves the previous configurator. This public preview saves a local trial list; actual WooCommerce cart is a separate local installation. No account, payment or live store connection is added.
+
 <!-- v21-release-info:start -->
 Setup revision21 expands /setup/ into a product-system builder: actual tank/background variations, quantity-first substrates, optional soil, filter systems with operating connections and missing-component checks, lighting, food and optional related products. The source contains423 HTML pages,405 product pages and21 categories. The previous setup is preserved byte-for-byte at /setup-v20/. The homepage camera, shared identity and all original product pages/assets remain unchanged.
 
