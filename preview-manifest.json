@@ -1,8 +1,12 @@
 {
-  "designVersion": 10,
-  "builtAt": "2026-11-05T17:01:32.234Z",
+  "designVersion": 15,
+  "builtAt": "2026-11-06T02:20:00.000Z",
   "products": 405,
   "categories": 21,
-  "pages": 419,
+  "pages": 420,
+  "homepage": "/",
+  "homepageAlias": "/story/",
+  "sharedNavigationVersion": 15,
+  "preservedAquariumRendererVersion": 14,
   "scope": "Public design preview with local drafts and illustrative tank estimates; no transactions or accounts."
 }

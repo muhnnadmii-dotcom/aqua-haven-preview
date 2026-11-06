@@ -4,6 +4,7 @@ import {createContinuousScene} from './continuous-scene.mjs?v=14';
 
 // Native scrolling owns the journey. No wheel/touch interception, scroll locks,
 // third-party runtime, tracking, storage, backend calls, or generated shop links.
+const asset=(relative)=>new URL(relative,import.meta.url).href;
 const story=document.querySelector('#aquarium-story');
 if(story)initializeStory(story);
 
@@ -34,7 +35,7 @@ function initializeStory(story) {
     'assets/discovery/03-filter-glimpse.webp','assets/discovery/04-filter-reveal.webp',
     'assets/discovery/05-fish-glimpse.webp','assets/discovery/06-fish-reveal.webp',
     'assets/discovery/07-shrimp-glimpse.webp','assets/discovery/08-shrimp-reveal.webp',
-    'assets/discovery/09-surface-rise.webp','assets/discovery/10-surface-only.webp'];
+    'assets/discovery/09-surface-rise.webp','assets/discovery/10-surface-only.webp'].map(asset);
   const sequence=createFrameSequence({
     first:story.querySelector('.interior-frame-a'),second:story.querySelector('.interior-frame-b'),
     urls:frameUrls,focusPoints:[.5,.5,.40,.41,.52,.5,.49,.47,.5,.5],onReady:()=>{dirty=true;frame();}
@@ -43,9 +44,9 @@ function initializeStory(story) {
   // one persistent world: moving the camera changes depth and occlusion.
   const worldCanvas=story.querySelector('.continuous-scene');
   const world=createContinuousScene(worldCanvas,{
-    urls:{background:'assets/underwater.webp',foliage:'assets/grounded-v14/foliage.webp',
-      filter:'assets/grounded-v14/filter.webp',fish:'assets/fish.webp',
-      shrimp:'assets/grounded-v14/shrimp-plant.webp',surface:'assets/discovery/10-surface-only.webp',sand:'assets/grounded-v14/sand.webp'},
+    urls:{background:asset('assets/underwater.webp'),foliage:asset('assets/grounded-v14/foliage.webp'),
+      filter:asset('assets/grounded-v14/filter.webp'),fish:asset('assets/fish.webp'),
+      shrimp:asset('assets/grounded-v14/shrimp-plant.webp'),surface:asset('assets/discovery/10-surface-only.webp'),sand:asset('assets/grounded-v14/sand.webp')},
     onReady:({status,error})=>{
       worldCanvas.dataset.sceneStatus=status;
       if(error)worldCanvas.dataset.sceneError=error;else delete worldCanvas.dataset.sceneError;

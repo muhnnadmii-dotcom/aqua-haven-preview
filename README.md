@@ -1,6 +1,8 @@
 # Aqua Haven — public design preview
 
-Design revision 9: a light and deep-navy aquatic gallery with an editorial homepage, panoramic collection opening, expressive product stage and a guided tank workbench. The portfolio adds four archive case studies with 17 original aquarium photographs. The services page helps visitors prepare and copy a project brief, saved only in their browser. Existing reference catalog, variant prices, image zoom and tank drafts remain available. This repository contains the complete deployed static output.
+Distribution revision 15: the immersive aquarium is now the actual homepage, also available at `story/`. The approved V14 camera and renderer are preserved. A shared navigation and footer connect the shop, portfolio, services, tank designer, search and local drafts across 420 pages. Below the aquarium the homepage offers categories and selected products, archive projects, the designer, services and inspiration. The cart control explains that checkout is unavailable in this static preview; it does not create a cart or account.
+
+The pearl and deep-navy identity, panoramic collection opening, product stage and guided tank workbench remain. The portfolio has four archive case studies with 17 original aquarium photographs. Services help visitors prepare and copy a brief saved only in their browser. This repository contains the complete editable static output.
 
 Arabic, responsive design prototype for GitHub Pages. It is not an online store: there are no accounts, orders, checkout, payment or contact submissions. Catalog values are reference snapshots only. The tank estimate runs locally; optional drafts stay in the visitor’s browser.
 
@@ -8,7 +10,7 @@ The catalog and project descriptions are curated snapshots, not a live connectio
 
 Only selected archive photographs and sanitized project descriptions are included. The original hub source, raw source URLs, customer identities and private customer records are not published in this preview.
 
-Shared motion in `assets/site-scroll.js` and `assets/site-scroll.css` covers the homepage, collection and all 405 product pages: one-time entrances, desktop cover-photo scroll effects on the homepage and collection, and newly rendered catalog cards after search, filtering or pagination. The pause preference is stored in the browser and shared across these pages. Reduced-motion settings disable the effects. Content remains visible without JavaScript.
+Shared motion in `assets/site-scroll.js` and `assets/site-scroll.css` covers the collection and all 405 product pages: entrances, desktop collection cover effects, and newly rendered catalog cards after search, filtering or pagination. Their pause preference is stored in the browser. The homepage aquarium has its own pause and chapter controls; reduced-motion settings compact it into selectable still scenes. Its photographic planes are a 2.5D scene, not a complete 3D model or a video. Content and destinations remain available without JavaScript.
 
 Open `index.html` through any static HTTP server. All links are relative and work beneath a repository subpath. Deploy only the contents of this directory. No WordPress runtime, database, credentials, nonces, customer records or local preview tokens are included.
 
