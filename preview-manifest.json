@@ -1,9 +1,9 @@
 {
-  "designVersion": 20,
-  "builtAt": "2026-11-06T19:52:21.021Z",
+  "designVersion": 21,
+  "builtAt": "2026-11-06T21:44:49.803Z",
   "products": 405,
   "categories": 21,
-  "pages": 422,
+  "pages": 423,
   "homepage": "/",
   "homepageAlias": "/story/",
   "sharedNavigationVersion": 15,
@@ -102,10 +102,138 @@
     ],
     "boundary": "Browser-local designs and static catalog; no checkout, backend, account sync or live submissions"
   },
-  "setupRevision": 20,
+  "setupRevision": 21,
   "setup": {
-    "revision": 20,
+    "revision": 21,
     "path": "/setup/",
+    "previousPath": "/setup-v20/",
+    "catalogChoices": 459,
+    "catalogParents": 405,
+    "eligibleParents": 353,
+    "excludedParents": 52,
+    "choicesByRole": {
+      "extra": 312,
+      "filter": 22,
+      "media": 12,
+      "light": 9,
+      "food": 36,
+      "soil": 3,
+      "airStone": 4,
+      "substrate": 14,
+      "tank": 28,
+      "airline": 3,
+      "hose": 1,
+      "accessory": 3,
+      "checkValve": 1,
+      "waterPump": 1,
+      "airPump": 10
+    },
+    "steps": [
+      "Tank and actual background variation",
+      "Quantity-first soil and substrate zones/layers",
+      "Filter operating system and components",
+      "Lighting",
+      "Food",
+      "Related extras",
+      "Quantity and component review"
+    ],
+    "maximumSubstrateZones": 3,
+    "geometry": "Nominal tank dimensions; documented litre packages or optional labelled density assumption. No exact internal dimensions or product-specific measured coverage claim.",
+    "looseWeight": {
+      "ownerAuthorized": true,
+      "eligibleChoices": 14,
+      "unit": "kg",
+      "minimumKg": 0.5,
+      "stepKg": 0.5,
+      "pricing": "Current selected variant price divided by documented packKg; no invented discounts"
+    },
+    "coverageEstimate": {
+      "choices": 9,
+      "densityKgPerL": 1.65,
+      "min": 1.6,
+      "max": 1.7,
+      "notProductMeasured": true,
+      "requiresReferenceAssumption": true,
+      "sourceUrl": "https://www.sera.de/en/service/faq/faq-detail/sand-and-gravel-in-combination-how-much-sand-is-required/",
+      "excludes": [
+        "volcanic/lava",
+        "uncertain coral gravel",
+        "litre-based soil"
+      ]
+    },
+    "customPricing": "White background, silicone colors and unlisted custom manufacturing remain separate quotation/confirmation paths; only actual catalog variations enter the ready-product list.",
+    "publicMode": "Browser-local trial list and copyable summary only; no cart backend, checkout, payment or account sync",
+    "localAdapter": {
+      "path": "/?aqh-kit-v21=1",
+      "environment": "Separate loopback WordPress/Woo trial",
+      "cartScope": "Weighted trial lots with current server price/stock checks; checkout blocked until production weight/stock workflow",
+      "verificationClaim": "Bounded V21 local calculation, isolated PHP, parity, source mapping, actual guest HTTP and rendered UI evidence recorded below; public static purchasing remains unavailable",
+      "boundary": "No actual order/payment or live store/domain/customer/product-stock mutation"
+    },
+    "identityRevision": 18,
+    "localProof": {
+      "scope": "Local isolated WordPress/Woo trial only; no public purchasing or production readiness claim",
+      "core": {
+        "passed": 41,
+        "failed": 0,
+        "method": "Pure calculation and state checks"
+      },
+      "php": {
+        "passed": 74,
+        "failed": 0,
+        "method": "Isolated PHP WASM with Woo/session stubs"
+      },
+      "parity": {
+        "passed": 8,
+        "failed": 0,
+        "method": "JavaScript/PHP contract fixtures"
+      },
+      "catalogMapping": {
+        "checked": 459,
+        "exactSourceIdsAndAttributes": true,
+        "currentPricesAndStockSnapshotsMatch": true,
+        "readOnly": true
+      },
+      "weightedHTTP": {
+        "checkedAt": "2026-11-06T21:25:46.896Z",
+        "checksPassed": 29,
+        "checksFailed": 0,
+        "independentGuest": true,
+        "distinctProducts": 5,
+        "cartTotalMinor": 44200,
+        "currency": "SAR",
+        "weightKg": 1.5,
+        "weightedLineMinor": 4500,
+        "unchangedSourcePricePerKgMinor": 3000,
+        "retryDidNotDuplicate": true,
+        "invalidWeightComponentsAndStockRejected": true,
+        "ownCartCleanedToEmpty": true
+      },
+      "renderedUI": {
+        "checkedAt": "2026-11-06T21:36:46.077Z",
+        "newDistinctProducts": 5,
+        "newKitTotalMinor": 37200,
+        "previousCartTotalMinor": 80700,
+        "existingItemsPreserved": true,
+        "resultingCartRows": 12,
+        "resultingCartUnits": 13,
+        "resultingCartTotalMinor": 117900,
+        "currency": "SAR"
+      },
+      "weightedCheckoutBlocked": true,
+      "orderCreated": false,
+      "paymentPerformed": false,
+      "checkoutPostPerformed": false,
+      "liveStoreProductStockCustomerOrDomainChanged": false,
+      "limits": [
+        "Trial weighted lots only; production kilogram inventory, fulfilment and shipping remain future work.",
+        "No universal equipment-compatibility or physical-device performance certification."
+      ]
+    }
+  },
+  "setupV20": {
+    "revision": 20,
+    "path": "/setup-v20/",
     "catalogChoices": 22,
     "choicesByRole": {
       "tank": 6,
@@ -139,6 +267,7 @@
       "currency": "SAR",
       "replay": "Request retry did not duplicate items",
       "boundary": "Guest cart integration only; no checkout, order, payment or live-store changes; runtime source and private configuration are not in this static package"
-    }
+    },
+    "historicalEvidence": "Original V20 ordinary-cart adapter only; not V21 weighted-cart verification"
   }
 }

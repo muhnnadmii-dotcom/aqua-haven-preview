@@ -1,3 +1,11 @@
+<!-- v21-assets:start -->
+Setup revision21 reuses the existing catalog photographs and supplied marks/fonts for459 product/variation choices. No new photographic, generated, paid or third-party artwork was acquired. Flow diagrams and substrate cutaways are editable code geometry, not photographs of a complete kit or exact installation/manufacturing drawings. Original image bytes and the calibrated homepage imagery remain unchanged. /setup-v20/ preserves the previous page and its existing assets.
+
+Loose-weight eligibility is an owner-authorized store policy. Optional reference-density estimates are assumptions drawn from Sera's public quartz sand/gravel guidance, not measurements or composition certifications of the depicted SKUs. The midpoint1.65kg/L is used with its1.6–1.7kg/L reference range only for selected ordinary dense-mineral substrates. This does not grant rights to Sera artwork or imply endorsement. Source: https://www.sera.de/en/service/faq/faq-detail/sand-and-gravel-in-combination-how-much-sand-is-required/
+
+The public list remains browser-local. V21 weighted-cart checks were completed separately in the local WordPress trial, without orders, payments, checkout POSTs or live-store changes. Weighted-lot checkout remains blocked pending a production weight/stock workflow. The adapter, private runtime settings, database, sessions, nonces, test tools and backups are excluded from this static directory. Existing V20 notices below describe that earlier revision and do not override the explicit V21 reference-estimate policy or serve as V21 weighted-cart evidence.
+<!-- v21-assets:end -->
+
 Aqua Haven public design prototype
 
 Setup revision20 reuses existing catalog photographs for22 curated product/variation choices; no new imagery, video, model, font, paid media or third-party art was acquired for this feature. The substrate cross-section uses product imagery as illustrative material fills. It is a schematic of nominal dimensions and selected layers, not a photograph of an assembled product, exact coverage guarantee or manufacturing specification. Product and trademark ownership remain as described below.
