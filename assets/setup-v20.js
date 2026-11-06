@@ -77,7 +77,7 @@ function boot(root){
     $('kit-panel').append(field('طبقة التربة الزراعية','kit-soil',soil));
     if(state.soil.key){
       const depth=numberInput(state.soil.depthCm);depth.addEventListener('input',()=>{state.soil.depthCm=numeric(depth);activeGuide='soil';changed();});depth.addEventListener('focus',()=>{activeGuide='soil';refresh();});
-      const range=make('input');range.type='range';range.min='.5';range.max='12';range.step='.5';range.value=numberValue(state.soil.depthCm)||2;range.setAttribute('aria-label','ارتفاع التربة الزراعية بالسنتيمتر');range.addEventListener('input',()=>{state.soil.depthCm=Number(range.value);depth.value=range.value;activeGuide='soil';changed();});
+      const range=make('input');range.type='range';range.id='kit-soil-range';range.min='.5';range.max='12';range.step='.5';range.value=numberValue(state.soil.depthCm)||2;range.setAttribute('aria-label','ارتفاع التربة الزراعية بالسنتيمتر');range.addEventListener('input',()=>{state.soil.depthCm=Number(range.value);depth.value=range.value;activeGuide='soil';changed();});
       $('kit-panel').append(field('ارتفاع التربة الزراعية (سم)','kit-soil-depth',depth),range);
       const amount=make('p','kit-zone-amount');amount.id='kit-soil-amount';$('kit-panel').append(amount);
     }
@@ -170,6 +170,7 @@ function boot(root){
       const volume=dims.length*dims.width*share/100*depth/1000,amount=$('kit-zone-amount-'+index);if(amount)amount.textContent=`حجم المنطقة التقريبي: ${decimal(volume)} لتر`;
       const range=$('kit-zone-range-'+index);if(range&&document.activeElement!==range&&numberValue(zone.depthCm)!==null)range.value=String(zone.depthCm);
     });
+    const soilRange=$('kit-soil-range');if(soilRange&&document.activeElement!==soilRange&&numberValue(state.soil.depthCm)!==null)soilRange.value=String(state.soil.depthCm);
     const soilAmount=$('kit-soil-amount');if(soilAmount){const line=kit.lines.find(l=>l.key===state.soil.key);soilAmount.textContent=line?`احتياج التربة: ${decimal(line.requiredLitres)} لتر · ${decimal(line.autoQuantity)} عبوة بحجم ${decimal(line.product.packLitres)} لتر`:'—';}
     const total=$('kit-share-total');if(total){const sum=state.zones.reduce((n,z)=>n+(numberValue(z.share)||0),0);total.textContent='مجموع المساحة: '+decimal(sum)+'٪';total.classList.toggle('is-invalid',state.zones.length>0&&Math.abs(sum-100)>.01);}
     plan.hidden=!state.zones.length;
