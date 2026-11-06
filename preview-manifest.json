@@ -1,6 +1,6 @@
 {
-  "designVersion": 17,
-  "builtAt": "2026-11-06T07:00:42.679Z",
+  "designVersion": 18,
+  "builtAt": "2026-11-06T16:28:08.574Z",
   "products": 405,
   "categories": 21,
   "pages": 421,
@@ -63,6 +63,24 @@
       "Load event excludes later asynchronous texture completion; encoded byte totals were saved after scene ready.",
       "No whole-site INP, universal FPS or real4G claim.",
       "CSS bundling lowers blocking request count; it does not remove all legacy stylesheet bytes."
-    ]
+    ],
+    "measuredRevision": 17
+  },
+  "identityRevision": 18,
+  "bannerHeadline": "اكتشف عالم الأحياء المائية",
+  "identity": {
+    "reference": "Owner-supplied identity v1.1, September 2026",
+    "primary": "#003B6F",
+    "accent": "#D4A017",
+    "surfaces": [
+      "#F7F9FB",
+      "#F4EFE3"
+    ],
+    "arabicFont": "Changa 400/800",
+    "latinFont": "Outfit 500/900",
+    "headerLogo": "English horizontal",
+    "footerLogo": "Arabic horizontal",
+    "editorialPhotographs": 3,
+    "ownerOverride": "Preserve the approved light/daylight world and exact headline"
   }
 }

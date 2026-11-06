@@ -1,5 +1,7 @@
 # Aqua Haven — public design preview
 
+Identity revision 18 applies the owner-supplied blue/gold Aqua Haven marks, Changa Arabic and Outfit Latin typography throughout all 421 pages. The English horizontal mark is used in the header and the Arabic mark in the footer/about. Three genuine supplied aquarium photographs illustrate inspiration, shop and services; actual catalog product images and the calibrated camera remain unchanged. The opening headline is «اكتشف عالم الأحياء المائية» alone. The site stays light by the owner’s direction. The earlier performance measurements below belong to revision 17, not a new revision-18 benchmark.
+
 <!-- v17-release-info:start -->
 Release revision 17 contains 421 HTML pages: the existing 420-page preview plus the separate `/flow/` cinematic comparison. It retains 405 products and 21 categories. The source remains a static design preview; no account, order, payment, service submission or live-store connection is enabled.
 

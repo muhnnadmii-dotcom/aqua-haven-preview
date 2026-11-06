@@ -1,0 +1,357 @@
+/* Aqua Haven identity v1.1. Load after the route, distribution and quality styles.
+   Brand colour and type only: the approved photographic world and camera stay intact. */
+@font-face {
+  font-family: 'Changa';
+  src: url('fonts/Changa-Variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/Outfit-Variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Outfit';
+  src: url('fonts/Outfit-Variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+:root {
+  --brand-navy: #003b6f;
+  --brand-abyss: #00243f;
+  --brand-gold: #d4a017;
+  --brand-sand: #f4efe3;
+  --brand-mist: #f7f9fb;
+  --brand-ink: #0b1b2b;
+  --brand-muted: #55677a;
+  --brand-rule: #ccd7e0;
+  --brand-control-rule: #71899e;
+  --brand-font: 'Outfit', 'Changa', Tahoma, sans-serif;
+  --pearl: var(--brand-mist);
+  --navy: var(--brand-navy);
+  --muted: var(--brand-muted);
+  --line: var(--brand-rule);
+  font-family: var(--brand-font);
+  color: var(--brand-navy);
+  background: var(--brand-mist);
+  font-synthesis: none;
+  scrollbar-color: var(--brand-control-rule) var(--brand-mist);
+}
+
+body.v2,
+body.home-journey {
+  --font: var(--brand-font);
+  --ink: var(--brand-navy);
+  --green: var(--brand-navy);
+  --paper: var(--brand-mist);
+  --muted: var(--brand-muted);
+  --line: var(--brand-rule);
+  --accent: var(--brand-gold);
+  --haven-ink: var(--brand-navy);
+  --haven-navy: var(--brand-navy);
+  --haven-muted: var(--brand-muted);
+  --haven-paper: var(--brand-mist);
+  --haven-rule: var(--brand-rule);
+  --aq-ui-ink: var(--brand-navy);
+  --aq-ui-muted: var(--brand-muted);
+  --aq-ui-paper: var(--brand-mist);
+  --aq-ui-border: var(--brand-rule);
+  --aq-ui-link: var(--brand-navy);
+  --aq-ui-action: var(--brand-navy);
+  --aq-ui-action-hover: var(--brand-abyss);
+  --aq-ui-on-dark-muted: #d2e0ec;
+  --aq-ui-border-on-dark: #6d8da9;
+  --aq-ui-mist: #edf3f7;
+  --aq-ui-panel: #e8f0f6;
+  --aq-ui-selected: #dce9f3;
+  --aq-ui-workbench: #eef3f7;
+  --aq-ui-workbench-mobile: #eef3f7;
+  --aq-ui-field: #fff;
+  --aq-ui-surface-bright: #fff;
+  --aq-ui-photo-surface: #eaf0f5;
+  --aq-ui-photo-surface-alt: #edf2f6;
+  --aq-ui-border-strong: var(--brand-control-rule);
+  --aq-ui-hover-surface: #dce9f3;
+  font-family: var(--brand-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.9;
+  color: var(--brand-navy);
+  background-color: var(--brand-mist);
+  caret-color: var(--brand-navy);
+}
+
+.ah-header,
+.ah-footer {
+  --ah-ink: var(--brand-navy);
+  --ah-surface: var(--brand-mist);
+  --ah-line: var(--brand-rule);
+  --ah-secondary: var(--brand-muted);
+  font-family: var(--brand-font);
+  font-weight: 400;
+}
+
+.home-journey .story-copy-room { color: var(--brand-navy); }
+body.v2 .brand-about-signature { display: block; width: min(300px, 100%); height: auto; margin-block: 0 28px; }
+body.v2 .info7-feature-photo img[src*="planted-open"] { object-position: 50% 57%; }
+body.v2 .info7-page :is(.info7-editorial-heading, .info7-about-heading) h1 { color: var(--brand-navy); }
+body.v2 .info7-page :is(.info7-editorial-heading, .info7-about-heading) h1 :is(span, em),
+body.v2 .hp-services .hs-hero h1 em { color: var(--brand-muted); }
+.hd-home {
+  --hd-paper: var(--brand-mist);
+  --hd-ink: var(--brand-navy);
+  --hd-muted: var(--brand-muted);
+  --hd-line: var(--brand-rule);
+  --hd-mist: #e8f0f6;
+  font-family: var(--brand-font);
+}
+body.v2 .hp-page {
+  --hp-ink: var(--brand-navy);
+  --hp-paper: var(--brand-mist);
+  --hp-mist: #e8f0f6;
+  --hp-line: var(--brand-rule);
+}
+body.v2 :is(.studio-page.studio-v7, .drafts-page.drafts-v7, .studio-stage) {
+  --ink: var(--brand-navy);
+  --green: var(--brand-navy);
+  --muted: var(--brand-muted);
+  --paper: var(--brand-mist);
+  --line: var(--brand-rule);
+  --accent: var(--brand-gold);
+}
+
+/* Arabic is Changa 400/800. The two Outfit faces intentionally map mixed Latin
+   text to 500/900, share one download and have no Arabic glyphs. */
+body:is(.v2, .home-journey) :is(button, input, select, textarea),
+.ah-header :is(button, summary),
+.ah-footer {
+  font-family: var(--brand-font);
+}
+body:is(.v2, .home-journey) :is(h1, h2, h3, h4, h5, h6),
+body.v2 .studio-step legend {
+  font-family: var(--brand-font) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  text-wrap: balance;
+}
+body:is(.v2, .home-journey) :is([lang='en'], .en) {
+  font-family: 'Outfit', 'Changa', sans-serif;
+  font-weight: 500;
+}
+body:is(.v2, .home-journey) :is(h1, h2, h3, h4, h5, h6):lang(en),
+body:is(.v2, .home-journey) :is(h1, h2, h3, h4, h5, h6) :lang(en) {
+  font-weight: 900 !important;
+}
+body:is(.v2, .home-journey) p { text-wrap: pretty; }
+body.v2 :is(.catalog-path-number, .product-config-heading > span:last-child,
+  .product-file-nav > a > span, .product-stage-heading > span:first-child,
+  .product-stage-sideline, .hp-number, .collection-story-copy nav > a > span) {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0;
+}
+body:is(.v2, .home-journey) :is(.collection-price, .product-price, .hd-price,
+  #quote-price, #quote-volume, .drafts-card-price, input[data-number]) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Supplied SVGs are the only brand signatures. No recolouring/filtering of paths. */
+.ah-header .ah-brand,
+.ah-footer .ah-brand {
+  flex-direction: row;
+  flex-basis: 184px;
+  padding: 8px;
+  min-width: 0;
+}
+.ah-brand .ah-brand-mark {
+  display: block;
+  width: 168px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+  opacity: 1;
+}
+.ah-footer .ah-brand { width: 200px; padding: 12px; }
+.ah-footer .ah-brand-mark { width: 176px; }
+.ah-header .ah-nav > a::after {
+  background: var(--brand-gold);
+  height: 2px;
+}
+.ah-header .ah-designer-link,
+.ah-header .ah-mobile-designer {
+  background: var(--brand-navy);
+  color: #fff;
+}
+.ah-header .ah-designer-link:hover,
+.ah-header .ah-mobile-designer:hover { background: var(--brand-abyss); }
+.ah-header .ah-icon-button:hover,
+.ah-header .ah-cart-preview[open] > summary { background: #e8f0f6; }
+.ah-footer .ah-footer-column a { min-height: 44px; }
+.ah-header .ah-icon-button { width: 44px; min-width: 44px; flex-basis: 44px; height: 44px; }
+
+/* The new headline keeps the same wall position and leaves the tank visible. */
+.home-journey .story-copy-room h1 {
+  font-size: clamp(40px, 4.7vw, 68px);
+  line-height: 1.3;
+  max-width: 100%;
+}
+.home-journey .story-copy-room h1 br { display: none; }
+.home-journey .story-copy h2 { line-height: 1.35; }
+.home-journey .story-chapters button:is([aria-current], .is-current)::after {
+  background: var(--brand-gold);
+}
+.home-journey .home-opening-primary,
+.home-journey .story-button,
+.hd-home .hd-button {
+  background: var(--brand-navy);
+  color: #fff;
+}
+.home-journey .home-opening-primary:hover,
+.home-journey .story-button:hover,
+.hd-home .hd-button:hover { background: var(--brand-abyss); }
+.home-journey .home-opening-secondary { background: var(--brand-mist); color: var(--brand-navy); }
+.hd-home .hd-work { background: var(--brand-sand); }
+.hd-home .hd-project figcaption { border-color: #c7c7ba; }
+.flow-route .flow-motion-dock { background: var(--brand-mist); color: var(--brand-navy); border-color: var(--brand-rule); }
+.flow-enhanced .flow-tide-panel { border-top-color: var(--brand-rule); }
+.flow-enhanced .flow-tide-panel::before { background: #e8f0f6; }
+
+/* Legacy components contain literal V6 marine values. These role selectors
+   deliberately replace them without touching photographic overlays or tank shaders. */
+body.v2 :is(.collection-page, .product-page, .info-page, .studio-page, .drafts-page) {
+  color: var(--brand-navy);
+}
+body.v2 :is(.collection-page, .product-page, .info-page, .studio-page, .drafts-page) :is(.collection-card h2 a, .collection-price, .product-price,
+  .product-heading h1, .product-options > label, .product-details summary,
+  .product-richtext h2, .product-richtext h3, .product-richtext h4, .product-richtext strong,
+  .info-lead, .info-path-grid h3, .info-path-grid .info-number,
+  .info-faq-nav a, .info-faq-group summary, .info-chapter-nav a,
+  .studio-page-heading h1, .studio-controls, .studio-step legend,
+  .studio-dimension-label, .studio-glass strong, .studio-addons label,
+  .studio-name, .drafts-toolbar h2, .drafts-card-body h2, .drafts-card-dimensions,
+  .studio-stage-heading, .studio-live, .studio-stage-bottom strong,
+  .drafts-card-price strong) {
+  color: var(--brand-navy);
+}
+body.v2 :is(.collection-page, .product-page) .collection-card h2 a {
+  background-image: linear-gradient(var(--brand-navy), var(--brand-navy));
+}
+/* The product identity is outside the old .product-heading wrapper in V17. */
+body.v2.page-product .product-v8 .product-identity-v17 h1,
+body.v2.page-product .product-v8 #aq-reference-price {
+  color: var(--brand-navy);
+}
+body.v2.page-product .product-v8 .product-image-stage {
+  background-color: var(--brand-navy);
+}
+body.v2 :is(.collection-page, .product-page, .info-page, .studio-page, .drafts-page) :is(.collection-card-category, .collection-card-link, .collection-stock,
+  .product-summary-text, .product-availability, .product-option-caption,
+  .product-options > p, .product-reference-note, .product-image-caption,
+  .product-details-intro > p, .product-richtext, .info-hero-image figcaption,
+  .info-path-grid p, .info-prototype-note, .info-faq-group details > p,
+  .info-story-copy > p, .studio-dimension-label > span, .studio-range-labels,
+  .studio-glass small, .studio-addons small, .studio-preview-note,
+  .drafts-toolbar p, .drafts-helper, .drafts-card-specs, .drafts-card-price span) {
+  color: var(--brand-muted);
+}
+body.v2 .hp-page :is(.hp-breadcrumb, .hp-reference, .hp-section-head > p) {
+  color: var(--brand-muted);
+}
+body.v2 .hp-page .hp-heading span { color: var(--brand-navy); }
+body.v2 :is(.collection-page, .product-page, .info-page, .studio-page, .drafts-page) :is(.info-about-heading h1 span, .info-inspiration-heading h1 > span,
+  .info-statement em, .info-number, .info-chapter-nav a > span,
+  .product-breadcrumb a:hover, .product-index > a, .product-details summary > span,
+  .studio-text-button, .studio-stage .studio-text-button, .studio-stage .aq-size-depth) {
+  color: var(--brand-navy);
+}
+
+/* Action surfaces stay blue and white across generated product and task pages. */
+body.v2 :is(.btn-primary, .product-action.btn, .product-explore-action,
+  .hp-page .hp-button, .studio-step-next),
+body.v2 :is(.studio-page-heading, .studio-actions, .drafts-card-actions, .drafts-empty) > .btn-primary,
+body.v2 .info-page .btn-primary,
+body.v2 .product-page .product-action.btn {
+  background: var(--brand-navy);
+  border-color: var(--brand-navy);
+  color: #fff;
+}
+body.v2 :is(.btn-primary, .product-action.btn, .product-explore-action,
+  .hp-page .hp-button, .studio-step-next):hover,
+body.v2 :is(.studio-page-heading, .studio-actions, .drafts-card-actions, .drafts-empty) > .btn-primary:hover,
+body.v2 .info-page .btn-primary:hover,
+body.v2 .product-page .product-action.btn:hover {
+  background: var(--brand-abyss);
+  border-color: var(--brand-abyss);
+  color: #fff;
+}
+body.v2 :is(.btn-secondary, .info-page .btn-secondary),
+body.v2 :is(.studio-page-heading, .studio-actions) > .btn-secondary {
+  color: var(--brand-navy);
+  border-color: var(--brand-control-rule);
+}
+body.v2 :is(.btn-secondary, .info-page .btn-secondary):hover,
+body.v2 :is(.studio-page-heading, .studio-actions) > .btn-secondary:hover {
+  background: #e8f0f6;
+  color: var(--brand-navy);
+  border-color: var(--brand-navy);
+}
+body.v2 .studio-presets button.is-active { background: var(--brand-navy); color: #fff; border-color: var(--brand-navy); }
+body.v2 .studio-presets button.is-active span { color: #d2e0ec; }
+body.v2 .studio-glass label:has(:checked) { box-shadow: inset 0 -2px var(--brand-navy); }
+body.v2:is(.page-collection, .page-product) :is(.catalog-v8, .product-v8) .catalog-card-open {
+  width: 44px;
+  height: 44px;
+}
+body.v2 .studio-addons label:has(:checked) > span { color: var(--brand-navy); }
+body.v2 .studio-status:not(.is-error) { color: var(--brand-navy); border-inline-start-color: var(--brand-navy); }
+body.v2 .studio-v8 .studio-summary { background: var(--brand-navy); color: #fff; }
+body.v2 .studio-v8 .studio-summary :is(.studio-quote #quote-price, .studio-volume strong, #quote-volume) { color: #fff; }
+body.v2 .studio-v8 .studio-summary :is(.studio-actions .btn-primary, .studio-return-preview) {
+  color: var(--brand-navy);
+  background: var(--brand-mist);
+  border-color: var(--brand-mist);
+}
+body.v2 .studio-v8 .studio-summary :is(.studio-actions .btn-primary, .studio-return-preview):hover {
+  background: #dce9f3;
+  color: var(--brand-navy);
+}
+
+/* Two-colour focus works on the light shell and the blue task/photo surfaces.
+   Gold supplements a high-contrast blue/white ring; it is never normal text. */
+body:is(.v2, .home-journey) :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--brand-navy) !important;
+  outline-offset: 5px;
+  box-shadow: 0 0 0 2px #fff, inset 0 -2px var(--brand-gold);
+}
+body:is(.v2, .home-journey) :is(button, input, select, textarea) { accent-color: var(--brand-navy); }
+body:is(.v2, .home-journey) :is(input, textarea)::placeholder { color: var(--brand-muted); opacity: 1; }
+body:is(.v2, .home-journey) ::selection { color: #fff; background: var(--brand-navy); }
+body:is(.v2, .home-journey) .skip-link { background: var(--brand-navy); color: #fff; }
+
+@media (max-width: 1150px) {
+  .ah-header .ah-brand { flex-basis: 164px; }
+  .ah-header .ah-brand-mark { width: 148px; }
+}
+@media (max-width: 700px) {
+  .ah-header .ah-brand { flex: 0 0 156px; padding-inline: 6px; }
+  .ah-header .ah-brand-mark { width: 144px; }
+  .home-journey .story-copy-room { max-width: calc(100vw - 44px); }
+  .home-journey .story-copy-room h1 { font-size: clamp(32px, 8.8vw, 54px); line-height: 1.35; }
+  .home-journey .story-copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .hd-home h2 { font-size: clamp(30px, 8.2vw, 36px); line-height: 1.45; }
+  .flow-enhanced .flow-tide-panel h2 { font-size: clamp(36px, 9.5vw, 54px); line-height: 1.4; }
+}
+@media (max-width: 359px) {
+  .ah-header .ah-header-inner { width: calc(100% - 24px); gap: 8px; }
+  .ah-header .ah-tools { gap: 0; }
+  .ah-header .ah-brand { flex-basis: 144px; padding-inline: 2px; }
+  .ah-header .ah-brand-mark { width: 140px; }
+  .home-journey .story-copy-room { max-width: calc(100vw - 36px); }
+  .home-journey .story-copy-room h1 { font-size: 31px; }
+}

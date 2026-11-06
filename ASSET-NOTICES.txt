@@ -1,5 +1,11 @@
 Aqua Haven public design prototype
 
+Identity revision 18 uses the owner's supplied Aqua Haven visual identity: original English horizontal, Arabic horizontal and betta-A SVG marks. The source identity documents and private folder paths are not published. Brand marks retain their original proportions and colours; ownership remains with Aqua Haven.
+
+Changa and Outfit variable fonts are self-hosted WOFF2 conversions from the official Google Fonts repository under the SIL Open Font License. Full glyph and shaping tables are preserved; see assets/fonts/Changa-OFL.txt and Outfit-OFL.txt. Sources: https://github.com/google/fonts/tree/main/ofl/changa and https://github.com/google/fonts/tree/main/ofl/outfit .
+
+Editorial revision 18 adds three genuine aquarium photographs supplied by the owner, encoded at 720/1280px with EXIF orientation applied and embedded metadata removed. They illustrate planting, inspiration and services; no association with a pictured catalog SKU or sale bundle is asserted. The existing calibrated cinematic imagery and catalog product photographs remain unchanged.
+
 Brand marks and product/editorial photographs originate from the store media supplied for this authorized project. Rights remain with their respective owners. They are not automatically covered by a source-code license, and underlying third-party credits have not been independently verified. No transfer of image or trademark rights is implied.
 
 Images were resized/re-encoded for this static preview without changing their subject or proportions. Videos were copied from the provided local theme. The photographic tank illustration is a design mockup, not a manufacturing plan.
